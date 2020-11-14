@@ -544,7 +544,7 @@ public class World {
         private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
         static {
-            System.out.println("【讀取中】 Guilds :::");
+            System.out.println("【读取中】 Guilds :::");
             Collection<MapleGuild> allGuilds = MapleGuild.loadAll();
             for (MapleGuild g : allGuilds) {
                 if (g.isProper()) {
@@ -1029,7 +1029,7 @@ public class World {
         private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
         static {
-            System.out.println("【讀取中】 GuildAlliances :::");
+            System.out.println("【读取中】 GuildAlliances :::");
             Collection<MapleGuildAlliance> allGuilds = MapleGuildAlliance.loadAll();
             for (MapleGuildAlliance g : allGuilds) {
                 alliances.put(g.getId(), g);
@@ -1282,7 +1282,7 @@ public class World {
         private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
         static {
-            System.out.println("【讀取中】 Families :::");
+            System.out.println("【读取中】 Families :::");
             Collection<MapleFamily> allGuilds = MapleFamily.loadAll();
             for (MapleFamily g : allGuilds) {
                 if (g.isProper()) {

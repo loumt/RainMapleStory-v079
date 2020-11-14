@@ -128,7 +128,7 @@ public class ChannelServer implements Serializable {
         loadEvents();
         acceptor = new ServerConnection(port, 0, channel);
         acceptor.run();
-        System.out.println("【頻道" + getChannel() + "】  - 監聽端口: " + port + "");
+        System.out.println("【频道" + getChannel() + "】  - 监听端口: " + port + "");
         eventSM.init();
     }
 
@@ -136,24 +136,24 @@ public class ChannelServer implements Serializable {
         if (finishedShutdown) {
             return;
         }
-        broadcastPacket(MaplePacketCreator.serverNotice(0, "【頻道" + getChannel() + "】 這個頻道正在關閉中."));
+        broadcastPacket(MaplePacketCreator.serverNotice(0, "【频道" + getChannel() + "】 這個频道正在關閉中."));
         shutdown = true;
 
-//        System.out.println("【頻道" + getChannel() + "】 儲存商人資料...");
+//        System.out.println("【频道" + getChannel() + "】 存储商人資料...");
 //
 //        closeAllMerchant();
-        System.out.println("【頻道" + getChannel() + "】 儲存角色資料...");
+        System.out.println("【频道" + getChannel() + "】 存储角色資料...");
 
         //    getPlayerStorage().disconnectAll();
-        System.out.println("【頻道" + getChannel() + "】 解除端口綁定中...");
+        System.out.println("【频道" + getChannel() + "】 解除端口綁定中...");
 
         try {
             if (acceptor != null) {
                 acceptor.close();
-                System.out.println("【頻道" + getChannel() + "】 解除端口成功");
+                System.out.println("【频道" + getChannel() + "】 解除端口成功");
             }
         } catch (Exception e) {
-            System.out.println("【頻道" + getChannel() + "】 解除端口失敗");
+            System.out.println("【频道" + getChannel() + "】 解除端口失敗");
         }
 
         instances.remove(channel);
@@ -487,12 +487,12 @@ public class ChannelServer implements Serializable {
 
     public final void setPrepareShutdown() {
         this.shutdown = true;
-        System.out.println("【頻道" + getChannel() + "】 準備關閉.");
+        System.out.println("【频道" + getChannel() + "】 準備關閉.");
     }
 
     public final void setFinishShutdown() {
         this.finishedShutdown = true;
-        System.out.println("【頻道" + getChannel() + "】 已經關閉完成.");
+        System.out.println("【频道" + getChannel() + "】 已經關閉完成.");
     }
 
     public final boolean isAdminOnly() {
@@ -548,7 +548,7 @@ public class ChannelServer implements Serializable {
                 if (res == 1) {
                     ++ppl;
                 } else {
-                    System.out.println("[自動存檔] 角色:" + chr.getName() + " 儲存失敗.");
+                    System.out.println("[自動存檔] 角色:" + chr.getName() + " 存储失敗.");
                 }
 
             } catch (Exception e) {

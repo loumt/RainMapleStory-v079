@@ -61,17 +61,17 @@ public class LoginServer {
         port = Short.parseShort(ServerProperties.getProperty("server.settings.login.port"));
         acceptor = new ServerConnection(port, 0, MapleServerHandler.LOGIN_SERVER);
         acceptor.run();
-        System.out.println("\n【登入伺服器】  - 監聽端口: " + Short.toString(port) + " \n");
+        System.out.println("\n【登入服务器】  - 监听端口: " + Short.toString(port) + " \n");
     }
 
     public static final void shutdown() {
         if (finishedShutdown) {
-            System.out.println("【登入伺服器】 已經關閉了...無法執行此動作");
+            System.out.println("【登入服务器】 已经关闭了...无法执行此操作");
             return;
         }
-        System.out.println("【登入伺服器】 關閉中...");
+        System.out.println("【登入服务器】 关闭中...");
         acceptor.close();
-        System.out.println("【登入伺服器】 關閉完畢...");
+        System.out.println("【登入服务器】 关闭完毕...");
         finishedShutdown = true; //nothing. lol
     }
 

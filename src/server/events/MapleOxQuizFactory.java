@@ -67,7 +67,7 @@ public class MapleOxQuizFactory {
         if (initialized) {
             return;
         }
-        System.out.println("【讀取中】 OX Quiz :::");
+        System.out.println("【读取中】 OX Quiz :::");
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_oxdata"); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 questionCache.put(new Pair<>(rs.getInt("questionset"), rs.getInt("questionid")), get(rs));

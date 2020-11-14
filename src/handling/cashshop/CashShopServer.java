@@ -40,14 +40,14 @@ public class CashShopServer {
     private static boolean finishedShutdown = false;
 
     public static final void setup() {
-        System.out.println("【啟動中】 購物商城:::");
+        System.out.println("【启动中】 购物商城:::");
         port = Short.valueOf(ServerProperties.getProperty("server.settings.cashshop.port", "15555"));
         ip = ServerConfig.IP + ":" + port;
         players = new PlayerStorage(-10);
         playersMTS = new PlayerStorage(-20);
         acceptor = new ServerConnection(port, 0, MapleServerHandler.CASH_SHOP_SERVER);
         acceptor.run();
-        System.out.println("購物商城    : 綁定端口 " + port);
+        System.out.println("购物商城    : 綁定端口 " + port);
     }
 
     public static final String getIP() {
@@ -66,15 +66,15 @@ public class CashShopServer {
         if (finishedShutdown) {
             return;
         }
-        System.out.println("[購物商城] 準備關閉...");
-        System.out.println("[購物商城] 儲存資料中...");
+        System.out.println("[购物商城] 准备关闭...");
+        System.out.println("[购物商城] 存储资料中...");
         players.disconnectAll();
         //playersMTS.disconnectAll();
         //MTSStorage.getInstance().saveBuyNow(true);
-        System.out.println("[購物商城] 解除綁定端口...");
+        System.out.println("[购物商城] 解除绑定端口...");
         acceptor.close();
 
-        System.out.println("[購物商城] 關閉完成...");
+        System.out.println("[购物商城] 关闭完成...");
     }
 
     public static boolean isShutdown() {

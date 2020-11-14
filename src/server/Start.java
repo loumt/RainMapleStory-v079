@@ -118,21 +118,21 @@ public class Start {
         resetAllLoginState();
 
         if (WorldConstants.ADMIN_ONLY) {
-            System.out.println("【管理員模式】開啟");
+            System.out.println("【管理员模式】开启");
         } else {
-            System.out.println("【管理員模式】關閉");
+            System.out.println("【管理员模式】关闭");
         }
 
         if (ServerConfig.AUTO_REGISTER) {
-            System.out.println("【自動註冊】開啟");
+            System.out.println("【自动注册】开启");
         } else {
-            System.out.println("【自動註冊】關閉");
+            System.out.println("【自动注册】关闭");
         }
 
         if (!WorldConstants.GMITEMS) {
-            System.out.println("【允許玩家使用管理員物品】開啟");
+            System.out.println("【允许玩家使用管理员物品】开启");
         } else {
-            System.out.println("【允許玩家使用管理員物品】關閉");
+            System.out.println("【允许玩家使用管理员物品】关闭");
         }
 
         /* 載入設定 */
@@ -185,7 +185,7 @@ public class Start {
         CashShopServer.setup();
         /* 載入自動封鎖系統 */
         CheatTimer.getInstance().register(AutobanManager.getInstance(), 60000);
-        /* 載入關閉伺服器線程 */
+        /* 載入关闭伺服器線程 */
         Runtime.getRuntime().addShutdownHook(new Thread(ShutdownServer.getInstance()));
         /* 載入速度排行 */
         SpeedRunner.getInstance().loadSpeedRuns();
@@ -211,16 +211,18 @@ public class Start {
         World.isShutDown = false;
         OnlyID.getInstance();
         //System.out.println("【禁止玩家使用:啟動 如果要開放請GM上線打:!禁止玩家使用】");
-        System.out.println("【伺服器開啟完畢】");
+        System.out.println("【服务器启动完毕】");
     }
 
     public static void main(final String args[]) throws InterruptedException {
         String[] macs = {
-            "6d54e5dc940444564b3f595eea25561ae075183d",};
+            "3b409f54d8adac13b8e7f846cc2549b5431aa0a0",};
         String mac = MacAddressTool.getMacAddress(false);
+        System.out.println("MAC:" + mac);
         String num = returnSerialNumber();
+        System.out.println("NUM:" +num);
         String localMac = LoginCrypto.hexSha1(num + mac);
-        //System.out.println("" + "" + localMac);
+        System.out.println("localMac:" + "" + localMac);
         if (localMac != null) {
             for (int i = 0; i < macs.length; i++) {
                 if (macs[i].equals(localMac)) {
@@ -370,6 +372,7 @@ public class Start {
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int val = rs.getInt("val");
+                    System.out.println("ConfigVaules : " +name + " => " + val);
                     ConfigValuesMap.put(name, val);
                 }
             }

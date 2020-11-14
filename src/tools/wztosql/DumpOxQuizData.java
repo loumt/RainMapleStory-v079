@@ -25,7 +25,7 @@ public class DumpOxQuizData {
     static CharsetEncoder asciiEncoder = Charset.forName("UTF-8").newEncoder();
 
     public static void main(String args[]) throws FileNotFoundException, IOException, SQLException {
-        System.out.println("OXQuiz.img 讀取中 ...");
+        System.out.println("OXQuiz.img 读取中 ...");
         DumpOxQuizData dump = new DumpOxQuizData();
         dump.dumpOxData();
         System.out.println("Ox quiz 讀取資料完成。");

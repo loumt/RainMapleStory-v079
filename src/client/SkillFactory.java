@@ -57,7 +57,7 @@ public class SkillFactory {
     private final static MapleData stringSkills = MapleDataProviderFactory.getDataProvider("String.wz").getData("Skill.img");
 
     public static void LoadSkillInformaion() {
-        System.out.println("【讀取中】 SkillFactory :::");
+        System.out.println("【读取中】 SkillFactory :::");
 
         final MapleDataProvider skillWZ = MapleDataProviderFactory.getDataProvider("Skill.wz");
         final MapleDataDirectoryEntry root = skillWZ.getRoot();

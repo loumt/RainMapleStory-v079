@@ -128,7 +128,7 @@ public class MapleQuest implements Serializable {
 
     public static void initQuests() {
 
-        System.out.println("【讀取中】 MapleQuest 讀取中:::");
+        System.out.println("【读取中】 MapleQuest 读取中:::");
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_questdata");

@@ -1,6 +1,230 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50730
+Source Host           : localhost:3306
+Source Database       : rain_maple_v079
+
+Target Server Type    : MYSQL
+Target Server Version : 50730
+File Encoding         : 65001
+
+Date: 2020-11-15 00:35:24
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
---  Table structure for `bosslog`
+-- Table structure for accounts
+-- ----------------------------
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE `accounts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `password` varchar(128) NOT NULL DEFAULT '',
+  `salt` varchar(32) DEFAULT NULL,
+  `2ndpassword` varchar(134) DEFAULT NULL,
+  `salt2` varchar(32) DEFAULT NULL,
+  `loggedin` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `lastlogin` timestamp NULL DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `birthday` date NOT NULL DEFAULT '0000-00-00',
+  `banned` tinyint(1) NOT NULL DEFAULT '0',
+  `banreason` text,
+  `gm` tinyint(1) NOT NULL DEFAULT '0',
+  `email` tinytext,
+  `macs` tinytext,
+  `tempban` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `greason` tinyint(4) unsigned DEFAULT NULL,
+  `ACash` int(11) DEFAULT '0',
+  `mPoints` int(11) DEFAULT NULL,
+  `gender` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `SessionIP` varchar(64) DEFAULT NULL,
+  `points` int(11) NOT NULL DEFAULT '0',
+  `vpoints` int(11) NOT NULL DEFAULT '0',
+  `lastlogon` timestamp NULL DEFAULT NULL,
+  `facebook_id` varchar(255) DEFAULT NULL,
+  `access_token` varchar(255) DEFAULT '',
+  `password_otp` varchar(255) DEFAULT '',
+  `expiration` timestamp NULL DEFAULT NULL,
+  `VIP` int(3) DEFAULT NULL,
+  `MP` int(11) DEFAULT '0',
+  `CZJF` int(11) DEFAULT '0',
+  `TGJF` int(11) DEFAULT '0',
+  `loginkey` varchar(255) DEFAULT NULL,
+  `serverkey` varchar(255) DEFAULT NULL,
+  `clientkey` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `ranking1` (`id`,`banned`,`gm`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for achievements
+-- ----------------------------
+DROP TABLE IF EXISTS `achievements`;
+CREATE TABLE `achievements` (
+  `achievementid` int(9) NOT NULL DEFAULT '0',
+  `charid` int(9) NOT NULL DEFAULT '0',
+  `accountid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`achievementid`,`charid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for aclog
+-- ----------------------------
+DROP TABLE IF EXISTS `aclog`;
+CREATE TABLE `aclog` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `accid` int(10) unsigned NOT NULL,
+  `bossid` varchar(20) NOT NULL,
+  `lastattempt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for addlog
+-- ----------------------------
+DROP TABLE IF EXISTS `addlog`;
+CREATE TABLE `addlog` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `accid` int(10) unsigned NOT NULL,
+  `money` int(10) unsigned NOT NULL,
+  `lastattempt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `orderid` varchar(100) NOT NULL DEFAULT '',
+  `viplog` varchar(50) NOT NULL DEFAULT '',
+  `jflog` int(10) unsigned NOT NULL DEFAULT '0',
+  `dslog` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for alliances
+-- ----------------------------
+DROP TABLE IF EXISTS `alliances`;
+CREATE TABLE `alliances` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(13) NOT NULL,
+  `leaderid` int(11) NOT NULL,
+  `guild1` int(11) NOT NULL,
+  `guild2` int(11) NOT NULL,
+  `guild3` int(11) NOT NULL DEFAULT '0',
+  `guild4` int(11) NOT NULL DEFAULT '0',
+  `guild5` int(11) NOT NULL DEFAULT '0',
+  `rank1` varchar(13) NOT NULL DEFAULT '公會長',
+  `rank2` varchar(13) NOT NULL DEFAULT '公會副會長',
+  `rank3` varchar(13) NOT NULL DEFAULT '公會成員',
+  `rank4` varchar(13) NOT NULL DEFAULT '公會成員',
+  `rank5` varchar(13) NOT NULL DEFAULT '公會成員',
+  `capacity` int(11) NOT NULL DEFAULT '2',
+  `notice` varchar(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for auth_server_channel
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_server_channel`;
+CREATE TABLE `auth_server_channel` (
+  `channelid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `world` int(11) NOT NULL DEFAULT '0',
+  `number` int(11) DEFAULT NULL,
+  `key` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`channelid`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for auth_server_channel_ip
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_server_channel_ip`;
+CREATE TABLE `auth_server_channel_ip` (
+  `channelconfigid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `channelid` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` tinytext NOT NULL,
+  `value` tinytext NOT NULL,
+  PRIMARY KEY (`channelconfigid`),
+  KEY `channelid` (`channelid`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for auth_server_cs
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_server_cs`;
+CREATE TABLE `auth_server_cs` (
+  `CashShopServerId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(40) NOT NULL,
+  `world` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`CashShopServerId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for auth_server_login
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_server_login`;
+CREATE TABLE `auth_server_login` (
+  `loginserverid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(40) NOT NULL DEFAULT '',
+  `world` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`loginserverid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for auth_server_mts
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_server_mts`;
+CREATE TABLE `auth_server_mts` (
+  `MTSServerId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(40) NOT NULL,
+  `world` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`MTSServerId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for bbs_replies
+-- ----------------------------
+DROP TABLE IF EXISTS `bbs_replies`;
+CREATE TABLE `bbs_replies` (
+  `replyid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `threadid` int(10) unsigned NOT NULL,
+  `postercid` int(10) unsigned NOT NULL,
+  `timestamp` bigint(20) unsigned NOT NULL,
+  `content` varchar(26) NOT NULL DEFAULT '',
+  `guildid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`replyid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for bbs_threads
+-- ----------------------------
+DROP TABLE IF EXISTS `bbs_threads`;
+CREATE TABLE `bbs_threads` (
+  `threadid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `postercid` int(10) unsigned NOT NULL,
+  `name` varchar(26) NOT NULL DEFAULT '',
+  `timestamp` bigint(20) unsigned NOT NULL,
+  `icon` smallint(5) unsigned NOT NULL,
+  `startpost` text NOT NULL,
+  `guildid` int(10) unsigned NOT NULL,
+  `localthreadid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`threadid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for blocklogin
+-- ----------------------------
+DROP TABLE IF EXISTS `blocklogin`;
+CREATE TABLE `blocklogin` (
+  `account` varchar(255) DEFAULT NULL,
+  `blocktime` varchar(255) DEFAULT NULL,
+  `unblocktime` varchar(255) DEFAULT NULL,
+  `ip` varchar(255) DEFAULT NULL,
+  `active` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for bosslog
 -- ----------------------------
 DROP TABLE IF EXISTS `bosslog`;
 CREATE TABLE `bosslog` (
@@ -11,9 +235,144 @@ CREATE TABLE `bosslog` (
   PRIMARY KEY (`bosslogid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Table structure for buddies
+-- ----------------------------
+DROP TABLE IF EXISTS `buddies`;
+CREATE TABLE `buddies` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `characterid` int(11) NOT NULL,
+  `buddyid` int(11) NOT NULL,
+  `pending` tinyint(4) NOT NULL DEFAULT '0',
+  `groupname` varchar(16) NOT NULL DEFAULT '其他',
+  PRIMARY KEY (`id`),
+  KEY `buddies_ibfk_1` (`characterid`),
+  CONSTRAINT `buddies_ibfk_1` FOREIGN KEY (`characterid`) REFERENCES `characters` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `cheatlog`
+-- Table structure for cashshop_limit_sell
+-- ----------------------------
+DROP TABLE IF EXISTS `cashshop_limit_sell`;
+CREATE TABLE `cashshop_limit_sell` (
+  `serial` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`serial`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for cashshop_modified_items
+-- ----------------------------
+DROP TABLE IF EXISTS `cashshop_modified_items`;
+CREATE TABLE `cashshop_modified_items` (
+  `serial` int(11) NOT NULL,
+  `name` varchar(70) NOT NULL,
+  `discount_price` int(11) NOT NULL DEFAULT '0',
+  `mark` tinyint(1) NOT NULL DEFAULT '-1',
+  `showup` tinyint(1) NOT NULL DEFAULT '0',
+  `itemid` int(11) NOT NULL DEFAULT '0',
+  `priority` tinyint(3) NOT NULL DEFAULT '0',
+  `package` tinyint(1) NOT NULL DEFAULT '0',
+  `period` tinyint(2) NOT NULL DEFAULT '0',
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `count` tinyint(2) NOT NULL DEFAULT '0',
+  `meso` int(11) NOT NULL DEFAULT '0',
+  `unk_1` tinyint(1) NOT NULL DEFAULT '0',
+  `unk_2` tinyint(1) NOT NULL DEFAULT '0',
+  `unk_3` tinyint(1) NOT NULL DEFAULT '0',
+  `extra_flags` int(11) NOT NULL DEFAULT '0',
+  `mod` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`serial`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for characters
+-- ----------------------------
+DROP TABLE IF EXISTS `characters`;
+CREATE TABLE `characters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accountid` int(11) NOT NULL DEFAULT '0',
+  `world` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(20) NOT NULL DEFAULT '',
+  `level` int(3) unsigned NOT NULL DEFAULT '0',
+  `exp` int(11) NOT NULL DEFAULT '0',
+  `str` int(5) NOT NULL DEFAULT '0',
+  `dex` int(5) NOT NULL DEFAULT '0',
+  `luk` int(5) NOT NULL DEFAULT '0',
+  `int` int(5) NOT NULL DEFAULT '0',
+  `hp` int(5) NOT NULL DEFAULT '0',
+  `mp` int(5) NOT NULL DEFAULT '0',
+  `maxhp` int(5) NOT NULL DEFAULT '0',
+  `maxmp` int(5) NOT NULL DEFAULT '0',
+  `meso` int(11) NOT NULL DEFAULT '0',
+  `hpApUsed` int(5) NOT NULL DEFAULT '0',
+  `job` int(5) NOT NULL DEFAULT '0',
+  `skincolor` tinyint(1) NOT NULL DEFAULT '0',
+  `gender` tinyint(1) NOT NULL DEFAULT '0',
+  `fame` int(5) NOT NULL DEFAULT '0',
+  `hair` int(11) NOT NULL DEFAULT '0',
+  `face` int(11) NOT NULL DEFAULT '0',
+  `ap` int(5) NOT NULL DEFAULT '0',
+  `map` int(11) NOT NULL DEFAULT '0',
+  `spawnpoint` int(3) NOT NULL DEFAULT '0',
+  `gm` int(3) NOT NULL DEFAULT '0',
+  `party` int(11) NOT NULL DEFAULT '0',
+  `buddyCapacity` int(3) NOT NULL DEFAULT '25',
+  `createdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `guildid` int(10) unsigned NOT NULL DEFAULT '0',
+  `guildrank` tinyint(1) unsigned NOT NULL DEFAULT '5',
+  `allianceRank` tinyint(1) unsigned NOT NULL DEFAULT '5',
+  `monsterbookcover` int(11) unsigned NOT NULL DEFAULT '0',
+  `dojo_pts` int(11) unsigned NOT NULL DEFAULT '0',
+  `dojoRecord` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `pets` varchar(13) NOT NULL DEFAULT '-1,-1,-1',
+  `sp` varchar(255) NOT NULL DEFAULT '0,0,0,0,0,0,0,0,0,0',
+  `subcategory` int(11) NOT NULL DEFAULT '0',
+  `Jaguar` int(3) NOT NULL DEFAULT '0',
+  `rank` int(11) NOT NULL DEFAULT '1',
+  `rankMove` int(11) NOT NULL DEFAULT '0',
+  `jobRank` int(11) NOT NULL DEFAULT '1',
+  `jobRankMove` int(11) NOT NULL DEFAULT '0',
+  `marriageId` int(11) NOT NULL DEFAULT '0',
+  `familyid` int(11) NOT NULL DEFAULT '0',
+  `seniorid` int(11) NOT NULL DEFAULT '0',
+  `junior1` int(11) NOT NULL DEFAULT '0',
+  `junior2` int(11) NOT NULL DEFAULT '0',
+  `currentrep` int(11) NOT NULL DEFAULT '0',
+  `totalrep` int(11) NOT NULL DEFAULT '0',
+  `charmessage` varchar(128) NOT NULL DEFAULT '安安',
+  `expression` int(11) NOT NULL DEFAULT '0',
+  `constellation` int(11) NOT NULL DEFAULT '0',
+  `blood` int(11) NOT NULL DEFAULT '0',
+  `month` int(11) NOT NULL DEFAULT '0',
+  `day` int(11) NOT NULL DEFAULT '0',
+  `beans` int(11) NOT NULL DEFAULT '0',
+  `prefix` varchar(255) DEFAULT '',
+  `gachexp` int(11) NOT NULL DEFAULT '0',
+  `vipmedal` int(11) NOT NULL DEFAULT '1',
+  `CSDJ` int(11) DEFAULT '0',
+  `OCSDJ` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `accountid` (`accountid`),
+  KEY `party` (`party`),
+  KEY `ranking1` (`level`,`exp`),
+  KEY `ranking2` (`gm`,`job`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for character_slots
+-- ----------------------------
+DROP TABLE IF EXISTS `character_slots`;
+CREATE TABLE `character_slots` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accid` int(11) NOT NULL DEFAULT '0',
+  `worldid` int(11) NOT NULL DEFAULT '0',
+  `charslots` int(11) NOT NULL DEFAULT '6',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for cheatlog
 -- ----------------------------
 DROP TABLE IF EXISTS `cheatlog`;
 CREATE TABLE `cheatlog` (
@@ -28,7 +387,18 @@ CREATE TABLE `cheatlog` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `csequipment`
+-- Table structure for configvalues
+-- ----------------------------
+DROP TABLE IF EXISTS `configvalues`;
+CREATE TABLE `configvalues` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `val` tinyint(1) DEFAULT '0' COMMENT '是否开启',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动配置表';
+
+-- ----------------------------
+-- Table structure for csequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `csequipment`;
 CREATE TABLE `csequipment` (
@@ -66,7 +436,7 @@ CREATE TABLE `csequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `csitems`
+-- Table structure for csitems
 -- ----------------------------
 DROP TABLE IF EXISTS `csitems`;
 CREATE TABLE `csitems` (
@@ -96,7 +466,7 @@ CREATE TABLE `csitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `dangerousip`
+-- Table structure for dangerousip
 -- ----------------------------
 DROP TABLE IF EXISTS `dangerousip`;
 CREATE TABLE `dangerousip` (
@@ -106,7 +476,7 @@ CREATE TABLE `dangerousip` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `drop_data`
+-- Table structure for drop_data
 -- ----------------------------
 DROP TABLE IF EXISTS `drop_data`;
 CREATE TABLE `drop_data` (
@@ -122,7 +492,7 @@ CREATE TABLE `drop_data` (
 ) ENGINE=MyISAM AUTO_INCREMENT=115493 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `drop_data_global`
+-- Table structure for drop_data_global
 -- ----------------------------
 DROP TABLE IF EXISTS `drop_data_global`;
 CREATE TABLE `drop_data_global` (
@@ -140,7 +510,7 @@ CREATE TABLE `drop_data_global` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `drop_data_vana`
+-- Table structure for drop_data_vana
 -- ----------------------------
 DROP TABLE IF EXISTS `drop_data_vana`;
 CREATE TABLE `drop_data_vana` (
@@ -157,7 +527,7 @@ CREATE TABLE `drop_data_vana` (
 ) ENGINE=MyISAM AUTO_INCREMENT=10087 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `dueyequipment`
+-- Table structure for dueyequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `dueyequipment`;
 CREATE TABLE `dueyequipment` (
@@ -195,7 +565,7 @@ CREATE TABLE `dueyequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `dueyitems`
+-- Table structure for dueyitems
 -- ----------------------------
 DROP TABLE IF EXISTS `dueyitems`;
 CREATE TABLE `dueyitems` (
@@ -225,7 +595,7 @@ CREATE TABLE `dueyitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `dueypackages`
+-- Table structure for dueypackages
 -- ----------------------------
 DROP TABLE IF EXISTS `dueypackages`;
 CREATE TABLE `dueypackages` (
@@ -240,7 +610,7 @@ CREATE TABLE `dueypackages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `eventstats`
+-- Table structure for eventstats
 -- ----------------------------
 DROP TABLE IF EXISTS `eventstats`;
 CREATE TABLE `eventstats` (
@@ -254,7 +624,7 @@ CREATE TABLE `eventstats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `famelog`
+-- Table structure for famelog
 -- ----------------------------
 DROP TABLE IF EXISTS `famelog`;
 CREATE TABLE `famelog` (
@@ -268,7 +638,7 @@ CREATE TABLE `famelog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `families`
+-- Table structure for families
 -- ----------------------------
 DROP TABLE IF EXISTS `families`;
 CREATE TABLE `families` (
@@ -279,7 +649,7 @@ CREATE TABLE `families` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `fishing_rewards`
+-- Table structure for fishing_rewards
 -- ----------------------------
 DROP TABLE IF EXISTS `fishing_rewards`;
 CREATE TABLE `fishing_rewards` (
@@ -290,7 +660,7 @@ CREATE TABLE `fishing_rewards` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `game_poll_reply`
+-- Table structure for game_poll_reply
 -- ----------------------------
 DROP TABLE IF EXISTS `game_poll_reply`;
 CREATE TABLE `game_poll_reply` (
@@ -301,7 +671,7 @@ CREATE TABLE `game_poll_reply` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `gbook_admin`
+-- Table structure for gbook_admin
 -- ----------------------------
 DROP TABLE IF EXISTS `gbook_admin`;
 CREATE TABLE `gbook_admin` (
@@ -312,7 +682,7 @@ CREATE TABLE `gbook_admin` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=gbk;
 
 -- ----------------------------
---  Table structure for `gbook_setting`
+-- Table structure for gbook_setting
 -- ----------------------------
 DROP TABLE IF EXISTS `gbook_setting`;
 CREATE TABLE `gbook_setting` (
@@ -323,7 +693,7 @@ CREATE TABLE `gbook_setting` (
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=gbk;
 
 -- ----------------------------
---  Table structure for `gifts`
+-- Table structure for gifts
 -- ----------------------------
 DROP TABLE IF EXISTS `gifts`;
 CREATE TABLE `gifts` (
@@ -337,7 +707,7 @@ CREATE TABLE `gifts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `gmlog`
+-- Table structure for gmlog
 -- ----------------------------
 DROP TABLE IF EXISTS `gmlog`;
 CREATE TABLE `gmlog` (
@@ -350,7 +720,7 @@ CREATE TABLE `gmlog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `guilds`
+-- Table structure for guilds
 -- ----------------------------
 DROP TABLE IF EXISTS `guilds`;
 CREATE TABLE `guilds` (
@@ -375,7 +745,7 @@ CREATE TABLE `guilds` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `hiredmerch`
+-- Table structure for hiredmerch
 -- ----------------------------
 DROP TABLE IF EXISTS `hiredmerch`;
 CREATE TABLE `hiredmerch` (
@@ -388,7 +758,7 @@ CREATE TABLE `hiredmerch` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `hiredmerchequipment`
+-- Table structure for hiredmerchequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `hiredmerchequipment`;
 CREATE TABLE `hiredmerchequipment` (
@@ -426,7 +796,7 @@ CREATE TABLE `hiredmerchequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `hiredmerchitems`
+-- Table structure for hiredmerchitems
 -- ----------------------------
 DROP TABLE IF EXISTS `hiredmerchitems`;
 CREATE TABLE `hiredmerchitems` (
@@ -456,7 +826,7 @@ CREATE TABLE `hiredmerchitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `htsquads`
+-- Table structure for htsquads
 -- ----------------------------
 DROP TABLE IF EXISTS `htsquads`;
 CREATE TABLE `htsquads` (
@@ -469,7 +839,7 @@ CREATE TABLE `htsquads` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `inventoryequipment`
+-- Table structure for inventoryequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `inventoryequipment`;
 CREATE TABLE `inventoryequipment` (
@@ -507,7 +877,7 @@ CREATE TABLE `inventoryequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `inventoryitems`
+-- Table structure for inventoryitems
 -- ----------------------------
 DROP TABLE IF EXISTS `inventoryitems`;
 CREATE TABLE `inventoryitems` (
@@ -535,7 +905,7 @@ CREATE TABLE `inventoryitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `inventorylog`
+-- Table structure for inventorylog
 -- ----------------------------
 DROP TABLE IF EXISTS `inventorylog`;
 CREATE TABLE `inventorylog` (
@@ -548,7 +918,7 @@ CREATE TABLE `inventorylog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `inventoryslot`
+-- Table structure for inventoryslot
 -- ----------------------------
 DROP TABLE IF EXISTS `inventoryslot`;
 CREATE TABLE `inventoryslot` (
@@ -563,7 +933,7 @@ CREATE TABLE `inventoryslot` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `invitecodedata`
+-- Table structure for invitecodedata
 -- ----------------------------
 DROP TABLE IF EXISTS `invitecodedata`;
 CREATE TABLE `invitecodedata` (
@@ -577,7 +947,7 @@ CREATE TABLE `invitecodedata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `ipbans`
+-- Table structure for ipbans
 -- ----------------------------
 DROP TABLE IF EXISTS `ipbans`;
 CREATE TABLE `ipbans` (
@@ -587,7 +957,7 @@ CREATE TABLE `ipbans` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `ipcheck`
+-- Table structure for ipcheck
 -- ----------------------------
 DROP TABLE IF EXISTS `ipcheck`;
 CREATE TABLE `ipcheck` (
@@ -597,7 +967,7 @@ CREATE TABLE `ipcheck` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `ipvotelog`
+-- Table structure for ipvotelog
 -- ----------------------------
 DROP TABLE IF EXISTS `ipvotelog`;
 CREATE TABLE `ipvotelog` (
@@ -610,7 +980,7 @@ CREATE TABLE `ipvotelog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `keymap`
+-- Table structure for keymap
 -- ----------------------------
 DROP TABLE IF EXISTS `keymap`;
 CREATE TABLE `keymap` (
@@ -625,7 +995,7 @@ CREATE TABLE `keymap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `loginlog`
+-- Table structure for loginlog
 -- ----------------------------
 DROP TABLE IF EXISTS `loginlog`;
 CREATE TABLE `loginlog` (
@@ -638,7 +1008,7 @@ CREATE TABLE `loginlog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `lottery_info`
+-- Table structure for lottery_info
 -- ----------------------------
 DROP TABLE IF EXISTS `lottery_info`;
 CREATE TABLE `lottery_info` (
@@ -653,7 +1023,7 @@ CREATE TABLE `lottery_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 
 -- ----------------------------
---  Table structure for `lottery_player_info`
+-- Table structure for lottery_player_info
 -- ----------------------------
 DROP TABLE IF EXISTS `lottery_player_info`;
 CREATE TABLE `lottery_player_info` (
@@ -665,7 +1035,7 @@ CREATE TABLE `lottery_player_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 
 -- ----------------------------
---  Table structure for `macbans`
+-- Table structure for macbans
 -- ----------------------------
 DROP TABLE IF EXISTS `macbans`;
 CREATE TABLE `macbans` (
@@ -676,7 +1046,7 @@ CREATE TABLE `macbans` (
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `macfilters`
+-- Table structure for macfilters
 -- ----------------------------
 DROP TABLE IF EXISTS `macfilters`;
 CREATE TABLE `macfilters` (
@@ -686,7 +1056,7 @@ CREATE TABLE `macfilters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `monsterbook`
+-- Table structure for monsterbook
 -- ----------------------------
 DROP TABLE IF EXISTS `monsterbook`;
 CREATE TABLE `monsterbook` (
@@ -698,7 +1068,7 @@ CREATE TABLE `monsterbook` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mountdata`
+-- Table structure for mountdata
 -- ----------------------------
 DROP TABLE IF EXISTS `mountdata`;
 CREATE TABLE `mountdata` (
@@ -711,7 +1081,7 @@ CREATE TABLE `mountdata` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mtsequipment`
+-- Table structure for mtsequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `mtsequipment`;
 CREATE TABLE `mtsequipment` (
@@ -749,7 +1119,7 @@ CREATE TABLE `mtsequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mtsitems`
+-- Table structure for mtsitems
 -- ----------------------------
 DROP TABLE IF EXISTS `mtsitems`;
 CREATE TABLE `mtsitems` (
@@ -779,7 +1149,7 @@ CREATE TABLE `mtsitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mtstransfer`
+-- Table structure for mtstransfer
 -- ----------------------------
 DROP TABLE IF EXISTS `mtstransfer`;
 CREATE TABLE `mtstransfer` (
@@ -809,7 +1179,7 @@ CREATE TABLE `mtstransfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mtstransferequipment`
+-- Table structure for mtstransferequipment
 -- ----------------------------
 DROP TABLE IF EXISTS `mtstransferequipment`;
 CREATE TABLE `mtstransferequipment` (
@@ -847,7 +1217,7 @@ CREATE TABLE `mtstransferequipment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mts_cart`
+-- Table structure for mts_cart
 -- ----------------------------
 DROP TABLE IF EXISTS `mts_cart`;
 CREATE TABLE `mts_cart` (
@@ -858,7 +1228,7 @@ CREATE TABLE `mts_cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mts_items`
+-- Table structure for mts_items
 -- ----------------------------
 DROP TABLE IF EXISTS `mts_items`;
 CREATE TABLE `mts_items` (
@@ -872,7 +1242,7 @@ CREATE TABLE `mts_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mulungdojo`
+-- Table structure for mulungdojo
 -- ----------------------------
 DROP TABLE IF EXISTS `mulungdojo`;
 CREATE TABLE `mulungdojo` (
@@ -883,7 +1253,7 @@ CREATE TABLE `mulungdojo` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `notes`
+-- Table structure for notes
 -- ----------------------------
 DROP TABLE IF EXISTS `notes`;
 CREATE TABLE `notes` (
@@ -897,7 +1267,7 @@ CREATE TABLE `notes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `nxcode`
+-- Table structure for nxcode
 -- ----------------------------
 DROP TABLE IF EXISTS `nxcode`;
 CREATE TABLE `nxcode` (
@@ -912,7 +1282,7 @@ CREATE TABLE `nxcode` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `onetimelog`
+-- Table structure for onetimelog
 -- ----------------------------
 DROP TABLE IF EXISTS `onetimelog`;
 CREATE TABLE `onetimelog` (
@@ -923,7 +1293,7 @@ CREATE TABLE `onetimelog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `pets`
+-- Table structure for pets
 -- ----------------------------
 DROP TABLE IF EXISTS `pets`;
 CREATE TABLE `pets` (
@@ -939,7 +1309,7 @@ CREATE TABLE `pets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `playernpcs`
+-- Table structure for playernpcs
 -- ----------------------------
 DROP TABLE IF EXISTS `playernpcs`;
 CREATE TABLE `playernpcs` (
@@ -964,7 +1334,7 @@ CREATE TABLE `playernpcs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `playernpcs_equip`
+-- Table structure for playernpcs_equip
 -- ----------------------------
 DROP TABLE IF EXISTS `playernpcs_equip`;
 CREATE TABLE `playernpcs_equip` (
@@ -981,7 +1351,7 @@ CREATE TABLE `playernpcs_equip` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `prizelog`
+-- Table structure for prizelog
 -- ----------------------------
 DROP TABLE IF EXISTS `prizelog`;
 CREATE TABLE `prizelog` (
@@ -992,7 +1362,7 @@ CREATE TABLE `prizelog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
---  Table structure for `questactions`
+-- Table structure for questactions
 -- ----------------------------
 DROP TABLE IF EXISTS `questactions`;
 CREATE TABLE `questactions` (
@@ -1004,7 +1374,7 @@ CREATE TABLE `questactions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `questinfo`
+-- Table structure for questinfo
 -- ----------------------------
 DROP TABLE IF EXISTS `questinfo`;
 CREATE TABLE `questinfo` (
@@ -1018,7 +1388,7 @@ CREATE TABLE `questinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `questrequirements`
+-- Table structure for questrequirements
 -- ----------------------------
 DROP TABLE IF EXISTS `questrequirements`;
 CREATE TABLE `questrequirements` (
@@ -1030,7 +1400,7 @@ CREATE TABLE `questrequirements` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `queststatus`
+-- Table structure for queststatus
 -- ----------------------------
 DROP TABLE IF EXISTS `queststatus`;
 CREATE TABLE `queststatus` (
@@ -1047,7 +1417,7 @@ CREATE TABLE `queststatus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `queststatusmobs`
+-- Table structure for queststatusmobs
 -- ----------------------------
 DROP TABLE IF EXISTS `queststatusmobs`;
 CREATE TABLE `queststatusmobs` (
@@ -1061,7 +1431,7 @@ CREATE TABLE `queststatusmobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `rcmedals`
+-- Table structure for rcmedals
 -- ----------------------------
 DROP TABLE IF EXISTS `rcmedals`;
 CREATE TABLE `rcmedals` (
@@ -1074,7 +1444,7 @@ CREATE TABLE `rcmedals` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
---  Table structure for `reactordrops`
+-- Table structure for reactordrops
 -- ----------------------------
 DROP TABLE IF EXISTS `reactordrops`;
 CREATE TABLE `reactordrops` (
@@ -1088,7 +1458,7 @@ CREATE TABLE `reactordrops` (
 ) ENGINE=MyISAM AUTO_INCREMENT=885 DEFAULT CHARSET=utf8 PACK_KEYS=1;
 
 -- ----------------------------
---  Table structure for `regrocklocations`
+-- Table structure for regrocklocations
 -- ----------------------------
 DROP TABLE IF EXISTS `regrocklocations`;
 CREATE TABLE `regrocklocations` (
@@ -1099,7 +1469,7 @@ CREATE TABLE `regrocklocations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `reports`
+-- Table structure for reports
 -- ----------------------------
 DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
@@ -1114,7 +1484,7 @@ CREATE TABLE `reports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `rings`
+-- Table structure for rings
 -- ----------------------------
 DROP TABLE IF EXISTS `rings`;
 CREATE TABLE `rings` (
@@ -1127,7 +1497,7 @@ CREATE TABLE `rings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `savedlocations`
+-- Table structure for savedlocations
 -- ----------------------------
 DROP TABLE IF EXISTS `savedlocations`;
 CREATE TABLE `savedlocations` (
@@ -1141,7 +1511,7 @@ CREATE TABLE `savedlocations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `shopitems`
+-- Table structure for shopitems
 -- ----------------------------
 DROP TABLE IF EXISTS `shopitems`;
 CREATE TABLE `shopitems` (
@@ -1157,7 +1527,7 @@ CREATE TABLE `shopitems` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3280 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `shops`
+-- Table structure for shops
 -- ----------------------------
 DROP TABLE IF EXISTS `shops`;
 CREATE TABLE `shops` (
@@ -1167,7 +1537,7 @@ CREATE TABLE `shops` (
 ) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `skillmacros`
+-- Table structure for skillmacros
 -- ----------------------------
 DROP TABLE IF EXISTS `skillmacros`;
 CREATE TABLE `skillmacros` (
@@ -1183,7 +1553,7 @@ CREATE TABLE `skillmacros` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `skills`
+-- Table structure for skills
 -- ----------------------------
 DROP TABLE IF EXISTS `skills`;
 CREATE TABLE `skills` (
@@ -1199,7 +1569,7 @@ CREATE TABLE `skills` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
---  Table structure for `skills_cooldowns`
+-- Table structure for skills_cooldowns
 -- ----------------------------
 DROP TABLE IF EXISTS `skills_cooldowns`;
 CREATE TABLE `skills_cooldowns` (
@@ -1212,7 +1582,7 @@ CREATE TABLE `skills_cooldowns` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `speedruns`
+-- Table structure for speedruns
 -- ----------------------------
 DROP TABLE IF EXISTS `speedruns`;
 CREATE TABLE `speedruns` (
@@ -1226,7 +1596,7 @@ CREATE TABLE `speedruns` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `storages`
+-- Table structure for storages
 -- ----------------------------
 DROP TABLE IF EXISTS `storages`;
 CREATE TABLE `storages` (
@@ -1240,7 +1610,7 @@ CREATE TABLE `storages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `trocklocations`
+-- Table structure for trocklocations
 -- ----------------------------
 DROP TABLE IF EXISTS `trocklocations`;
 CREATE TABLE `trocklocations` (
@@ -1251,7 +1621,7 @@ CREATE TABLE `trocklocations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `uselog`
+-- Table structure for uselog
 -- ----------------------------
 DROP TABLE IF EXISTS `uselog`;
 CREATE TABLE `uselog` (
@@ -1265,7 +1635,7 @@ CREATE TABLE `uselog` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `wishlist`
+-- Table structure for wishlist
 -- ----------------------------
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE `wishlist` (
@@ -1274,7 +1644,7 @@ CREATE TABLE `wishlist` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `wz_customlife`
+-- Table structure for wz_customlife
 -- ----------------------------
 DROP TABLE IF EXISTS `wz_customlife`;
 CREATE TABLE `wz_customlife` (
@@ -1295,7 +1665,7 @@ CREATE TABLE `wz_customlife` (
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
---  Table structure for `wz_mobskilldata`
+-- Table structure for wz_mobskilldata
 -- ----------------------------
 DROP TABLE IF EXISTS `wz_mobskilldata`;
 CREATE TABLE `wz_mobskilldata` (
@@ -1321,7 +1691,7 @@ CREATE TABLE `wz_mobskilldata` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4762 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `wz_oxdata`
+-- Table structure for wz_oxdata
 -- ----------------------------
 DROP TABLE IF EXISTS `wz_oxdata`;
 CREATE TABLE `wz_oxdata` (
@@ -1334,7 +1704,113 @@ CREATE TABLE `wz_oxdata` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `zaksquads`
+-- Table structure for wz_questactdata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questactdata`;
+CREATE TABLE `wz_questactdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(127) NOT NULL DEFAULT '',
+  `type` tinyint(1) NOT NULL DEFAULT '0',
+  `intStore` int(11) NOT NULL DEFAULT '0',
+  `applicableJobs` varchar(1024) NOT NULL DEFAULT '',
+  `uniqueid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `quests_ibfk_2` (`questid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3880 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for wz_questactitemdata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questactitemdata`;
+CREATE TABLE `wz_questactitemdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `itemid` int(11) NOT NULL DEFAULT '0',
+  `count` smallint(5) NOT NULL DEFAULT '0',
+  `period` int(11) NOT NULL DEFAULT '0',
+  `gender` tinyint(1) NOT NULL DEFAULT '2',
+  `job` int(11) NOT NULL DEFAULT '-1',
+  `jobEx` int(11) NOT NULL DEFAULT '-1',
+  `prop` int(11) NOT NULL DEFAULT '-1',
+  `uniqueid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5209 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for wz_questactquestdata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questactquestdata`;
+CREATE TABLE `wz_questactquestdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `quest` int(11) NOT NULL DEFAULT '0',
+  `state` tinyint(1) NOT NULL DEFAULT '2',
+  `uniqueid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for wz_questactskilldata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questactskilldata`;
+CREATE TABLE `wz_questactskilldata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `skillid` int(11) NOT NULL DEFAULT '0',
+  `skillLevel` int(11) NOT NULL DEFAULT '-1',
+  `masterLevel` int(11) NOT NULL DEFAULT '-1',
+  `uniqueid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Table structure for wz_questdata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questdata`;
+CREATE TABLE `wz_questdata` (
+  `questid` int(11) NOT NULL,
+  `name` varchar(1024) NOT NULL DEFAULT '',
+  `autoStart` tinyint(1) NOT NULL DEFAULT '0',
+  `autoPreComplete` tinyint(1) NOT NULL DEFAULT '0',
+  `viewMedalItem` int(11) NOT NULL DEFAULT '0',
+  `selectedSkillID` int(11) NOT NULL DEFAULT '0',
+  `blocked` tinyint(1) NOT NULL DEFAULT '0',
+  `autoAccept` tinyint(1) NOT NULL DEFAULT '0',
+  `autoComplete` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`questid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for wz_questpartydata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questpartydata`;
+CREATE TABLE `wz_questpartydata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questid` int(11) NOT NULL DEFAULT '0',
+  `rank` varchar(1) NOT NULL DEFAULT '',
+  `mode` varchar(13) NOT NULL DEFAULT '',
+  `property` varchar(255) NOT NULL DEFAULT '',
+  `value` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `quests_ibfk_7` (`questid`)
+) ENGINE=MyISAM AUTO_INCREMENT=178 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for wz_questreqdata
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_questreqdata`;
+CREATE TABLE `wz_questreqdata` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `questid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(127) NOT NULL DEFAULT '',
+  `type` tinyint(1) NOT NULL DEFAULT '0',
+  `stringStore` varchar(1024) NOT NULL DEFAULT '',
+  `intStoresFirst` varchar(1024) NOT NULL DEFAULT '',
+  `intStoresSecond` varchar(1024) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `quests_ibfk_1` (`questid`)
+) ENGINE=MyISAM AUTO_INCREMENT=11719 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Table structure for zaksquads
 -- ----------------------------
 DROP TABLE IF EXISTS `zaksquads`;
 CREATE TABLE `zaksquads` (

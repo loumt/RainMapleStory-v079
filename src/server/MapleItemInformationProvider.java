@@ -92,7 +92,7 @@ public class MapleItemInformationProvider {
     protected final Map<Integer, Integer> chairMountId = new HashMap<>();
 
     protected MapleItemInformationProvider() {
-        System.out.println("【讀取中】 MapleItemInformationProvider :::");
+        System.out.println("【读取中】 MapleItemInformationProvider :::");
     }
 
     public final void load() {

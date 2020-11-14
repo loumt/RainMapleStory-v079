@@ -58,7 +58,7 @@ public class RankingWorker {
     }
 
     public final void run() {
-        System.out.println("【讀取中】 Ranking Server :::");
+        System.out.println("【读取中】 Ranking Server :::");
         loadJobCommands();
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             updateRanking(con);

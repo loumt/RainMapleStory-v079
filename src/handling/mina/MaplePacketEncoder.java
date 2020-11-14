@@ -61,7 +61,7 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                     tab += "\t";
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
-                final StringBuilder sb = new StringBuilder("[發送]\t" + op + tab + "\t包頭:" + pHeaderStr + t + "[" + packetLen/* + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2] */ + "字元]");
+                final StringBuilder sb = new StringBuilder("[发送]\t" + op + tab + "\t包头:" + pHeaderStr + t + "[" + packetLen/* + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2] */ + "字元]");
                 if (ServerConfig.LOG_PACKETS) {
                     System.out.println(sb.toString());
                 }
@@ -70,7 +70,7 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                     FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                 } else if (ServerConfig.CHRLOG_PACKETS) {
                     if (client.getPlayer() != null) {
-                        FilePrinter.print("封包記錄/" + client.getPlayer().getName() + ".txt", "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                        FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt", "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                     }
                 }
             }

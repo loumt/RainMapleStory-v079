@@ -37,7 +37,7 @@ public class LoginInformationProvider {
     }
 
     protected LoginInformationProvider() {
-        System.out.println("【讀取中】 LoginInformationProvider :::");
+        System.out.println("【读取中】 LoginInformationProvider :::");
         final MapleData nameData = MapleDataProviderFactory.getDataProvider("Etc.wz").getData("ForbiddenName.img");
         for (final MapleData data : nameData.getChildren()) {
             ForbiddenName.add(MapleDataTool.getString(data));

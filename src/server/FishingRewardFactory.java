@@ -52,7 +52,7 @@ public class FishingRewardFactory {
     private static final FishingRewardFactory instance = new FishingRewardFactory();
 
     public FishingRewardFactory() {
-        System.out.println("【讀取中】 FishingRewardFactory :::");
+        System.out.println("【读取中】 FishingRewardFactory :::");
         this.rewards = new LinkedList<>();
         this.rand = new Random(System.currentTimeMillis());
         this.loadItems();

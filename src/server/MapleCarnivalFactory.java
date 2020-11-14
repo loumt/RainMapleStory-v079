@@ -31,7 +31,7 @@ public class MapleCarnivalFactory {
             return;
         }
 
-        System.out.println("【讀取中】 MapleCarnivalFactory:::");
+        System.out.println("【读取中】 MapleCarnivalFactory:::");
 
         for (MapleData z : dataRoot.getData("MCSkill.img")) {
             int MCSkillId = Integer.parseInt(z.getName());
