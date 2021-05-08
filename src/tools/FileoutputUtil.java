@@ -29,15 +29,15 @@ import java.util.TimeZone;
 public class FileoutputUtil {
 
     // Logging output file
-    private static final SimpleDateFormat sdfT = new SimpleDateFormat("yyyy年MM月dd日HH時mm分ss秒");
+    private static final SimpleDateFormat sdfT = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
     public static final String Acc_Stuck = "logs/Except/Log_AccountStuck.txt",
             Login_Error = "logs\\Log_Login_Error.txt",
             IP_Log = "logs\\Log_AccountIP.txt",
             GMCommand_Log = "logs\\Log_GMCommand.txt",
             // Zakum_Log = "Log_Zakum.rtf",
             //Horntail_Log = "Log_Horntail.rtf",
-            UnknownPacket_Log = "logs\\數據包_未知.txt",
-            Packet_Log = "logs\\數據包收發\\Log.txt",
+            UnknownPacket_Log = "logs\\数据包_未知.txt",
+            Packet_Log = "logs\\数据包收发\\Log.txt",
             Pinkbean_Log = "logs\\Log_Pinkbean.rtf",
             ScriptEx_Log = "logs\\Log_Script_Except.txt",
             PacketEx_Log = "logs/Except/Log_Packet_Except.txt", // I cba looking for every error, adding this back in.
@@ -45,8 +45,8 @@ public class FileoutputUtil {
             Donator_Log = "logs\\Shadier_Merchant.txt",
             Hacker_Log = "logs\\Log_Hacker.txt",
             Movement_Log = "logs\\Log_Movement.txt",
-            Client_Error_2 = "logs/Client/用戶端_報錯_非38.txt",
-            Client_Error = "logs/Client/用戶端_報錯.txt",
+            Client_Error_2 = "logs/Client/用户端_报错_非38.txt",
+            Client_Error = "logs/Client/用户端_报错.txt",
             CommandEx_Log = "logs/Except/Log_Command_Except.txt" //PQ_Log = "Log_PQ.rtf"
             ;
     // End

@@ -38,7 +38,7 @@ public class ServerProperties {
             props.load(bf);
             bf.close();
         } catch (IOException ex) {
-            System.err.println("讀取\"" + getPath() + "\"檔案失敗 " + ex);
+            System.err.println("读取\"" + getPath() + "\"档案失败 " + ex);
         }
     }
 

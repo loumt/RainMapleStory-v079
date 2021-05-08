@@ -53,8 +53,8 @@ public class Start {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
             ps.executeUpdate();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
-            throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
+            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+            throw new RuntimeException("【错误】 请确认资料库是否正常连接");
         }
         /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM characters WHERE gm = 100"); ResultSet rs = ps.executeQuery()) {
             rs.beforeFirst();
@@ -113,7 +113,7 @@ public class Start {
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         System.setProperty("file.encoding", "utf-8");
         System.setProperty("path", "");
-        System.out.println("【冒险岛模擬器】");
+        System.out.println("【冒险岛模拟器】");
         System.out.println("【版本】 v079");
         resetAllLoginState();
 
@@ -214,15 +214,26 @@ public class Start {
         System.out.println("【服务器启动完毕】");
     }
 
+
+    /**
+     * 程序开始的地方
+     */
     public static void main(final String args[]) throws InterruptedException {
-        String[] macs = {
-            "3b409f54d8adac13b8e7f846cc2549b5431aa0a0",};
+        String[] macs = {"3b409f54d8adac13b8e7f846cc2549b5431aa0a0"};
+        System.out.println("#####################当前允许运行的码##########################");
+        for (String mac : macs) {
+            System.out.println(mac);
+        }
+        System.out.println("#####################当前允许运行的码##########################");
         String mac = MacAddressTool.getMacAddress(false);
-        System.out.println("MAC:" + mac);
         String num = returnSerialNumber();
-        System.out.println("NUM:" +num);
         String localMac = LoginCrypto.hexSha1(num + mac);
+        System.out.println("#####################当前机器的码##########################");
+        System.out.println("MAC:" + mac);
+        System.out.println("NUM:" +num);
         System.out.println("localMac:" + "" + localMac);
+        System.out.println("#####################当前机器的码##########################");
+
         if (localMac != null) {
             for (int i = 0; i < macs.length; i++) {
                 if (macs[i].equals(localMac)) {

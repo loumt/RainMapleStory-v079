@@ -82,7 +82,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                     tab += "\t";
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
-                final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包頭:" + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字元]");
+                final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包头:" + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字节]");
                 if (ServerConfig.LOG_PACKETS) {
                     System.out.println(sb.toString());
                 }
@@ -91,7 +91,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                     FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                 } else if (ServerConfig.CHRLOG_PACKETS) {
                     if (client.getPlayer() != null) {
-                        FilePrinter.print("封包記錄/" + client.getPlayer().getName() + ".txt", "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                        FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt", "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                     }
                 }
             }
