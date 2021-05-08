@@ -31,6 +31,13 @@ public class FileoutputUtil {
     // Logging output file
     private static final SimpleDateFormat sdfT = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
     public static final String Acc_Stuck = "logs/Except/Log_AccountStuck.txt",
+            Package_Handler = "logs\\Package_Handler.txt",
+            Account_Create = "logs\\Account_Create.txt",
+            Account_Login = "logs\\Account_Login.txt",
+            DataBase_Error = "logs\\DataBase_Error.txt",
+            Quest_Error = "logs\\Quest_Error.txt",
+            Disable_Ip_Account = "logs\\Disable_Ip_Account.txt",
+            Disable_Mac_Account = "logs\\Disable_Mac_Account.txt",
             Login_Error = "logs\\Log_Login_Error.txt",
             IP_Log = "logs\\Log_AccountIP.txt",
             GMCommand_Log = "logs\\Log_GMCommand.txt",

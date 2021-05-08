@@ -144,7 +144,7 @@ public class ConsoleCommand {
                 }
                 System.out.println("所有帳號解卡完畢");
             } catch (SQLException ex) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 System.err.println("解卡異常請查看MYSQL");
             }
             return 1;

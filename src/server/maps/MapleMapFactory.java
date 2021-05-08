@@ -853,7 +853,7 @@ public class MapleMapFactory {
             return customLife.size();
         } catch (SQLException e) {
             System.err.println("Error loading custom life..." + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }

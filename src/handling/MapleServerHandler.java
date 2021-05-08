@@ -43,15 +43,11 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.util.EnumSet;
 import java.util.concurrent.RejectedExecutionException;
 import scripting.NPCScriptManager;
-import tools.MapleAESOFB;
+import tools.*;
 import tools.packet.LoginPacket;
-import tools.Pair;
 
 import server.MTSStorage;
 import server.Randomizer;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
-import tools.HexTool;
 import tools.data.ByteArrayByteStream;
 import tools.data.LittleEndianAccessor;
 
@@ -329,6 +325,14 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         super.userEventTriggered(ctx, status);
     }
 
+    /**
+     * 处理封包
+     * @param header
+     * @param slea
+     * @param c
+     * @param cs
+     * @throws Exception
+     */
     public static final void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
         switch (header) {
             case CLIENT_LOGOUT:

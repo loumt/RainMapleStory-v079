@@ -62,7 +62,7 @@ public class Start {
                 size = rs.getInt(1);
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
         }
         if (size > 1) {
@@ -80,7 +80,7 @@ public class Start {
                 }
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
         }*/
 
@@ -92,7 +92,7 @@ public class Start {
                 }
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
         }
 
@@ -104,7 +104,7 @@ public class Start {
                 }
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
         }*/
     }
@@ -115,7 +115,11 @@ public class Start {
         System.setProperty("path", "");
         System.out.println("【冒险岛模拟器】");
         System.out.println("【版本】 v079");
-        resetAllLoginState();
+
+        /**
+         * 重设登录状态-这边可以写一些初始化的东西
+         */
+//        resetAllLoginState();
 
         if (WorldConstants.ADMIN_ONLY) {
             System.out.println("【管理员模式】开启");
@@ -135,8 +139,11 @@ public class Start {
             System.out.println("【允许玩家使用管理员物品】关闭");
         }
 
-        /* 載入設定 */
+        /**
+         * 将配置文件的配置载入到程序中
+         */
         ServerConfig.loadSetting();
+
         World.init();
         /* 載入計時器 */
         WorldTimer.getInstance().start();
@@ -147,9 +154,13 @@ public class Start {
         EventTimer.getInstance().start();
         BuffTimer.getInstance().start();
         PingTimer.getInstance().start();
-        /* 讀取WZ內禁止使用的名稱 */
+        /**
+         * 读取wz文件中禁止使用的名字-Etc.wz中ForbiddenName.img.xml
+         */
         LoginInformationProvider.getInstance();
-        /* 讀取釣魚 */
+        /**
+         * 读取钓鱼物品-没有这个库-再说吧
+         */
         FishingRewardFactory.getInstance();
         /* 載入任務*/
         MapleQuest.initQuests();
@@ -228,11 +239,7 @@ public class Start {
         String mac = MacAddressTool.getMacAddress(false);
         String num = returnSerialNumber();
         String localMac = LoginCrypto.hexSha1(num + mac);
-        System.out.println("#####################当前机器的码##########################");
-        System.out.println("MAC:" + mac);
-        System.out.println("NUM:" +num);
-        System.out.println("localMac:" + "" + localMac);
-        System.out.println("#####################当前机器的码##########################");
+        System.out.println("当前机器的码: MAC:" + mac + "\tNUM:" + num + "\tlocalMac:" + localMac);
 
         if (localMac != null) {
             for (int i = 0; i < macs.length; i++) {

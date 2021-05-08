@@ -31,7 +31,7 @@ public class AutoRegister {
             }
         } catch (SQLException ex) {
             System.err.println("[getAccountExists]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return accountExists;
     }
@@ -62,7 +62,7 @@ public class AutoRegister {
                         success = true;
                     } catch (SQLException ex) {
                         System.err.println("createAccount" + ex);
-                        FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                        FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                         return;
                     }
                 }
@@ -74,7 +74,7 @@ public class AutoRegister {
             rs.close();
         } catch (SQLException ex) {
             System.err.println("[createAccount]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 }

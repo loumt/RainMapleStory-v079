@@ -151,7 +151,7 @@ public class MapleQuest implements Serializable {
             psi.close();
             psp.close();
         } catch (SQLException e) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
     }

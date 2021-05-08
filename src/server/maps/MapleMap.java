@@ -3245,7 +3245,7 @@ public final class MapleMap {
                 SpeedRunner.getInstance().loadSpeedRunData(type);
             }
         } catch (Exception e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
     }

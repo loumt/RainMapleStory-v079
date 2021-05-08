@@ -83,7 +83,7 @@ public class MonsterBook implements Serializable {
             }
             return new MonsterBook(cards);
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             return null;
         }
     }
@@ -119,7 +119,7 @@ public class MonsterBook implements Serializable {
             ps.execute();
             ps.close();
         } catch (Exception se) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 

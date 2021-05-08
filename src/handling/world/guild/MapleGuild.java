@@ -149,7 +149,7 @@ public class MapleGuild implements java.io.Serializable {
             ps.close();
         } catch (SQLException se) {
             System.err.println("unable to read guild information from sql");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 
@@ -171,7 +171,7 @@ public class MapleGuild implements java.io.Serializable {
             }
         } catch (SQLException se) {
             System.err.println("unable to read guild information from sql");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
         return ret;
     }
@@ -273,7 +273,7 @@ public class MapleGuild implements java.io.Serializable {
             }
         } catch (SQLException se) {
             System.err.println("Error saving guild to SQL");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 
@@ -515,7 +515,7 @@ public class MapleGuild implements java.io.Serializable {
             }
         } catch (SQLException e) {
             System.err.println("Saving allianceid ERROR" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -552,7 +552,7 @@ public class MapleGuild implements java.io.Serializable {
             return ret;
         } catch (SQLException se) {
             System.err.println("SQL THROW");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             return 0;
         }
     }
@@ -785,7 +785,7 @@ public class MapleGuild implements java.io.Serializable {
             }
         } catch (SQLException e) {
             System.err.println("Saving guild logo / BG colo ERROR");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -813,7 +813,7 @@ public class MapleGuild implements java.io.Serializable {
             }
         } catch (SQLException e) {
             System.err.println("Saving guild capacity ERROR");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return true;
     }
@@ -932,7 +932,7 @@ public class MapleGuild implements java.io.Serializable {
             ps.close();
         } catch (SQLException se) {
             System.err.println("SQLException: " + se.getLocalizedMessage());
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 

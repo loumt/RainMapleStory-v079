@@ -47,7 +47,7 @@ public class DumpCashShop {
             }
 
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
 
         }
 
@@ -186,7 +186,7 @@ public class DumpCashShop {
                 }
             }
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
 
         /*for (Integer key : dics.keySet()) {

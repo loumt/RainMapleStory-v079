@@ -164,7 +164,7 @@ public class MTSStorage {
 
         } catch (Exception e) {
             FilePrinter.printError("MTSStorage.txt", e, "loadBuyNow");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         packageId.set(lastPackage);
     }
@@ -215,7 +215,7 @@ public class MTSStorage {
             ps.close();
         } catch (SQLException e) {
             FilePrinter.printError("MTSStorage.txt", e, "saveBuyNow");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             mutex.writeLock().unlock();
         }
@@ -228,7 +228,7 @@ public class MTSStorage {
             }
         } catch (SQLException e) {
             FilePrinter.printError("MTSStorage.txt", e, "saveBuyNow");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         if (isShutDown) {
             System.out.println("Saving MTS carts...");
@@ -249,7 +249,7 @@ public class MTSStorage {
             }
         } catch (SQLException e) {
             FilePrinter.printError("MTSStorage.txt", e, "saveBuyNow");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             cart_mutex.writeLock().unlock();
         }

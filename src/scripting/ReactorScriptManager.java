@@ -92,7 +92,7 @@ public class ReactorScriptManager extends AbstractScriptManager {
             ps.close();
         } catch (final SQLException e) {
             System.err.println("Could not retrieve drops for reactor " + rid + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return ret;
         } finally {
             try {
@@ -103,7 +103,7 @@ public class ReactorScriptManager extends AbstractScriptManager {
                     ps.close();
                 }
             } catch (SQLException ignore) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ignore);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ignore);
                 return ret;
             }
         }

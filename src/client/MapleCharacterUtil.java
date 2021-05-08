@@ -92,7 +92,7 @@ public class MapleCharacterUtil {
             return id;
         } catch (SQLException e) {
             System.err.println("error 'getIdByName' " + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }
@@ -109,7 +109,7 @@ public class MapleCharacterUtil {
             rs = ps.executeQuery();
             prompt = !rs.next();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             try {
                 if (ps != null) {
@@ -119,7 +119,7 @@ public class MapleCharacterUtil {
                     rs.close();
                 }
             } catch (SQLException e) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
         return prompt;
@@ -138,14 +138,14 @@ public class MapleCharacterUtil {
 
             ps.execute();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             try {
                 if (ps != null) {
                     ps.close();
                 }
             } catch (SQLException e) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
         return true;
@@ -183,7 +183,7 @@ public class MapleCharacterUtil {
             return id;
         } catch (Exception e) {
             FilePrinter.printError("MapleCharacterUtil.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return null;
     }
@@ -195,7 +195,7 @@ public class MapleCharacterUtil {
             boolean execute = ps.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -211,7 +211,7 @@ public class MapleCharacterUtil {
 
         } catch (SQLException e) {
             FilePrinter.printError("MapleCharacterUtil.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         MapleCharacter.getCharacterByName(to).showNote();
     }
@@ -226,7 +226,7 @@ public class MapleCharacterUtil {
             }
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacterUtil.txt", ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return validcode;
     }
@@ -245,7 +245,7 @@ public class MapleCharacterUtil {
 
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacterUtil.txt", ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return type;
     }
@@ -262,7 +262,7 @@ public class MapleCharacterUtil {
 
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacterUtil.txt", ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return item;
     }
@@ -279,7 +279,7 @@ public class MapleCharacterUtil {
 
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacterUtil.txt", ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return item;
     }
@@ -296,7 +296,7 @@ public class MapleCharacterUtil {
 
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacterUtil.txt", ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return item;
     }

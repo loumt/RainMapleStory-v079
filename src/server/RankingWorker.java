@@ -64,7 +64,7 @@ public class RankingWorker {
             updateRanking(con);
         } catch (Exception ex) {
             System.err.println("Could not update rankings");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         //System.out.println("排行啟動完成 :::"); //keep
     }

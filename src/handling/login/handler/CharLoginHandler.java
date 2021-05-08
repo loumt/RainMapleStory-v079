@@ -39,11 +39,13 @@ import handling.login.LoginInformationProvider;
 import handling.login.LoginServer;
 import handling.login.LoginWorker;
 import handling.world.World;
+
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Random;
+
 import server.MapleItemInformationProvider;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
@@ -127,13 +129,13 @@ public class CharLoginHandler {
         final Calendar tempbannedTill = c.getTempBanCalendar();
         String errorInfo = null;
         if (c.getLastLoginTime() != 0 && (c.getLastLoginTime() + 5 * 1000) < System.currentTimeMillis()) {
-            errorInfo = "您登入的速度過快!\r\n請重新輸入.";
+            errorInfo = "您登录的速度过快!\r\n请重新输入.";
             loginok = 1;
         } else if (loginok == 0 && ban && !c.isGm()) {
             //被封鎖IP或MAC的非GM角色成功登入處理
             loginok = 3;
             //if (macBan) {
-            FileoutputUtil.logToFile("logs/data/" + (macBan ? "MAC" : "IP") + "封鎖_登入帳號.txt", "\r\n 時間　[" + FileoutputUtil.NowTime() + "] " + " 所有MAC位址: " + c.getMacs() + " IP地址: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帳號：　" + account + " 密碼：" + password);
+            FileoutputUtil.logToFile(macBan ? FileoutputUtil.Disable_Mac_Account : FileoutputUtil.Disable_Ip_Account, "\r\n 时间　[" + FileoutputUtil.NowTime() + "] " + " 所有MAC位址: " + c.getMacs() + " IP地址: " + c.getSession().remoteAddress().toString().split(":")[0] + " 账号：　" + account + " 密码：" + password);
             // this is only an ipban o.O" - maybe we should refactor this a bit so it's more readable
             // MapleCharacter.ban(c.getSessionIPAddress(), c.getSession().remoteAddress().toString().split(":")[0], "Enforcing account ban, account " + account, false, 4, false);
             //}
@@ -148,14 +150,14 @@ public class CharLoginHandler {
                 if (password.equalsIgnoreCase("fixlogged")) {
                     errorInfo = "這個密碼是解卡密碼，請換其他密碼。";
                 } else if (account.length() >= 12) {
-                    errorInfo = "您的帳號長度太長了唷!\r\n請重新輸入.";
+                    errorInfo = "您的账号长度太长了!\r\n请重新输入.";
                 } else {
                     AutoRegister.createAccount(account, password, c.getSession().remoteAddress().toString());
                     if (AutoRegister.success && AutoRegister.mac) {
-                        errorInfo = "帳號創建成功,請重新登入!";
-                        FileoutputUtil.logToFile("logs/data/創建帳號.txt", "\r\n 時間　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 帳號：　" + account + " 密碼：" + password);
+                        errorInfo = "账号创建成功,请重新登录!";
+                        FileoutputUtil.logToFile(FileoutputUtil.Account_Create, "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 账号：　" + account + " 密码：" + password);
                     } else if (!AutoRegister.mac) {
-                        errorInfo = "無法註冊過多的帳號密碼唷!";
+                        errorInfo = "无法注册过多的账号!";
                         AutoRegister.success = false;
                         AutoRegister.mac = true;
                     }
@@ -165,12 +167,12 @@ public class CharLoginHandler {
         } else if (!LoginServer.canLoginAgain(c.getAccID())) {// 換頻後
             int sec = (int) (((LoginServer.getLoginAgainTime(c.getAccID()) + 50 * 1000) - System.currentTimeMillis()) / 1000);
             c.loginAttempt = 0;
-            errorInfo = "遊戲帳號將於" + sec + "秒後可以登入， 請耐心等候。";
+            errorInfo = "游戏账号将于" + sec + "秒后可以登入， 请耐心等候。";
             loginok = 1;
         } else if (!LoginServer.canEnterGameAgain(c.getAccID())) {// 選擇角色後
             int sec = (int) (((LoginServer.getEnterGameAgainTime(c.getAccID()) + 60 * 1000) - System.currentTimeMillis()) / 1000);
             c.loginAttempt = 0;
-            errorInfo = "遊戲帳號將於" + sec + "秒後可以登入， 請耐心等候。";
+            errorInfo = "游戏账号将于" + sec + "秒后可以登入， 请耐心等候。";
             loginok = 1;
         }
         if (loginok != 0) {
@@ -195,7 +197,7 @@ public class CharLoginHandler {
             c.setLoginKey(loginkey);
             c.updateLoginKey(loginkey);
             LoginServer.addLoginKey(loginkey, c.getAccID());
-            FileoutputUtil.logToFile("logs/data/登入帳號.txt", "\r\n 時間　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 帳號：　" + account + " 密碼：" + password);
+            FileoutputUtil.logToFile(FileoutputUtil.Account_Login, "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 账号：　" + account + " 密码：" + password);
             c.setLoginKeya(loginkeya);
             LoginWorker.registerClient(c);
         }
@@ -298,6 +300,7 @@ public class CharLoginHandler {
     }
 
     public static final void checkCharName(final String name, final MapleClient c) {
+        System.out.println("检测是否是禁止的名字. 正在检测: " + name);
         c.sendPacket(LoginPacket.charNameResponse(name,
                 !MapleCharacterUtil.canCreateChar(name) || LoginInformationProvider.getInstance().isForbiddenName(name)));
     }
@@ -745,7 +748,7 @@ public class CharLoginHandler {
             ps.close();
             rs.close();
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         if (c.getIdleTask() != null) {
             c.getIdleTask().cancel(true);

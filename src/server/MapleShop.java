@@ -258,7 +258,7 @@ public class MapleShop {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Could not load shop" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return ret;
     }

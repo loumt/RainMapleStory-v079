@@ -214,7 +214,7 @@ public class BuddyEntry {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             return null;
         }
     }
@@ -238,7 +238,7 @@ public class BuddyEntry {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             return null;
         }
     }

@@ -61,7 +61,7 @@ public class MapleStorage implements Serializable {
                 return storageid;
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             throw new DatabaseException("Inserting char failed.");
         }
         rs.close();
@@ -93,7 +93,7 @@ public class MapleStorage implements Serializable {
             }
         } catch (SQLException ex) {
             System.err.println("Error loading storage" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -102,7 +102,7 @@ public class MapleStorage implements Serializable {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             saveToDB(con);
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -118,7 +118,7 @@ public class MapleStorage implements Serializable {
                 ps.executeUpdate();
             } catch (SQLException e) {
                 System.err.println("Error saving storage" + e);
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
 
             List<Pair<IItem, MapleInventoryType>> listing = new ArrayList<>();
@@ -128,7 +128,7 @@ public class MapleStorage implements Serializable {
             ItemLoader.STORAGE.saveItems(listing, con, accountId);
         } catch (SQLException ex) {
             System.err.println("Error saving storage" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 

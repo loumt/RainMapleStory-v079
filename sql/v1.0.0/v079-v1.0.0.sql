@@ -359,6 +359,9 @@ CREATE TABLE `characters` (
   KEY `ranking2` (`gm`,`job`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
+ALTER  table characters ADD COLUMN  `todayOnlineTime` int(11) DEFAULT '0' COMMENT '今日在线时长';
+ALTER  table characters ADD COLUMN  `totalOnlineTime` int(11) DEFAULT '0' COMMENT '总共在线时长';
+
 -- ----------------------------
 -- Table structure for character_slots
 -- ----------------------------
@@ -396,6 +399,14 @@ CREATE TABLE `configvalues` (
   `val` tinyint(1) DEFAULT '0' COMMENT '是否开启',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动配置表';
+
+
+DROP TABLE IF EXISTS `dangerousacc`;
+CREATE TABLE `dangerousacc` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `acc` varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for csequipment
@@ -952,9 +963,9 @@ CREATE TABLE `invitecodedata` (
 DROP TABLE IF EXISTS `ipbans`;
 CREATE TABLE `ipbans` (
   `ipbanid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ip` varchar(40) NOT NULL DEFAULT '',
+  `ip` varchar(40) NOT NULL DEFAULT '' COMMENT '禁用的IP地址',
   PRIMARY KEY (`ipbanid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'IP禁用表';
 
 -- ----------------------------
 -- Table structure for ipcheck

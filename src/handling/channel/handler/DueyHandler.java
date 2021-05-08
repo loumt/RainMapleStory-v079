@@ -219,7 +219,7 @@ public class DueyHandler {
 
             return true;
         } catch (SQLException se) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             FilePrinter.printError("DueyHandler.txt", se, "addMesoToDB");
             return false;
         }
@@ -247,7 +247,7 @@ public class DueyHandler {
             return true;
         } catch (SQLException se) {
             FilePrinter.printError("DueyHandler.txt", se, "addItemToDB");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             return false;
         }
     }
@@ -270,7 +270,7 @@ public class DueyHandler {
             return packages;
         } catch (SQLException se) {
             FilePrinter.printError("DueyHandler.txt", se, "loadItems");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             return null;
         }
     }
@@ -297,7 +297,7 @@ public class DueyHandler {
             }
         } catch (SQLException se) {
             FilePrinter.printError("DueyHandler.txt", se, "loadSingleItem");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             return null;
         }
 
@@ -311,7 +311,7 @@ public class DueyHandler {
             }
         } catch (SQLException se) {
             FilePrinter.printError("DueyHandler.txt", se, "reciveMsg");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 
@@ -324,7 +324,7 @@ public class DueyHandler {
             }
         } catch (SQLException se) {
             FilePrinter.printError("DueyHandler.txt", se, "removeItemFromDB");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
     }
 

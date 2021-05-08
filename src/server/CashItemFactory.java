@@ -156,7 +156,7 @@ public class CashItemFactory {
                     rs.close();
                 }
             } catch (Exception e) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
                 e.printStackTrace();
             }
         }
@@ -179,7 +179,7 @@ public class CashItemFactory {
             rs.close();
             ps.close();
         } catch (Exception e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
     }

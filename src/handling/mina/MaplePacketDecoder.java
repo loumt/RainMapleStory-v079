@@ -86,6 +86,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                 if (ServerConfig.LOG_PACKETS) {
                     System.out.println(sb.toString());
                 }
+
                 sb.append("\r\n\r\n").append(HexTool.toString(decryptedPacket)).append("\r\n").append(HexTool.toStringFromAscii(decryptedPacket));
                 if (ServerConfig.LOG_PACKETS) {
                     FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");

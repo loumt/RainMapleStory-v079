@@ -54,9 +54,9 @@ public class DumpHairFace {
                         chrNames.put(chrid, name);
                     }
                 } catch (NullPointerException e) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
                 } catch (RuntimeException e) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
                 }
             }
             for (int key : chrNames.keySet()) {
@@ -69,7 +69,7 @@ public class DumpHairFace {
                     }
                     System.out.println("鍵值: " + key + " 名稱: " + chrNames.get(key));
                 } catch (SQLException ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                     System.out.println("保存鍵值錯誤：" + key);
                 }
             }
@@ -77,7 +77,7 @@ public class DumpHairFace {
 
         } catch (SQLException es) {
             //   e.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", es);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, es);
         }
     }
 }

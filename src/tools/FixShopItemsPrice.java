@@ -37,7 +37,7 @@ public class FixShopItemsPrice {
             ps.close();
         } catch (SQLException e) {
             System.err.println("無法載入商店");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return shopItemsId;
     }
@@ -64,7 +64,7 @@ public class FixShopItemsPrice {
             ps.close();
         } catch (SQLException e) {
             System.out.println("處理商品失敗, 道具ID:" + itemId);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 

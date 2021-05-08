@@ -50,7 +50,7 @@ public class FixDropNullItem {
             ps.close();
         } catch (SQLException e) {
             System.err.println("無法載入掉落物");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return dropid;
     }
@@ -84,7 +84,7 @@ public class FixDropNullItem {
             ps.close();
         } catch (SQLException e) {
             System.out.println("處理掉落物失敗, 道具ID:" + itemId);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 

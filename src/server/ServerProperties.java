@@ -189,7 +189,7 @@ public class ServerProperties {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             ex.printStackTrace();
             System.exit(0); //Big ass error.
         }*/

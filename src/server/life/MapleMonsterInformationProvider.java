@@ -89,7 +89,7 @@ public class MapleMonsterInformationProvider {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error retrieving drop" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             try {
                 if (ps != null) {
@@ -99,7 +99,7 @@ public class MapleMonsterInformationProvider {
                     rs.close();
                 }
             } catch (SQLException ignore) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ignore);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ignore);
             }
         }
     }
@@ -131,7 +131,7 @@ public class MapleMonsterInformationProvider {
                         rs.getShort("questid")));
             }
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return ret;
         } finally {
             try {
@@ -142,7 +142,7 @@ public class MapleMonsterInformationProvider {
                     rs.close();
                 }
             } catch (SQLException ignore) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ignore);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ignore);
                 return ret;
             }
         }
@@ -167,7 +167,7 @@ public class MapleMonsterInformationProvider {
             }
         } catch (SQLException e) {
             System.out.println("Error getDropQuest" + e);
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
         }
         return quest;
     }
@@ -190,7 +190,7 @@ public class MapleMonsterInformationProvider {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error getMobByItem" + e);
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
         } finally {
             try {
                 if (ps != null) {
@@ -201,7 +201,7 @@ public class MapleMonsterInformationProvider {
                 }
             } catch (SQLException ignore) {
                 System.out.println("Error getMobByItem" + ignore);
-                FileoutputUtil.outputFileError("logs/資料庫異常.txt", ignore);
+                FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ignore);
                 return null;
             }
         }
@@ -221,7 +221,7 @@ public class MapleMonsterInformationProvider {
             }
         } catch (SQLException e) {
             System.out.println("Error getDropChance" + e);
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
         }
         return chance;
     }

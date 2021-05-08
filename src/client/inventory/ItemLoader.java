@@ -177,7 +177,7 @@ public enum ItemLoader {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return items;
     }
@@ -186,7 +186,7 @@ public enum ItemLoader {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             saveItems(items, con, id);
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -304,7 +304,7 @@ public enum ItemLoader {
             ps.close();
         } catch (SQLException ex) {
             System.out.println(ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -326,7 +326,7 @@ public enum ItemLoader {
                 rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(ItemLoader.class.getName()).log(Level.SEVERE, null, ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         }
         return false;

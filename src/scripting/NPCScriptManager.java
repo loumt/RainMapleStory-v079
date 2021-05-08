@@ -34,6 +34,7 @@ import server.life.MapleLifeFactory;
 import server.life.MapleNPC;
 import server.quest.MapleQuest;
 import tools.FilePrinter;
+import tools.FileoutputUtil;
 
 public class NPCScriptManager extends AbstractScriptManager {
 
@@ -193,6 +194,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             if (!cms.containsKey(c) && c.canClickNPC()) {
                 final Invocable iv = getInvocable("quest/" + quest + ".js", c, true);
                 if (iv == null) {
+                    FileoutputUtil.logToFile(FileoutputUtil.Quest_Error, "\nNpc : "+ npc +" \tQuest: " + quest + " 不存在!");
                     c.getPlayer().dropMessage(1, "此任务尚未建置，请通知管理员。\r\n任务编号: " + quest);
                     dispose(c);
                     return;

@@ -140,7 +140,7 @@ public class MTSCart implements Serializable {
             }
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         //notYetSold shouldnt be saved here
     }
@@ -162,7 +162,7 @@ public class MTSCart implements Serializable {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -181,7 +181,7 @@ public class MTSCart implements Serializable {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 

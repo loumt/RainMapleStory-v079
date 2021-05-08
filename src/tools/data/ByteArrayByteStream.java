@@ -143,9 +143,9 @@ public class ByteArrayByteStream {
             nows = HexTool.toString(now);
         }
         if (b) {
-            return "全部: " + HexTool.toString(arr) + " 現在: " + nows;
+            return "全部: " + HexTool.toString(arr) + " 现在: " + nows;
         } else {
-            return "數據: " + nows;
+            return "数据: " + nows;
         }
     }
 

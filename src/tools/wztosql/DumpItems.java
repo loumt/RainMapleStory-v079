@@ -77,7 +77,7 @@ public class DumpItems {
                 }
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -87,7 +87,7 @@ public class DumpItems {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class DumpItems {
             ps.close();
             return ret;
         } catch (SQLException ex) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
             return false;
         }
     }

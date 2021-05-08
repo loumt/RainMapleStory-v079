@@ -39,6 +39,10 @@ import java.nio.charset.Charset;
  */
 public class StringUtil {
 
+    public static boolean isEmpty(CharSequence cs){
+        return (cs == null) || (cs.length() == 0);
+    }
+
     /**
      * Gets a string padded from the left to <code>length</code> by
      * <code>padchar</code>.

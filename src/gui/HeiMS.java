@@ -2845,7 +2845,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             jTable3.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -2900,7 +2900,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         }
     }//GEN-LAST:event_jButton37ActionPerformed
@@ -2963,7 +2963,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请选择你要修改的数据。");
@@ -3011,7 +3011,7 @@ public class HeiMS extends javax.swing.JFrame {
                 ps.executeUpdate();
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请输入<SN><物品名称><价格><显示><物品代码><时间><性别><数量><类型>的格式来添加。");
@@ -3063,7 +3063,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请选择你要修改的数据。");
@@ -3090,7 +3090,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请选择你要删除的物品。");
@@ -3124,7 +3124,7 @@ public class HeiMS extends javax.swing.JFrame {
                 刷新世界爆物();
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请输入<物品代码>，<物品爆率> 。");
@@ -3161,7 +3161,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             刷新怪物爆物();
         } else {
@@ -3197,7 +3197,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             jTable1.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -3247,7 +3247,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             jTable1.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -3300,7 +3300,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请选择你要修改的数据。");
@@ -3332,7 +3332,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         }
     }//GEN-LAST:event_jButton22ActionPerformed
@@ -3358,7 +3358,7 @@ public class HeiMS extends javax.swing.JFrame {
                 ps.executeUpdate();
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             JOptionPane.showMessageDialog(null, "[信息]:请输入<怪物代码><物品代码><物品爆率>的格式来添加。");
@@ -4632,7 +4632,7 @@ public class HeiMS extends javax.swing.JFrame {
 
         } catch (SQLException ex) {
             System.err.println(ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -4686,7 +4686,7 @@ public class HeiMS extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         jTable3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -4733,7 +4733,7 @@ public class HeiMS extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             jTable1.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
@@ -4775,7 +4775,7 @@ public class HeiMS extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         jTable1.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {

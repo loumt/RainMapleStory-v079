@@ -160,7 +160,7 @@ public class NPCHandler {
             return;
         }
         if (chr.getAntiMacro().inProgress()) {
-            chr.dropMessage(5, "被使用測謊儀時無法操作。");
+            chr.dropMessage(5, "被使用测谎仪时无法操作。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
@@ -200,7 +200,7 @@ public class NPCHandler {
                     q.start(chr, npc);
                 }
                 if (c.getPlayer().isAdmin()) {
-                    chr.dropMessage(6, "開始系統任務 NPC: " + npc + " Quest：" + quest);
+                    chr.dropMessage(6, "开始系统任务 NPC: " + npc + " Quest：" + quest);
                 }
                 break;
             }
@@ -214,7 +214,7 @@ public class NPCHandler {
                     q.complete(chr, npc);
                 }
                 if (c.getPlayer().isAdmin()) {
-                    chr.dropMessage(6, "完成系統任務 NPC: " + npc + " Quest: " + quest);
+                    chr.dropMessage(6, "完成系统任务 NPC: " + npc + " Quest: " + quest);
                 }
                 // c.sendPacket(MaplePacketCreator.completeQuest(c.getPlayer(), quest));
                 //c.sendPacket(MaplePacketCreator.updateQuestInfo(c.getPlayer(), quest, npc, (byte)14));
@@ -230,17 +230,17 @@ public class NPCHandler {
                 if (GameConstants.canForfeit(q.getId())) {
                     q.forfeit(chr);
                     if (c.getPlayer().isAdmin()) {
-                        chr.dropMessage(6, "放棄系統任務 Quest: " + quest);
+                        chr.dropMessage(6, "放弃系统任务 Quest: " + quest);
                     }
                 } else {
-                    chr.dropMessage(1, "你不能放棄這個任務。");
+                    chr.dropMessage(1, "你不能放弃这个任务。");
                 }
                 break;
             }
             case 4: { // Scripted Start Quest
                 final int npc = slea.readInt();
                 if (c.getPlayer().isAdmin()) {
-                    chr.dropMessage(6, "執行腳本任務 NPC：" + npc + " Quest: " + quest);
+                    chr.dropMessage(6, "执行脚本任务 NPC：" + npc + " Quest: " + quest);
                 }
                 NPCScriptManager.getInstance().startQuest(c, npc, quest);
 
@@ -252,7 +252,7 @@ public class NPCHandler {
                 c.sendPacket(MaplePacketCreator.showSpecialEffect(0xA)); // Quest completion
                 chr.getMap().broadcastMessage(chr, MaplePacketCreator.showSpecialEffect(chr.getId(), 0xA), false);
                 if (c.getPlayer().isAdmin()) {
-                    chr.dropMessage(6, "完成腳本任務 NPC：" + npc + " Quest: " + quest);
+                    chr.dropMessage(6, "完成脚本任务 NPC：" + npc + " Quest: " + quest);
                 }
                 break;
             }

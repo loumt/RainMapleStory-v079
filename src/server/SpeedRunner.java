@@ -74,7 +74,7 @@ public class SpeedRunner {
                 speedRunData.put(type, new Pair<>(ret.toString(), rett));
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 

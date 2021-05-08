@@ -318,7 +318,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         } catch (SQLException e) {
             //   e.printStackTrace();
             System.err.println("Error getting character default" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return ret;
     }
@@ -900,11 +900,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                         rs.close();
                     }
                 } catch (SQLException ignore) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ignore);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ignore);
                 }
             }
         } catch (SQLException exxx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", exxx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, exxx);
         }
         return ret;
     }
@@ -1044,12 +1044,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             con.commit();
         } catch (SQLException | DatabaseException e) {
             FilePrinter.printError("MapleCharacter.txt", e, "[角色存檔] 儲存角色資料失敗");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             try {
                 con.rollback();
             } catch (SQLException ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "[角色存檔] 儲存失敗，繼續使用暫存檔不儲存資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } finally {
             try {
@@ -1069,7 +1069,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             } catch (SQLException e) {
                 FilePrinter.printError("MapleCharacter.txt", e, "[角色存檔] 錯誤自動返回儲存功能");
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
     }
@@ -1391,7 +1391,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             retValue = 0;
             FileoutputUtil.logToFile("logs/保存角色數據出錯.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getClient().getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + getClient().getAccountName() + " 帳號ID " + getClient().getAccID() + " 角色名 " + this.getName() + " 角色ID " + this.getId());
             FilePrinter.printError("MapleCharacter.txt", e, "[角色存檔]儲存角色失敗");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             FileoutputUtil.outError("logs/保存角色數據出錯.txt", e);
             try {
                 con.rollback();
@@ -1399,7 +1399,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 FileoutputUtil.logToFile("logs/保存角色數據出錯.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getClient().getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + getClient().getAccountName() + " 帳號ID " + getClient().getAccID() + " 角色名 " + this.getName() + " 角色ID " + this.getId());
                 FileoutputUtil.outError("logs/保存角色數據出錯.txt", ex);
                 FilePrinter.printError("MapleCharacter.txt", e, "[角色存檔] 儲存失敗，繼續使用暫存檔不儲存資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } finally {
             try {
@@ -1422,7 +1422,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 FileoutputUtil.logToFile("logs/保存角色數據出錯.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getClient().getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + getClient().getAccountName() + " 帳號ID " + getClient().getAccID() + " 角色名 " + this.getName() + " 角色ID " + this.getId());
                 FilePrinter.printError("MapleCharacter.txt", es, "[角色存檔] 錯誤自動返回儲存功能");
                 FileoutputUtil.outError("logs/保存角色數據出錯.txt", es);
-                FileoutputUtil.outError("logs/資料庫異常.txt", es);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, es);
             }
 
         }
@@ -1463,14 +1463,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ItemLoader.INVENTORY.saveItems(listing, con, id);
             } catch (SQLException ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "[saveInventory]");
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } else {
             try {
                 ItemLoader.INVENTORY.saveItems(listing, id);
             } catch (SQLException ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "[saveInventory]");
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         }
     }
@@ -3935,7 +3935,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         } catch (SQLException ex) {
             System.err.println("Error while tempbanning" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
 
     }
@@ -4009,7 +4009,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret;
         } catch (SQLException ex) {
             System.err.println("Error while banning" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return false;
     }
@@ -4069,13 +4069,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         } catch (SQLException ex) {
             System.err.println("Error while banning" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             return false;
         }
         try {
             client.disconnect(true, false);
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return true;
     }
@@ -4093,7 +4093,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 id = rs.getInt("id");
             }
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         if (id == 0) {
             return false;
@@ -4155,7 +4155,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return true;
         } catch (Exception ex) {
             System.err.println("封鎖出現錯誤 " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return false;
     }
@@ -4482,7 +4482,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         } catch (SQLException e) {
             System.err.println("ERROR writing famelog for char " + getName() + " to " + to.getName() + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -4731,7 +4731,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.execute();
         } catch (SQLException se) {
             FilePrinter.printError("MapleCharacter.txt", se, "saveFamilyStatus");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
         //MapleFamily.setOfflineFamilyStatus(familyid, seniorid, junior1, junior2, currentrep, totalrep, id);
     }
@@ -4982,7 +4982,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             } catch (SQLException e) {
                 FilePrinter.printError("MapleCharcter.txt", e, "Error while retriving cooldown from SQL storage");
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
     }
@@ -5075,7 +5075,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         } catch (SQLException e) {
             FilePrinter.printError("MapleCharacter.txt", e, "Unable to show note");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -5099,7 +5099,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException e) {
             System.err.println("Unable to delete note" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -5378,7 +5378,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (Exception Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -5392,7 +5392,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             //   log.error("Error while insert bosslog.", Ex);
         }
     }
@@ -5414,7 +5414,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (Exception Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -5436,7 +5436,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -5454,7 +5454,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return money;
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -1;
         }
     }
@@ -5468,7 +5468,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -5480,7 +5480,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -5493,7 +5493,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -5514,7 +5514,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -5528,7 +5528,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -5541,7 +5541,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -5562,7 +5562,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -5584,7 +5584,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -5675,7 +5675,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return id;
         } catch (Exception e) {
             System.err.println("錯誤 'getIdByName' " + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }
@@ -7548,17 +7548,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getAcash]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getAcash");
                 System.err.println("[getAcash]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -7575,11 +7575,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[Acash]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetAcash");
             System.err.println("[setAcash]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -7614,17 +7614,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getCZJF]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getCZJF");
                 System.err.println("[getCZJF]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -7641,11 +7641,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[CZJF]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetCZJF");
             System.err.println("[setCZJF]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -7680,17 +7680,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getTGJF]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getTGJF");
                 System.err.println("[getTGJF]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -7707,11 +7707,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[TGJF]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetTGJFF");
             System.err.println("[setTGJF]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -7746,17 +7746,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getTJJF]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getTJJF");
                 System.err.println("[getTJJF]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -7773,11 +7773,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[TJJF]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetTJJFF");
             System.err.println("[setTJJF]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -7859,7 +7859,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "RemoveHired");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8017,7 +8017,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             rs.close();
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return name;
     }
@@ -8037,7 +8037,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             rs.close();
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return name;
     }
@@ -8061,7 +8061,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             rs.close();
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return id;
     }
@@ -8132,11 +8132,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         } catch (SQLException ex) {
             System.err.println("[setMP]無法連接資料庫 " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "setMP");
             System.err.println("[setMP]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8150,11 +8150,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[setMP]無法連接資料庫 " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "setMP");
             System.err.println("[setMP]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8186,16 +8186,16 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getMP] 無法連接資料庫" + SQL);
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getMP");
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -8249,7 +8249,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return vip;
     }
@@ -8299,7 +8299,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return loginkey;
     }*/
@@ -8324,7 +8324,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return serverkey;
     }*/
@@ -8349,7 +8349,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return serverkey;
     }*/
@@ -8367,7 +8367,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
         } catch (SQLException ex) {
             System.err.println("Error dangerousIp " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -8380,7 +8380,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -8390,7 +8390,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.setInt(2, accountId);
             ps.executeUpdate();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8430,7 +8430,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             }
         } catch (Exception e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
         return meso;
@@ -8447,7 +8447,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             }
         } catch (Exception e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
         return meso;
@@ -8464,7 +8464,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             }
         } catch (Exception e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             e.printStackTrace();
         }
         return meso;
@@ -8501,17 +8501,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getCSDJ]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getCSDJ");
                 System.err.println("[getCSDJ]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -8528,11 +8528,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[CSDJ]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetCSDJ");
             System.err.println("[setCSDJ]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8567,17 +8567,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getCSDJ]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getCSDJ");
                 System.err.println("[getCSDJ]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -8594,11 +8594,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[CSDJ]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetCSDJ");
             System.err.println("[setCSDJ]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }*/
     public int getQianDaoTime(String bossid) {
@@ -8619,7 +8619,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (Exception Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8641,7 +8641,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (Exception Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -8658,7 +8658,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         } catch (SQLException ex) {
             System.err.println("Error dangerousname " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -8670,7 +8670,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -8716,17 +8716,17 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getDDJF]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 FilePrinter.printError("MapleCharacter.txt", ex, "getDDJF");
                 System.err.println("[getDDJF]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -8743,11 +8743,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[DDJF]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetDDJFF");
             System.err.println("[setDDJF]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -8768,7 +8768,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -8790,7 +8790,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (SQLException Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8813,7 +8813,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (SQLException Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8835,7 +8835,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8855,7 +8855,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             rs.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8875,7 +8875,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
             return -1;
         }
     }
@@ -8898,7 +8898,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return ret_count;
         } catch (SQLException Ex) {
             //log.error("Error while read bosslog.", Ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8920,7 +8920,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8949,7 +8949,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -8961,7 +8961,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -8995,15 +8995,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 rs.close();
             } catch (SQLException SQL) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -9026,7 +9026,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -9047,7 +9047,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -9078,15 +9078,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 rs.close();
             } catch (SQLException SQL) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -9102,7 +9102,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             //   log.error("Error while insert bosslog.", Ex);
         }
     }
@@ -9116,7 +9116,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             //   log.error("Error while insert bosslog.", Ex);
         }
     }
@@ -9130,7 +9130,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             //   log.error("Error while insert bosslog.", Ex);
         }
     }
@@ -9161,15 +9161,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 rs.close();
             } catch (SQLException SQL) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -9223,16 +9223,16 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 rs.close();
             } catch (SQLException SQL) {
                 System.err.println("[getPoints]無法連接資料庫");
-                FileoutputUtil.outError("logs/資料庫異常.txt", SQL);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, SQL);
             } catch (Exception ex) {
                 System.err.println("[getPoints]" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (error) {
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                 }
             }
         } while (error && (nowtime < maxtimes));
@@ -9249,10 +9249,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
         } catch (SQLException ex) {
             System.err.println("[Points]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             System.err.println("[setPoints]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -9284,7 +9284,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return money;
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -1;
         }
     }
@@ -9300,7 +9300,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -9315,7 +9315,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
         }
     }
 
@@ -9330,9 +9330,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.execute();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -9353,7 +9353,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -9372,7 +9372,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             rs.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
             ex.getStackTrace();
         }
         return nx;
@@ -9392,7 +9392,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             rs.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
             ex.getStackTrace();
         }
         return nx;
@@ -9452,7 +9452,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.executeUpdate();
             ps.close();
         } catch (Exception Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             //   log.error("Error while insert bosslog.", Ex);
         }
     }
@@ -9473,7 +9473,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }
@@ -9601,7 +9601,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM skills WHERE characterid = ?", this.getId());
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         //int[] spToGive[10];
         int[] spToGive;

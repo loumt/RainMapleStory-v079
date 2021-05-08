@@ -194,7 +194,7 @@ public class MapleClient {
 
         } catch (SQLException e) {
             System.err.println("error loading characters internal" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return chars;
     }
@@ -239,7 +239,7 @@ public class MapleClient {
             }
         } catch (SQLException ex) {
             System.err.println("Error checking ip bans" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -257,7 +257,7 @@ public class MapleClient {
 
         } catch (SQLException ex) {
             System.err.println("Error checking ip bans" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -351,7 +351,7 @@ public class MapleClient {
 
         } catch (SQLException e) {
             System.err.println("ERROR" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         if (loginok == 0) {
             canloginpw = true;
@@ -374,7 +374,7 @@ public class MapleClient {
             }
         } catch (SQLException e) {
             FilePrinter.printError("MapleClient.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         } finally {
             try {
                 if (ps != null && !ps.isClosed()) {
@@ -384,7 +384,7 @@ public class MapleClient {
                     rs.close();
                 }
             } catch (SQLException e) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
     }
@@ -401,12 +401,12 @@ public class MapleClient {
 
             } catch (SQLException ex) {
                 FilePrinter.printError("MapleClient.txt", ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
 
             }
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
             Logger.getLogger(MapleClient.class.getName()).log(Level.SEVERE, null, ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
 
         }
     }
@@ -419,7 +419,7 @@ public class MapleClient {
             }
         } catch (SQLException e) {
             System.err.println("Error while unbanning" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -444,7 +444,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error while unbanning" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -2;
         }
         return 0;
@@ -470,7 +470,7 @@ public class MapleClient {
 
             } catch (SQLException e) {
                 System.err.println("更新登入狀態錯誤" + e);
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
             if (newstate == MapleClient.LOGIN_NOTLOGGEDIN || newstate == MapleClient.LOGIN_WAITING) {
                 loggedIn = false;
@@ -491,7 +491,7 @@ public class MapleClient {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("更新第二組密碼錯誤" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }*/
     public final void updateGender() {
@@ -502,7 +502,7 @@ public class MapleClient {
 
         } catch (SQLException e) {
             System.err.println("更新性別錯誤" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -532,7 +532,7 @@ public class MapleClient {
             return state;
         } catch (SQLException e) {
             loggedIn = false;
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             throw new DatabaseException("登入狀態獲取失敗", e);
         }
     }
@@ -765,7 +765,7 @@ public class MapleClient {
             }
         } catch (final SQLException e) {
             System.err.println("Failed in checking IP address for client.");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return sessionIP == null ? "" : sessionIP;
     }
@@ -813,7 +813,7 @@ public class MapleClient {
             ps.close();
             rs.close();
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
 
         FileoutputUtil.logToFile("Logs/Data/角色刪除.txt", FileoutputUtil.NowTime() + " 帳號: " + accountName + "(" + this.accountId + ") 角色: " + cid + " (" + name + ") IP: " + getSessionIPAddress() + " \r\n");
@@ -874,7 +874,7 @@ public class MapleClient {
             return 0;
         } catch (Exception e) {
             FilePrinter.printError("MapleCharacter.txt", e, "deleteCharacter");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return 1;
     }
@@ -913,7 +913,7 @@ public class MapleClient {
             ps.close();
 
         } catch (SQLException e) {
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
             System.err.println("error updating login state" + e);
         }
     }
@@ -1086,7 +1086,7 @@ public class MapleClient {
             return ret;
         } catch (final SQLException e) {
             System.err.println("findAccIdForCharacterName SQL error");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }
@@ -1122,11 +1122,11 @@ public class MapleClient {
         } catch (SQLException ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetVip");
             System.err.println("[vip]無法連接資料庫");
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         } catch (Exception ex) {
             FilePrinter.printError("MapleCharacter.txt", ex, "SetVip");
             System.err.println("[setvip]" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 
@@ -1191,7 +1191,7 @@ public class MapleClient {
                 }
             }
         } catch (SQLException sqlE) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", sqlE);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, sqlE);
         }
         return charslots;
     }
@@ -1210,7 +1210,7 @@ public class MapleClient {
                 ps.executeUpdate();
             }
         } catch (SQLException sqlE) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", sqlE);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, sqlE);
             return false;
         }
         return true;
@@ -1265,7 +1265,7 @@ public class MapleClient {
             }
             return ret;
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             System.err.println("Error while unbanning" + e);
             return -2;
         }
@@ -1306,7 +1306,7 @@ public class MapleClient {
             }
             return ret;
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             System.err.println("Error while unbanning" + e);
             return -2;
         }
@@ -1349,7 +1349,7 @@ public class MapleClient {
             return 0;
         } catch (SQLException e) {
             System.err.println("Error while unbanning" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -2;
         }
     }
@@ -1364,7 +1364,7 @@ public class MapleClient {
                 ret.add(rs.getInt("id"));
             }
         } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
 
         }
         return ret;
@@ -1400,7 +1400,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error banning MACs" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return false;
         }
         return true;
@@ -1426,7 +1426,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException ex) {
             System.err.println("Error checking mac bans" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -1461,7 +1461,7 @@ public class MapleClient {
             }
         } catch (SQLException ex) {
             System.err.println("Error checking mac bans" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -1489,7 +1489,7 @@ public class MapleClient {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         }
     }
@@ -1542,7 +1542,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error banning MACs" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -1560,7 +1560,7 @@ public class MapleClient {
 
         } catch (SQLException ex) {
             System.err.println("Error ipcheck " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }*/
@@ -1577,7 +1577,7 @@ public class MapleClient {
             }
         } catch (SQLException e) {
             System.err.println("error loading characters internal" + e);
-            FileoutputUtil.outputFileError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, e);
         }
         return chars;
     }
@@ -1595,7 +1595,7 @@ public class MapleClient {
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return login;
     }
@@ -1629,7 +1629,7 @@ public class MapleClient {
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return loginkey;
     }
@@ -1655,7 +1655,7 @@ public class MapleClient {
             }
 
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return serverkey;
     }
@@ -1667,7 +1667,7 @@ public class MapleClient {
             ps.setInt(2, getAccID());
             ps.executeUpdate();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -1678,7 +1678,7 @@ public class MapleClient {
             ps.setInt(2, getAccID());
             ps.executeUpdate();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -1689,7 +1689,7 @@ public class MapleClient {
             ps.setInt(2, getAccID());
             ps.executeUpdate();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -1708,7 +1708,7 @@ public class MapleClient {
 
         } catch (SQLException ex) {
             System.err.println("Error dangerousIp " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }*/
@@ -1734,7 +1734,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error while unbanning" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -2;
         }
         return 0;
@@ -1753,7 +1753,7 @@ public class MapleClient {
             }
             return ret;
         } catch (final SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }
@@ -1765,7 +1765,7 @@ public class MapleClient {
             ps.setInt(2, getAccID());
             ps.executeUpdate();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -1791,7 +1791,7 @@ public class MapleClient {
             ps.close();
         } catch (SQLException e) {
             System.err.println("Error while unbanning" + e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return -2;
         }
         return 0;
@@ -1810,7 +1810,7 @@ public class MapleClient {
             }
             return ret;
         } catch (final SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return -1;
     }
@@ -1829,7 +1829,7 @@ public class MapleClient {
 
         } catch (SQLException ex) {
             System.err.println("Error dangerousIp " + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
         return ret;
     }
@@ -1842,7 +1842,7 @@ public class MapleClient {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException Wx) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Wx);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Wx);
         }
     }
 
@@ -1863,7 +1863,7 @@ public class MapleClient {
             ps.close();
             return ret_count;
         } catch (SQLException Ex) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", Ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, Ex);
             return -1;
         }
     }

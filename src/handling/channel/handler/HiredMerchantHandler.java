@@ -100,7 +100,7 @@ public class HiredMerchantHandler {
             }
             return 0;
         } catch (SQLException se) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
             return -1;
         }
     }
@@ -273,7 +273,7 @@ public class HiredMerchantHandler {
             //   ItemLoader.HIRED_MERCHANT.saveItems(null, packageid, accid, charid);
             return true;
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return false;
         }
     }
@@ -310,7 +310,7 @@ public class HiredMerchantHandler {
             return pack;
         } catch (SQLException e) {
             e.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             return null;
         }
     }

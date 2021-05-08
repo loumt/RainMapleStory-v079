@@ -83,15 +83,15 @@ public class World {
         StringBuilder ret = new StringBuilder();
         int totalUsers = 0;
         for (ChannelServer cs : ChannelServer.getAllInstances()) {
-            ret.append("頻道 ");
+            ret.append("频道 ");
             ret.append(cs.getChannel());
             ret.append(": ");
             int channelUsers = cs.getConnectedClients();
             totalUsers += channelUsers;
             ret.append(channelUsers);
-            ret.append(" 個玩家\n");
+            ret.append(" 个玩家\n");
         }
-        ret.append("總共線上人數: ");
+        ret.append("总共上线人数: ");
         ret.append(totalUsers);
         ret.append("\n");
         return ret.toString();
@@ -184,7 +184,7 @@ public class World {
                 }
                 ps.close();
             } catch (SQLException e) {
-                FileoutputUtil.outError("logs/資料庫異常.txt", e);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
         }
 
@@ -1693,7 +1693,7 @@ public class World {
                         }
                     }
                 } catch (SQLException ex) {
-                    FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                    FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                     throw new RuntimeException("【錯誤】 請確認資料庫是否正確連接");
                 }
             }
@@ -1775,13 +1775,13 @@ public class World {
                         ps.executeUpdate();
                         ps.close();
                     } catch (SQLException ex) {
-                        FileoutputUtil.outputFileError("logs/資料庫異常.txt", ex);
+                        FileoutputUtil.outputFileError(FileoutputUtil.DataBase_Error, ex);
                     }
 
                     try (Connection con1 = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps1 = con1.prepareStatement("UPDATE characters SET todayOnlineTime = 0")) {
                         ps1.executeUpdate();
                     } catch (SQLException ex) {
-                        FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                        FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
                     }
                 }
             }

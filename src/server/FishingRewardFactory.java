@@ -96,19 +96,20 @@ public class FishingRewardFactory {
     private void loadItems() {
         rewards.clear();
         Long acc = 0L;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM 钓鱼物品 ORDER BY chance ASC"); ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int itemid = rs.getInt("itemid");
-                    int chance = rs.getInt("chance");
-                    int expirtaion = rs.getInt("expiration");
-                    acc += chance;
-                    rewards.add(new Pair<>(acc, new FishingReward(itemid, expirtaion)));
-                }
-            }
-        } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
-        }
+        System.err.println(" >>> [LMT][类][FishingRewardFactory][SELECT * FROM 钓鱼物品 ORDER BY chance ASC][没有这个库]");
+//        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+//            try (PreparedStatement ps = con.prepareStatement("SELECT * FROM 钓鱼物品 ORDER BY chance ASC"); ResultSet rs = ps.executeQuery()) {
+//                while (rs.next()) {
+//                    int itemid = rs.getInt("itemid");
+//                    int chance = rs.getInt("chance");
+//                    int expirtaion = rs.getInt("expiration");
+//                    acc += chance;
+//                    rewards.add(new Pair<>(acc, new FishingReward(itemid, expirtaion)));
+//                }
+//            }
+//        } catch (SQLException e) {
+//            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
+//        }
         total = acc;
     }
 

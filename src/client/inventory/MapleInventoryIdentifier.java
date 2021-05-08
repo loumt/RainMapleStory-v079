@@ -127,7 +127,7 @@ public class MapleInventoryIdentifier implements Serializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return ret;
     }

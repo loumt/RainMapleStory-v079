@@ -1542,7 +1542,7 @@ public class PlayerHandler {
                 }
             } catch (Exception ex) {
                 System.err.println("[handleLogout] 處理登出出錯" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             if (c != null) {
                 c.setAccID(id);

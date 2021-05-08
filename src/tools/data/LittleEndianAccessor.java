@@ -33,7 +33,7 @@ import java.io.UnsupportedEncodingException;
  * @author Frz
  * @since Revision 323
  */
-public class LittleEndianAccessor {
+public class LittleEndianAccessor{
 
     private final ByteArrayByteStream bs;
 
@@ -365,7 +365,7 @@ public class LittleEndianAccessor {
      * Get the current position of the pointer.
      *
      * @return The current position of the pointer as a long integer.
-     * @see SeekableInputStreamBytestream#getPosition
+     * @see SeekableInputStreamBytestream# getPosition
      */
     public final long getPosition() {
         return bs.getPosition();

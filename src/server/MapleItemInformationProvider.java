@@ -1608,7 +1608,7 @@ public class MapleItemInformationProvider {
                 }
             } catch (SQLException ex) {
                 System.out.println("读取发型数据失败：" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
             try {
                 try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_facedata ORDER BY `faceid`"); ResultSet rs = ps.executeQuery()) {
@@ -1619,11 +1619,11 @@ public class MapleItemInformationProvider {
                 }
             } catch (SQLException ex) {
                 System.out.println("读取脸型数据失败：" + ex);
-                FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+                FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
             }
         } catch (SQLException ex) {
             System.out.println("读取脸型数据失败：" + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 

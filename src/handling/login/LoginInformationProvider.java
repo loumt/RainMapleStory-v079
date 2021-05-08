@@ -38,6 +38,11 @@ public class LoginInformationProvider {
 
     protected LoginInformationProvider() {
         System.out.println("【读取中】 LoginInformationProvider :::");
+
+        /**
+         * 禁止的名字
+         */
+        System.out.println(" >> LoginInformationProvider >>> 加载禁止的游戏名字");
         final MapleData nameData = MapleDataProviderFactory.getDataProvider("Etc.wz").getData("ForbiddenName.img");
         for (final MapleData data : nameData.getChildren()) {
             ForbiddenName.add(MapleDataTool.getString(data));

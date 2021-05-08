@@ -75,7 +75,7 @@ public class MapleOxQuizFactory {
 
         } catch (Exception e) {
             FilePrinter.printError("MapleOxQuizEntry.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         //  System.out.print("完成\r");
         initialized = true;
@@ -89,7 +89,7 @@ public class MapleOxQuizFactory {
             }
         } catch (Exception e) {
             FilePrinter.printError("MapleOxQuizEntry.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
         return ret;
     }
@@ -137,7 +137,7 @@ public class MapleOxQuizFactory {
 
         } catch (Exception e) {
             FilePrinter.printError("MapleOxQuizEntry.txt", e);
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 

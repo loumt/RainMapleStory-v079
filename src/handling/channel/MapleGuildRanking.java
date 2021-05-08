@@ -98,7 +98,7 @@ public class MapleGuildRanking {
             rs.close();
         } catch (SQLException e) {
             System.err.println("Error handling guildRanking");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -122,7 +122,7 @@ public class MapleGuildRanking {
             rs.close();
         } catch (SQLException e) {
             System.err.println("未能顯示等級排行");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -145,7 +145,7 @@ public class MapleGuildRanking {
             rs.close();
         } catch (SQLException e) {
             System.err.println("未能顯示財產排行");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
 
@@ -188,7 +188,7 @@ public class MapleGuildRanking {
             ps.close();
             rs.close();
         } catch (SQLException e) {
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             System.err.println("未能顯示職業" + type + "排行");
         }
     }
@@ -208,7 +208,7 @@ public class MapleGuildRanking {
             rs.close();
         } catch (SQLException e) {
             System.err.println("未能捐赠排行");
-            FileoutputUtil.outError("logs/資料庫異常.txt", e);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
         }
     }
     

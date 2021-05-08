@@ -3408,7 +3408,7 @@ public abstract class AbstractPlayerInteraction {
             }
         } catch (SQLException sql) {
             System.err.println(sql);
-            FileoutputUtil.outError("logs/資料庫異常.txt", sql);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, sql);
 
         }
     }

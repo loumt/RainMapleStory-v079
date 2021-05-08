@@ -172,7 +172,7 @@ public class OnlyID {
 
         } catch (SQLException ex) {
             System.out.println("[EXCEPTION] 複製裝備出現錯誤." + ex);
-            FileoutputUtil.outError("logs/資料庫異常.txt", ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
         }
     }
 

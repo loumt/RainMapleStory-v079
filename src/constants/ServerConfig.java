@@ -28,9 +28,9 @@ public class ServerConfig {
     //public static String IP = "39.104.172.229";
     //public static String IP = "43.249.193.73";
     //联机IP地址
-    public static String IP = "103.222.188.19";
+//    public static String IP = "103.222.188.19";
     //单机IP地址
-    //public static String IP = "127.0.0.1";
+    public static String IP = "127.0.0.1";
     //public static String IP = "103.219.31.182";
 
     //public static String IP = "182.161.43.131";
@@ -62,10 +62,10 @@ public class ServerConfig {
     //public static final byte[] Gateway_IP2 = new byte[]{(byte) 39, (byte) 104, (byte) 172, (byte) 229};
     //public static final byte[] Gateway_IP = new byte[]{(byte) 43, (byte) 249, (byte) 193, (byte) 73};
     //public static final byte[] Gateway_IP2 = new byte[]{(byte) 43, (byte) 249, (byte) 193, (byte) 73};
-    public static final byte[] Gateway_IP = new byte[]{(byte) 103, (byte) 222, (byte) 188, (byte) 19};//103.222.188.19
-    public static final byte[] Gateway_IP2 = new byte[]{(byte) 103, (byte) 222, (byte) 188, (byte) 19};
-    //public static final byte[] Gateway_IP = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};//111.177.16.48
-    //public static final byte[] Gateway_IP2 = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
+//    public static final byte[] Gateway_IP = new byte[]{(byte) 103, (byte) 222, (byte) 188, (byte) 19};//103.222.188.19
+//    public static final byte[] Gateway_IP2 = new byte[]{(byte) 103, (byte) 222, (byte) 188, (byte) 19};
+    public static final byte[] Gateway_IP = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
+    public static final byte[] Gateway_IP2 = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
     //public static final byte[] Gateway_IP2 = new byte[]{(byte) 192, (byte) 168, (byte) 1, (byte) 102};
     //public static final byte[] Gateway_IP = new byte[]{(byte) 221, (byte) 231, (byte) 130, (byte) 70};
     //public static final byte[] Gateway_IP2 = new byte[]{(byte) 221, (byte) 231, (byte) 130, (byte) 70};

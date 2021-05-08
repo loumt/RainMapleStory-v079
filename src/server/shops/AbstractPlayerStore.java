@@ -203,7 +203,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
         } catch (SQLException se) {
             System.out.println("[SaveItems] 保存精靈商店出錯 - 2");
             FilePrinter.printError("AbstractPlayerStore.txt", se, "saveItems");
-            FileoutputUtil.outError("logs/資料庫異常.txt", se);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, se);
         }
         return false;
     }
