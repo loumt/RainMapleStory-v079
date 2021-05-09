@@ -38,6 +38,9 @@ import static tools.FileoutputUtil.CurrentReadable_Time;
 import tools.MacAddressTool;
 import tools.MaplePacketCreator;
 
+/**
+ * 服务端启动类
+ */
 public class Start {
 
     public static final Start instance = new Start();
@@ -46,16 +49,19 @@ public class Start {
     public static int 初始通缉令 = 0;
     public static Boolean 每日送货 = false;
 
+    /**
+     * 初始化登录状态
+     */
     private static void resetAllLoginState() {
         String name = null;
         int id = 0, vip = 0, size = 0;
 
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/资料库异常.txt", ex);
-            throw new RuntimeException("【错误】 请确认资料库是否正常连接");
-        }
+//        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
+//            ps.executeUpdate();
+//        } catch (SQLException ex) {
+//            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+//            throw new RuntimeException("【错误】 请确认资料库是否正常连接");
+//        }
         /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM characters WHERE gm = 100"); ResultSet rs = ps.executeQuery()) {
             rs.beforeFirst();
             while (rs.next()) {
@@ -119,7 +125,7 @@ public class Start {
         /**
          * 重设登录状态-这边可以写一些初始化的东西
          */
-//        resetAllLoginState();
+        resetAllLoginState();
 
         if (WorldConstants.ADMIN_ONLY) {
             System.out.println("【管理员模式】开启");

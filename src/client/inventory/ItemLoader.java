@@ -92,6 +92,10 @@ public enum ItemLoader {
         }
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            FileoutputUtil.logToFile(FileoutputUtil.Sql_Detail, "\n" + query.toString());
+            for (int i = 0; i < lulz.size(); i++) {
+                FileoutputUtil.logToFile(FileoutputUtil.Sql_Detail, "\n" + lulz.get(i));
+            }
             PreparedStatement ps = con.prepareStatement(query.toString());
             ps.setInt(1, value);
             for (int i = 0; i < lulz.size(); i++) {
@@ -177,7 +181,7 @@ public enum ItemLoader {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex , query.toString());
         }
         return items;
     }
@@ -303,8 +307,7 @@ public enum ItemLoader {
             pse.close();
             ps.close();
         } catch (SQLException ex) {
-            System.out.println(ex);
-            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex);
+            FileoutputUtil.outError(FileoutputUtil.DataBase_Error, ex , "Table: \t" + table_equip);
         }
     }
 

@@ -34,7 +34,10 @@ public class FileoutputUtil {
             Package_Handler = "logs\\Package_Handler.txt",
             Account_Create = "logs\\Account_Create.txt",
             Account_Login = "logs\\Account_Login.txt",
+            Level_Update = "logs\\Level_Update.txt",
             DataBase_Error = "logs\\DataBase_Error.txt",
+            Packet_Detail = "logs\\Packet_Detail.txt",
+            Sql_Detail = "logs\\Sql_Detail.txt",
             Quest_Error = "logs\\Quest_Error.txt",
             Disable_Ip_Account = "logs\\Disable_Ip_Account.txt",
             Disable_Mac_Account = "logs\\Disable_Mac_Account.txt",
@@ -240,6 +243,26 @@ public class FileoutputUtil {
         try {
             out = new FileOutputStream(file, true);
             out.write(("\n------------------------ " + CurrentReadable_Time() + " ------------------------\n").getBytes());
+            out.write(getString(t).getBytes());
+        } catch (IOException ess) {
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException ignore) {
+            }
+        }
+    }
+
+
+    public static void outError(final String file, final Throwable t, final String extraMsg) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file, true);
+            out.write(("\n------------------------ " + CurrentReadable_Time() + " ------------------------\n").getBytes());
+            out.write(extraMsg.getBytes());
+            out.write(("\n--------------------------------------------------------------------------------\n").getBytes());
             out.write(getString(t).getBytes());
         } catch (IOException ess) {
         } finally {

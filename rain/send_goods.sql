@@ -1,0 +1,35 @@
+INSERT INTO `rain_maple_v079`.`inventoryitems` (
+	`characterid`,
+	`accountid`,
+	`packageid`,
+	`itemid`,
+	`inventorytype`,
+	`position`,
+	`quantity`,
+	`owner`,
+	`GM_Log`,
+	`uniqueid`,
+	`flag`,
+	`expiredate`,
+	`type`,
+	`sender`,
+	`equipOnlyId`
+)
+VALUES
+	(
+		'3',
+		NULL,
+		NULL,
+		'1302085',
+		'1',
+		'3',
+		'1',
+		'',
+		NULL,
+		'-1',
+		'0',
+		'-1',
+		'0',
+		'',
+		'-1'
+	);

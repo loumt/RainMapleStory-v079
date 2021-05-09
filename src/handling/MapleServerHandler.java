@@ -379,7 +379,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 CharLoginHandler.handleDeleteCharacter(slea, c);
                 break;
             case CHAR_SELECT:
-                CharLoginHandler.handleSecectCharacter(slea, c);
+                CharLoginHandler.handleSelectCharacter(slea, c);
                 break;
             case SET_GENDER:
                 CharLoginHandler.SetGenderRequest(slea, c);
@@ -429,9 +429,15 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                         & c.getPlayer().getMapId() != 980000602
                         & c.getPlayer().getMapId() != 980000603
                         & c.getPlayer().getMapId() != 980000604) {
-                    //InterServerHandler.EnterCashShop(c, c.getPlayer(), false);
+                    /**
+                     * 进入冒险岛商城
+                     */
+//                    InterServerHandler.EnterCashShop(c, c.getPlayer(), false);
                     c.getSession().writeAndFlush(tools.MaplePacketCreator.enableActions());
-                    NPCScriptManager.getInstance().start(c, 9010000, "进入商城");
+                    /**
+                     * 用脚本代替商城
+                     */
+                    NPCScriptManager.getInstance().start(c, 9010000, "Menu");
                 } else {
                     c.getPlayer().dropMessage(5, "该地图无法进入商城。");
                 }

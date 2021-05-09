@@ -255,7 +255,12 @@ public class InterServerHandler {
         c.sendPacket(MaplePacketCreator.getCharInfo(player));
         final StringBuilder sb = new StringBuilder("[上线提示] ");
         sb.append(player.getName());
-        sb.append(" ");
+        sb.append(" [Level-");
+        sb.append(player.getLevel());
+        sb.append("]");
+        if(player.getLevel() > 100){
+            sb.append("大佬");
+        }
         sb.append("上线了大家一起欢迎他!");
         World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, sb.toString()));
         if (player.getCharacterNameById2(playerid) == null) {

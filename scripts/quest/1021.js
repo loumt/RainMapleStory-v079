@@ -23,8 +23,8 @@ function start(mode, type, selection) {
             qm.askAcceptDecline("来。。。开个小玩笑怎么样？咦！");
         } else if (status == 3) {
             if (qm.getPlayerStat("HP") >= 50) {
-                // qm.setHP(-25);
-                //qm.getPlayer().updateSingleStat(MapleStat.HP, 25);
+                qm.setHP(-25);
+                qm.getPlayer().updateSingleStat(MapleStat.HP, 25);
             }
             if (!qm.haveItem(2010007)) {
                 qm.gainItem(2010007, 1);
@@ -63,8 +63,6 @@ function end(mode, type, selection) {
             qm.gainExp(10);
             qm.gainItem(2010000, 3);
             qm.gainItem(2010009, 3);
-            //温度计
-            qm.gainItem(1402014, 1);
             //超人气王勋章
             qm.gainItem(1142003, 1);
             //铁剑一把

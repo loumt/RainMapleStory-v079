@@ -125,6 +125,9 @@ public class CharLoginHandler {
         final boolean macBan = c.hasBannedMac();
         final boolean ban = ipBan || macBan;
 
+        /**
+         * 登录判断
+         */
         int loginok = c.login(account, password, ban);
         final Calendar tempbannedTill = c.getTempBanCalendar();
         String errorInfo = null;
@@ -653,7 +656,7 @@ public class CharLoginHandler {
         c.sendPacket(LoginPacket.deleteCharResponse(characterId, state));
     }
 
-    public static final void handleSecectCharacter(final LittleEndianAccessor slea, final MapleClient c) {
+    public static final void handleSelectCharacter(final LittleEndianAccessor slea, final MapleClient c) {
         if (c.getCloseSession()) {// 多重登入
             return;
         }

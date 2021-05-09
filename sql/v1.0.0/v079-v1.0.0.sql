@@ -304,7 +304,7 @@ CREATE TABLE `characters` (
   `mp` int(5) NOT NULL DEFAULT '0',
   `maxhp` int(5) NOT NULL DEFAULT '0',
   `maxmp` int(5) NOT NULL DEFAULT '0',
-  `meso` int(11) NOT NULL DEFAULT '0',
+  `meso` int(11) NOT NULL DEFAULT '0' COMMENT '金币',
   `hpApUsed` int(5) NOT NULL DEFAULT '0',
   `job` int(5) NOT NULL DEFAULT '0',
   `skincolor` tinyint(1) NOT NULL DEFAULT '0',
@@ -357,7 +357,7 @@ CREATE TABLE `characters` (
   KEY `party` (`party`),
   KEY `ranking1` (`level`,`exp`),
   KEY `ranking2` (`gm`,`job`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT '角色表';
 
 ALTER  table characters ADD COLUMN  `todayOnlineTime` int(11) DEFAULT '0' COMMENT '今日在线时长';
 ALTER  table characters ADD COLUMN  `totalOnlineTime` int(11) DEFAULT '0' COMMENT '总共在线时长';
@@ -887,19 +887,23 @@ CREATE TABLE `inventoryequipment` (
   CONSTRAINT `inventoryequipment_ibfk_1` FOREIGN KEY (`inventoryitemid`) REFERENCES `inventoryitems` (`inventoryitemid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+ALTER  table inventoryequipment ADD COLUMN `hpRR` SMALLINT (5) NOT NULL DEFAULT '0';
+ALTER  table inventoryequipment ADD COLUMN `mpRR` SMALLINT (5) NOT NULL DEFAULT '0';
+
 -- ----------------------------
 -- Table structure for inventoryitems
 -- ----------------------------
 DROP TABLE IF EXISTS `inventoryitems`;
 CREATE TABLE `inventoryitems` (
   `inventoryitemid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `characterid` int(11) DEFAULT NULL,
+  `characterid` int(11) DEFAULT NULL COMMENT '角色ID',
   `accountid` int(10) DEFAULT NULL,
   `packageid` int(11) DEFAULT NULL,
   `itemid` int(11) NOT NULL DEFAULT '0',
-  `inventorytype` int(11) NOT NULL DEFAULT '0',
+  `inventorytype` int(11) NOT NULL DEFAULT '0' COMMENT '包裹类型, 1装备栏 2.消耗栏 3设置栏 4其他栏 5特殊栏',
   `position` int(11) NOT NULL DEFAULT '0',
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
   `owner` tinytext,
   `GM_Log` tinytext,
   `uniqueid` int(11) NOT NULL DEFAULT '-1',
@@ -913,7 +917,7 @@ CREATE TABLE `inventoryitems` (
   KEY `accountid` (`accountid`),
   KEY `packageid` (`packageid`),
   KEY `characterid_2` (`characterid`,`inventorytype`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '角色包裹数据,包里有哪些东西都在这里';
 
 -- ----------------------------
 -- Table structure for inventorylog
@@ -934,14 +938,14 @@ CREATE TABLE `inventorylog` (
 DROP TABLE IF EXISTS `inventoryslot`;
 CREATE TABLE `inventoryslot` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `characterid` int(10) unsigned DEFAULT NULL,
-  `equip` tinyint(3) unsigned DEFAULT NULL,
-  `use` tinyint(3) unsigned DEFAULT NULL,
-  `setup` tinyint(3) unsigned DEFAULT NULL,
-  `etc` tinyint(3) unsigned DEFAULT NULL,
-  `cash` tinyint(3) unsigned DEFAULT NULL,
+  `characterid` int(10) unsigned DEFAULT NULL COMMENT '角色ID',
+  `equip` tinyint(3) unsigned DEFAULT NULL COMMENT '装备栏',
+  `use` tinyint(3) unsigned DEFAULT NULL COMMENT '消耗栏',
+  `setup` tinyint(3) unsigned DEFAULT NULL COMMENT '设置栏',
+  `etc` tinyint(3) unsigned DEFAULT NULL COMMENT '其他栏',
+  `cash` tinyint(3) unsigned DEFAULT NULL COMMENT '特殊栏',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT '角色包裹表';
 
 -- ----------------------------
 -- Table structure for invitecodedata

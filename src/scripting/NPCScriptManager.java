@@ -60,14 +60,18 @@ public class NPCScriptManager extends AbstractScriptManager {
         final Lock lock = c.getNPCLock();
         lock.lock();
         try {
-            /*MapleNPC CheckNpc = MapleLifeFactory.getNPC(npc);
-            if (CheckNpc == null || CheckNpc.getName().equalsIgnoreCase("MISSINGNO")) {
-                if (c.getPlayer().isGM()) {
-                    c.getPlayer().dropMessage("NPC " + npc + " 不存在");
-                }
-                dispose(c);
-                return;
-            }*/
+            /**
+             * 检测NPC是否存在-GM
+             */
+//            MapleNPC CheckNpc = MapleLifeFactory.getNPC(npc);
+//            if (CheckNpc == null || CheckNpc.getName().equalsIgnoreCase("MISSINGNO")) {
+//                if (c.getPlayer().isGM()) {
+//                    c.getPlayer().dropMessage("NPC " + npc + " 不存在");
+//                }
+//                dispose(c);
+//                return;
+//            }
+
             if (c.getPlayer().isGM()) {
                 c.getPlayer().dropMessage("[系统提示]您已经建立与NPC:" + npc + (script == null ? "" : ("(" + script + ")")) + (mode == 0 ? "" : "型号: " + mode) + "的对话。");
             }

@@ -125,6 +125,7 @@ public class NPCHandler {
             return;
         }
         final MapleNPC npc = chr.getMap().getNPCByOid(slea.readInt());
+        FileoutputUtil.logToFile(FileoutputUtil.Packet_Detail,  "\nNPC_TALK \tnpc:" + npc.getId() + " \tname:" + npc.getName());
 
         if (npc == null) {
             return;

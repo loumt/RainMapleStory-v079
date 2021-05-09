@@ -153,8 +153,15 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             currentrep, totalrep, linkMid = 0, coconutteam = 0, followid = 0, battleshipHP = 0,
             expression, constellation, blood, month, day, beans, beansNum, beansRange,
             gachexp, combo, MSG = 0, 打怪 = 0, 吸怪 = 0, FLY_吸怪 = 0, vip, CsMod = 0;
-    private int todayOnlineTime;//在线时间
-    private int totalOnlineTime;//在线时间
+
+    /**
+     * 在线时间
+     */
+    private int todayOnlineTime;
+    /**
+     * 总在线时间
+     */
+    private int totalOnlineTime;
     private Point old = new Point(0, 0);
     private boolean smega = true, gashponmega = true, hidden, hasSummon = false, 精靈商人購買開關 = false, 玩家私聊開關 = false, 玩家密語開關 = false, 好友聊天開關 = false, 隊伍聊天開關 = false, 公會聊天開關 = false, 聯盟聊天開關 = false, GM吸怪訊息開關 = false, canSetBeansNum = false, Vip_Medal = true, auto吸怪 = false, DebugMessage = false, itemVacs = false, beansStart = false;
     private int[] wishlist, rocks, savedLocations, regrocks, remainingSp = new int[10]/*, savedHairs = new int[6], savedFaces = new int[6]*/;
@@ -3812,7 +3819,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         }
 
-        FileoutputUtil.logToFile("logs/Data/升級日誌.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getClient().getSession().remoteAddress().toString().split(":")[0] + " 帳號: " + getClient().getAccountName() + " 玩家: " + getName() + " 升級到" + level);
+        FileoutputUtil.logToFile(FileoutputUtil.Level_Update , "\r\n " + FileoutputUtil.NowTime() + " IP: " + getClient().getSession().remoteAddress().toString().split(":")[0] + " 账号: " + getClient().getAccountName() + " 玩家: " + getName() + " 升級到\t" + level);
 
         /*try {
             saveToDB(false, false);

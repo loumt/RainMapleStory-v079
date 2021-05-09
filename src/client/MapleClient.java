@@ -618,6 +618,12 @@ public class MapleClient {
         disconnect(RemoveInChannelServer, fromCS, false);
     }
 
+    /**
+     * 角色下线保存数据
+     * @param RemoveInChannelServer
+     * @param fromCS
+     * @param shutdown
+     */
     public final void disconnect(final boolean RemoveInChannelServer, final boolean fromCS, final boolean shutdown) {
         try {
             if (player != null) {
@@ -799,6 +805,9 @@ public class MapleClient {
         return ChannelServer.getInstance(channel);
     }
 
+    /**
+     * 删除数据
+     */
     public final int deleteCharacter(final int cid) {
         String name = null;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
@@ -856,6 +865,10 @@ public class MapleClient {
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM mts_items WHERE characterid = ?", cid);
             //MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM cheatlog WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM mountdata WHERE characterid = ?", cid);
+
+            /**
+             * 删除角色包裹物品
+             */
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM inventoryitems WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM famelog WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM famelog WHERE characterid_to = ?", cid);
@@ -870,6 +883,10 @@ public class MapleClient {
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM skillmacros WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM trocklocations WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM queststatus WHERE characterid = ?", cid);
+
+            /**
+             * 删除包裹
+             */
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM inventoryslot WHERE characterid = ?", cid);
             return 0;
         } catch (Exception e) {
