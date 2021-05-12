@@ -160,6 +160,10 @@ public class NPCHandler {
         if (chr == null) {
             return;
         }
+
+        /**
+         * 判断是否在测谎仪状态中
+         */
         if (chr.getAntiMacro().inProgress()) {
             chr.dropMessage(5, "被使用测谎仪时无法操作。");
             c.sendPacket(MaplePacketCreator.enableActions());
@@ -176,6 +180,7 @@ public class NPCHandler {
             }
             case 1: { // Start Quest
                 final int npc = slea.readInt();
+                FileoutputUtil.logToFile(FileoutputUtil.Packet_Detail, "\nQUEST_ACTION  Start Quest npc: " + npc + "\tquest: "+ quest + "\t QuestName:" + q.getName());
                 if (quest == 8663) {
                     if (chr.canHold()) {
                         if (chr.getAcLogS("Q8663") < 1) {

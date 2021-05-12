@@ -214,15 +214,37 @@ public class Start {
         LoginServer.setOn();
         /* 載入自訂義NPC、怪物*/
         MapleMapFactory.loadCustomLife();
-        /* 載入自訂義功能 */
-        公告(5);
-        World.GainZx(1);
-        World.GainCz(1);
-        ZaiXian(1);
+
+        /**
+         * 公告
+         */
+        if(ServerConfig.AUTO_CYCLE_BROADCAST) {
+            World.cycleBroadCast(10);
+        }
+        /**
+         * 自由市场泡点
+         */
+        World.gainRewardInZiYou(1);
+
+        /**
+         * 初始化
+         * 1.BOSS次数
+         * 2.今日在线时间清零
+         */
+        World.nextDayClearDataTask(1);
+        /**
+         * 在线时间增加
+         */
+        World.onlineTimeUpdate(1);
         //World.GainLx(3);
         //World.GainNX(60);// 每六十分鐘自動給點數
         //World.GainGash(60);
-        //World.AutoSave(5);// 每五分鐘自動存檔
+        /**
+         * 每五分钟自动存档
+         */
+        if(ServerConfig.AUTO_SAVE) {
+            World.AutoSave(5);
+        }
         //   World.ClearMemory(5 * 60);// 每小時清理記憶體
         //   WorldTimer.getInstance().register(CloseSQLConnections, 60 * 60 * 1000);// 定時清理MySql連接數
         World.isShutDown = false;
@@ -320,41 +342,6 @@ public class Start {
         } catch (Exception e) {
         }
         return result.trim();
-    }
-
-    public static void 公告(final int time) {
-        Timer.WorldTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                String 公告 = 本地取广播();
-                if (!"".equals(公告)) {
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.yellowChat("[冒险岛 帮助] " + 公告));
-                }
-            }
-        }, time * 1000 * 60);
-    }
-
-    private static int 本地取广播 = 0;
-
-    public static String 本地取广播() {
-
-        String data = "";
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM `广播信息` ORDER BY RAND() LIMIT 0,100;  ");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                data = rs.getString("广播");
-            }
-            if (本地取广播 > 0) {
-                System.err.println("[服务端]" + CurrentReadable_Time() + " : 服务端输出循环广播 √");
-            } else {
-                本地取广播++;
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("[服务端]" + CurrentReadable_Time() + " : 服务端输出循环广播 ×");
-        }
-        return data;
     }
 
     public static void 神秘商人(final int time) {
@@ -461,25 +448,4 @@ public class Start {
         }, 60 * 1000 * time
         );
     }
-
-    public void ZaiXian(int time) {
-        Timer.WorldTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-
-                for (ChannelServer cs : ChannelServer.getAllInstances()) {
-                    for (MapleCharacter chr : cs.getPlayerStorage().getAllCharacters()) {
-
-                        chr.gainTodayOnlineTime(1);
-                        chr.gainTotalOnlineTime(1);
-
-                    }
-                }
-
-            }
-        }, 60 * 1000 * time
-        );
-
-    }
-
 }

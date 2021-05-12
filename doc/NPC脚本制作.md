@@ -5,11 +5,18 @@ NPC 脚本目录
   scripts/npc/*.js
 ```
 
+
+```
+var LOVE = "~~#fEffect/CharacterEff/1082229/0/0#~~";
+```
  
  
  NPC功能制作
  
 ```
+#获得物品
+cm.gainItem(2010007, 1);
+
   #打开仓库
  cm.sendStorage();
     cm.dispose();
@@ -17,7 +24,7 @@ NPC 脚本目录
 # 获取职业
 cm.getJob()
 
-# 支付金币
+# 获得金币
  cm.gainMeso(meso);
 
 # 移动到某个地图

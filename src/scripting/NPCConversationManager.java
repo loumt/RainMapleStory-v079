@@ -116,6 +116,9 @@ import tools.SearchGenerator;
 import tools.StringUtil;
 import tools.packet.UIPacket;
 
+/**
+ * Npc 脚本函数
+ */
 public class NPCConversationManager extends AbstractPlayerInteraction {
 
     protected MapleClient c;

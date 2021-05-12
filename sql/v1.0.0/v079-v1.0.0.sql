@@ -309,7 +309,7 @@ CREATE TABLE `characters` (
   `job` int(5) NOT NULL DEFAULT '0',
   `skincolor` tinyint(1) NOT NULL DEFAULT '0',
   `gender` tinyint(1) NOT NULL DEFAULT '0',
-  `fame` int(5) NOT NULL DEFAULT '0',
+  `fame` int(5) NOT NULL DEFAULT '0' COMMENT '人气',
   `hair` int(11) NOT NULL DEFAULT '0',
   `face` int(11) NOT NULL DEFAULT '0',
   `ap` int(5) NOT NULL DEFAULT '0',
@@ -399,6 +399,14 @@ CREATE TABLE `configvalues` (
   `val` tinyint(1) DEFAULT '0' COMMENT '是否开启',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动配置表';
+
+DROP TABLE IF EXISTS `broadcast`;
+CREATE TABLE `broadcast` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL DEFAULT '',
+  `is_disable` smallint (1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '广播表';
 
 
 DROP TABLE IF EXISTS `dangerousacc`;

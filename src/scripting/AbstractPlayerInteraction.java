@@ -2020,7 +2020,11 @@ public abstract class AbstractPlayerInteraction {
         c.getChannelServer().getMapFactory().getMap(mapid).removeNpc(npcId);
     }
 
-    public static String 获取最高等级玩家名字() {
+    /**
+     * 获取最高等级玩家名字
+     * @return
+     */
+    public static String getMaxLevelCharacterName() {
         String name = "";
         String level = "";
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
@@ -3675,6 +3679,10 @@ public abstract class AbstractPlayerInteraction {
             default:
                 return false;
         }
+    }
+
+    public void levelUp(){
+        c.getPlayer().levelUp();
     }
 
     public void GainZ每日送货(String Name, int Channale, int Piot) {

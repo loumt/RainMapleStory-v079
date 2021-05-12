@@ -15,6 +15,9 @@ import tools.HexTool;
 import tools.MaplePacketCreator;
 import tools.Pair;
 
+/**
+ *  测谎仪
+ */
 public class MapleLieDetector {
 
     //public MapleCharacter chr;
@@ -37,6 +40,14 @@ public class MapleLieDetector {
         reset();
     }
 
+
+    /**
+     * 开始进行测谎
+     * @param tester
+     * @param isItem
+     * @param anotherAttempt
+     * @return
+     */
     public final boolean startLieDetector(final String tester, final boolean isItem, final boolean anotherAttempt) {
         if ((!anotherAttempt) && (((isPassed()) && (isItem)) || (inProgress()) || (this.attempt == 3))) {
             return false;

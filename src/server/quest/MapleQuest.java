@@ -174,6 +174,7 @@ public class MapleQuest implements Serializable {
         return ret;
     }
 
+
     public boolean canStart(MapleCharacter c, Integer npcid) {
         if (c.getQuest(this).getStatus() != 0 && !(c.getQuest(this).getStatus() == 2 && repeatable)) {
             return false;

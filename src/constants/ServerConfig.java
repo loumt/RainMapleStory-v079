@@ -15,6 +15,8 @@ public class ServerConfig {
     public static boolean LOG_CHAT = true;
     public static boolean LOG_MEGA = true;
     public static boolean LOG_PACKETS = false;
+    public static boolean AUTO_CYCLE_BROADCAST = true;
+    public static boolean AUTO_SAVE = true;
     public static boolean CHRLOG_PACKETS = false;
     public static boolean AUTO_REGISTER = true;
     public static boolean LOCALHOST = false;
@@ -171,6 +173,8 @@ public class ServerConfig {
         LOG_DAMAGE = ServerProperties.getProperty("server.settings.damLog", LOG_DAMAGE);
         LOG_CHAT = ServerProperties.getProperty("server.settings.chatLog", LOG_CHAT);
         LOG_PACKETS = ServerProperties.getProperty("server.settings.packetLog", LOG_PACKETS);
+        AUTO_CYCLE_BROADCAST = ServerProperties.getProperty("server.settings.autoCycleBroadcast", AUTO_CYCLE_BROADCAST);
+        AUTO_SAVE = ServerProperties.getProperty("server.settings.autoSave", AUTO_SAVE);
         AUTO_REGISTER = ServerProperties.getProperty("server.settings.autoRegister", AUTO_REGISTER);
         SERVER_NAME = ServerProperties.getProperty("server.settings.serverName", SERVER_NAME);
         DEBUG_MODE = ServerProperties.getProperty("server.settings.debug", DEBUG_MODE);

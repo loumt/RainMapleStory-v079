@@ -132,7 +132,7 @@ public class NPCScriptManager extends AbstractScriptManager {
                     c.getPlayer().dropMessage("start - setClickNPC");
                 }
                 try {
-                    iv.invokeFunction("start"); // Temporary until I've removed all of start
+                    iv.invokeFunction("start", npc); // Temporary until I've removed all of start
                     if (c.getPlayer() != null && c.getPlayer().getDebugMessage()) {
                         c.getPlayer().dropMessage("start - cms");
                     }

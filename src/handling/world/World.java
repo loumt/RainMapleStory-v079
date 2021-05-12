@@ -3,6 +3,7 @@ package handling.world;
 import client.BuddyList;
 import client.BuddyList.BuddyAddResult;
 import client.BuddyList.BuddyOperation;
+
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import client.BuddyEntry;
 import client.MapleBuffStat;
 
@@ -44,10 +46,12 @@ import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildAlliance;
 import handling.world.guild.MapleGuildCharacter;
 import handling.world.guild.MapleGuildSummary;
+
 import java.awt.Point;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Collection;
+
 import scripting.ReactorScriptManager;
 import server.MapleInventoryManipulator;
 import server.Randomizer;
@@ -64,6 +68,8 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.Pair;
 import tools.packet.PetPacket;
+
+import static tools.FileoutputUtil.CurrentReadable_Time;
 
 public class World {
 
@@ -815,7 +821,7 @@ public class World {
 
         public static void changeEmblem(int gid, int affectedPlayers, MapleGuildSummary mgs) {
             Broadcast.sendGuildPacket(affectedPlayers, MaplePacketCreator.guildEmblemChange(gid, mgs.getLogoBG(), mgs.getLogoBGColor(), mgs.getLogo(), mgs.getLogoColor()), -1, gid);
-            setGuildAndRank(affectedPlayers, -1, -1, -1);	//respawn player
+            setGuildAndRank(affectedPlayers, -1, -1, -1);    //respawn player
         }
 
         public static void setGuildAndRank(int cid, int guildid, int rank, int alliancerank) {
@@ -1532,22 +1538,21 @@ public class World {
         }, 10 * 60 * 1000, 10 * 60 * 1000);
     }
 
-    /*public static void AutoSave(int min) {
+    public static void AutoSave(int min) {
 
         Timer.EventTimer.getInstance().register(new Runnable() {
             @Override
             public void run() {
                 for (ChannelServer cs : ChannelServer.getAllInstances()) {
                     for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe()) {
-
-                        // ??
+                        System.out.println("自动存档 ： " + chr.getName());
                         if (chr == null) {
                             break;
                         }
-                        //存檔
                         if (chr.getClient().getLoginState() != 5 && chr.getTrade() == null && chr.getConversation() <= 0 && chr.getPlayerShop() == null && chr.getMap() != null) {
                             try {
-                                chr.saveToDB(false, false);
+                                int ret = chr.saveToDB(false, false);
+
                             } catch (Exception e) {
                                 FileoutputUtil.logToFile("logs/AutoSave保存數據異常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + chr.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + chr.getClient().getAccountName() + " 帳號ID " + chr.getClient().getAccID() + " 角色名 " + chr.getName() + " 角色ID " + chr.getId());
                                 FileoutputUtil.outError("logs/AutoSave保存數據異常.txt", e);
@@ -1558,7 +1563,9 @@ public class World {
                 }
             }
         }, min * 60 * 1000, min * 60 * 1000);
-    }*/
+    }
+
+
     public static void GainGash(int min) {
 
         Timer.EventTimer.getInstance().register(new Runnable() {
@@ -1721,7 +1728,36 @@ public class World {
         }
     }
 
-    public static void GainZx(int min) {
+    /**
+     * 循环公告
+     * @param time
+     */
+    public static void cycleBroadCast(final int time) {
+        Timer.WorldTimer.getInstance().register(new Runnable() {
+            @Override
+            public void run() {
+                String data = "";
+                try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+                    PreparedStatement ps = con.prepareStatement("SELECT * FROM `broadcast` ORDER BY RAND() LIMIT 1;");
+                    ResultSet rs = ps.executeQuery();
+                    if (rs.next()) {
+                        data = rs.getString("content");
+                    }
+                    ps.close();
+
+                    if (!"".equals(data)) {
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.yellowChat("[冒险岛 帮助] " + data));
+                        System.err.println("[服务端]" + CurrentReadable_Time() + " : 服务端输出循环广播 √");
+                    }
+                } catch (SQLException ex) {
+                    System.err.println("[服务端]" + CurrentReadable_Time() + " : 服务端输出循环广播 ×");
+                }
+            }
+        }, time * 1000 * 60);
+    }
+
+
+    public static void gainRewardInZiYou(int min) {
 
         Timer.WorldTimer.getInstance().register(new Runnable() {
             @Override
@@ -1755,7 +1791,7 @@ public class World {
         }, min * 60 * 1000, min * 60 * 1000);
     }
 
-    public static void GainCz(int min) {
+    public static void nextDayClearDataTask(int min) {
 
         Timer.EventTimer.getInstance().register(new Runnable() {
             @Override
@@ -1786,5 +1822,21 @@ public class World {
                 }
             }
         }, min * 60 * 1000, min * 60 * 1000);
+    }
+
+
+    public static void onlineTimeUpdate(int time) {
+        Timer.WorldTimer.getInstance().register(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        for (ChannelServer cs : ChannelServer.getAllInstances()) {
+                                                            for (MapleCharacter chr : cs.getPlayerStorage().getAllCharacters()) {
+                                                                chr.gainTodayOnlineTime(1);
+                                                                chr.gainTotalOnlineTime(1);
+                                                            }
+                                                        }
+                                                    }
+                                                }, 60 * 1000 * time
+        );
     }
 }
