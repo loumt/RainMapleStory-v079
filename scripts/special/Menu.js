@@ -1,7 +1,8 @@
 var icon = "#fEffect/CharacterEff/1112900/1/0#";
 var head = "#fEffect/CharacterEff/1082229/0/0#";
 
-var ziyouSelector = 0;
+var ziYouSelector = 0;
+var ziYouMap = 910000000;
 
 var townSelector = 1;
 var townMaps = Array(
@@ -78,6 +79,7 @@ var selects = 0;
 var selectType;
 
 function start() {
+    cm.getPlayer().dropMessage("地图ID:" + cm.getMapId());
     status = -1;
     action(1, 0);
 }
@@ -97,17 +99,17 @@ function action(mode, type, selection) {
             cm.dispose();
         } else if (status == 0) {
             var content = "这里可以连接到各个地方：\r";
-            content += "\n#L" + ziyouSelector + "# " + head + " 自由市场 ";
+            content += "\n#L" + ziYouSelector + "# " + head + " 自由市场 ";
             content += "\n#L" + townSelector + "# " + head + " 城镇地图 ";
             content += "\n#L" + updateLevelSelector + "# " + head + " 升级地图 ";
-            content += "\n#L" + arriveSelector + "# " + head + " 旅游地图 ";
-            content += "\r\n#L" + bossSelector + "# " + head + " BOSS地图 ";
+            content += "\r\n#L" + arriveSelector + "# " + head + " 旅游地图 ";
+            content += "\n#L" + bossSelector + "# " + head + " BOSS地图 ";
             cm.sendSimple(content)
         } else if (status == 1) {
             var content = "请选择你要接连的地方：\r\n#b"
 
-            if(selection == ziyouSelector){
-                cm.warp(910000000);
+            if(selection === ziYouSelector){
+                cm.warp(ziYouMap);
                 cm.dispose();
                 return;
             }
@@ -144,20 +146,29 @@ function action(mode, type, selection) {
             cm.sendYesNo("在这里的事情办完了吗？确定要去你像要去的地方了吗？");
         } else if (status == 3) {
             switch (selectType) {
-                case 0:
+                case townSelector:
                     cm.warp(townMaps[selects]);
+                    toMapDropMessage(townMaps[selects]);
                     break;
-                case 1:
+                case updateLevelSelector:
                     cm.warp(updateLevelMaps[selects][0]);
+                    toMapDropMessage(updateLevelMaps[selects][0]);
                     break;
-                case 2:
+                case arriveSelector:
                     cm.warp(arriveMaps[selects]);
+                    toMapDropMessage(arriveMaps[selects]);
                     break;
-                case 3:
+                case bossSelector:
                     cm.warp(bossMaps[selects]);
+                    toMapDropMessage(bossMaps[selects]);
                     break;
             }
             cm.dispose();
         }
     }
+}
+
+
+function toMapDropMessage(mapId){
+    cm.getPlayer().dropMessage('=>' + mapId);
 }

@@ -469,7 +469,7 @@ public class MapleClient {
                 ps.executeUpdate();
 
             } catch (SQLException e) {
-                System.err.println("更新登入狀態錯誤" + e);
+                System.err.println("更新登录状态失败" + e);
                 FileoutputUtil.outError(FileoutputUtil.DataBase_Error, e);
             }
             if (newstate == MapleClient.LOGIN_NOTLOGGEDIN || newstate == MapleClient.LOGIN_WAITING) {

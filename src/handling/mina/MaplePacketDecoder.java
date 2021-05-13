@@ -23,6 +23,7 @@ package handling.mina;
 import client.MapleClient;
 import constants.ServerConfig;
 import handling.RecvPacketOpcode;
+import handling.SendPacketOpcode;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -83,7 +84,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
                 final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包头:" + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字节]");
-                if (ServerConfig.LOG_PACKETS) {
+                if (ServerConfig.LOG_PACKETS && !isFilterOpCode2Log(op)) {
                     System.out.println(sb.toString());
                 }
 
@@ -97,5 +98,16 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                 }
             }
         }
+    }
+
+    /**
+     * 接收日志屏蔽
+     * 屏蔽对应指令
+     * @param op
+     * @return
+     */
+    private boolean isFilterOpCode2Log(String op){
+        return RecvPacketOpcode.MOVE_PLAYER.name().equals(op)||
+                RecvPacketOpcode.MOVE_LIFE.name().equals(op);
     }
 }

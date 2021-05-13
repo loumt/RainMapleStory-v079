@@ -22,6 +22,7 @@ package handling.mina;
 
 import client.MapleClient;
 import constants.ServerConfig;
+import handling.RecvPacketOpcode;
 import handling.SendPacketOpcode;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -62,7 +63,7 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
                 final StringBuilder sb = new StringBuilder("[发送]\t" + op + tab + "\t包头:" + pHeaderStr + t + "[" + packetLen/* + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2] */ + "字元]");
-                if (ServerConfig.LOG_PACKETS) {
+                if (ServerConfig.LOG_PACKETS && !isFilterOpCode2Log(op)) {
                     System.out.println(sb.toString());
                 }
                 sb.append("\r\n\r\n").append(HexTool.toString((byte[]) message)).append("\r\n").append(HexTool.toStringFromAscii((byte[]) message));
@@ -108,5 +109,16 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
             }*/
             buffer.writeBytes(input);
         }
+    }
+
+    /**
+     * 发送日志屏蔽
+     * 屏蔽对应指令
+     * @param op
+     * @return
+     */
+    private boolean isFilterOpCode2Log(String op){
+        return SendPacketOpcode.MOVE_MONSTER.name().equals(op) ||
+                SendPacketOpcode.MOVE_MONSTER_RESPONSE.name().equals(op);
     }
 }

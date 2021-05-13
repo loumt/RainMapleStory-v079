@@ -2712,7 +2712,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!龙王地图重製 <频道> - 重製龙王地图").toString();
+            return new StringBuilder().append("!龙王地图重置 <频道> - 重置龙王地图").toString();
         }
     }
 
@@ -2796,13 +2796,13 @@ public class GMCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().dropMessage("开始查询複製装备....");
             OnlyID.getInstance().StartCheckings();
-            c.getPlayer().dropMessage("複製装备查询完毕");
+            c.getPlayer().dropMessage("复制装备查询完毕");
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!查询洗道具 - 查询複製的道具").toString();
+            return new StringBuilder().append("!查询洗道具 - 查询复制的道具").toString();
         }
     }
 
@@ -2812,7 +2812,7 @@ public class GMCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             List<Triple<Integer, Long, Long>> OnlyIDList = OnlyID.getData();
             if (OnlyIDList.isEmpty()) {
-                c.getPlayer().dropMessage("目前没有複製装备的资料，请暑促互 !查询洗道具 来获得资料");
+                c.getPlayer().dropMessage("目前没有复制装备的资料 !查询洗道具 来获得资料");
                 return true;
             }
             try {
@@ -2869,9 +2869,9 @@ public class GMCommand {
                     ps.executeUpdate();
                 }
 
-                String msgtext = "玩家ID: " + chr + " 在玩家道具中发现複製装备[" + itemname + "]已经将其删除。";
+                String msgtext = "玩家ID: " + chr + " 在玩家道具中发现复制装备[" + itemname + "]已经将其删除。";
                 World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + msgtext));
-                FileoutputUtil.logToFile("Hack/複製装备_已删除.txt", msgtext + " 道具唯一ID: " + equiponlyid);
+                FileoutputUtil.logToFile("Hack/复制装备_已删除.txt", msgtext + " 道具唯一ID: " + equiponlyid);
 
             } catch (Exception ex) {
                 FileoutputUtil.outError("logs/资料库异常.txt", ex);
@@ -2881,7 +2881,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!处理洗道具 - 处理複製装备").toString();
+            return new StringBuilder().append("!处理洗道具 - 处理复制装备").toString();
         }
     }
 

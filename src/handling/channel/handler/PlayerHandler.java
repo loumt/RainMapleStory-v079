@@ -1262,7 +1262,8 @@ public class PlayerHandler {
             final int targetid = slea.readInt(); // FF FF FF FF
             MaplePortal portal = null;
             try {
-                portal = chr.getMap().getPortal(slea.readMapleAsciiString());
+                String mapId = slea.readMapleAsciiString();
+                portal = chr.getMap().getPortal(mapId);
             } catch (Exception ex) {
 
             }

@@ -21,12 +21,14 @@
 package server.maps;
 
 import java.awt.Point;
+import java.io.File;
 
 import client.MapleClient;
 import client.anticheat.CheatingOffense;
 import handling.channel.ChannelServer;
 import scripting.PortalScriptManager;
 import server.MaplePortal;
+import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 
 public class MapleGenericPortal implements MaplePortal {
@@ -118,7 +120,7 @@ public class MapleGenericPortal implements MaplePortal {
                 final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(getTargetMapId());
                 if (!c.getPlayer().isGM()) {
                     if (to.getLevelLimit() > 0 && to.getLevelLimit() > c.getPlayer().getLevel()) {
-                        c.getPlayer().dropMessage(-1, "You are too low of a level to enter this place.");
+                        c.getPlayer().dropMessage(-1, "进入该地图,你的等级太低了.");
                         c.sendPacket(MaplePacketCreator.enableActions());
                         return;
                     }
@@ -128,6 +130,7 @@ public class MapleGenericPortal implements MaplePortal {
                     //    return;
                     //}
                 }
+                FileoutputUtil.logToFile(FileoutputUtil.ChangeMap,  "\r\n" + c.getPlayer().getName() + "Map["+ c.getPlayer().getMap().getMapName() +"] => " + to.getMapName());
                 c.getPlayer().changeMapPortal(to, to.getPortal(getTarget()) == null ? to.getPortal(0) : to.getPortal(getTarget())); //late resolving makes this harder but prevents us from loading the whole world at once
             }
         }

@@ -21,6 +21,8 @@
 package handling;
 
 import constants.ServerConstants;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
@@ -73,7 +75,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         blocked.addAll(Arrays.asList(block));
     }
 
-    /*private static class LoggedPacket {
+    private static class LoggedPacket {
 
         private static final String nl = System.getProperty("line.separator");
         private String ip, accName, accId, chrName;
@@ -103,29 +105,31 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             sb.append(" [Data: ").append(packet.toString()).append(']');
             return sb.toString();
         }
-    }*/
+    }
+
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
 
-        /*try {
-            if (cause.getMessage() != null) {
-                System.err.println("[異常信息] " + cause.getMessage());
-            }
-            if ((!(cause instanceof IOException))) {
-                MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-                if ((client != null) && (client.getPlayer() != null)) {
-                    try {
-                        client.getPlayer().saveToDB(false, channel == MapleServerHandler.CASH_SHOP_SERVER);
-                    } catch (Exception eex) {
-                        FileoutputUtil.logToFile("logs/異常拋出保存數據異常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + client.getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + client.getAccountName() + " 帳號ID " + client.getAccID() + " 角色名 " + client.getPlayer().getName() + " 角色ID " + client.getPlayer().getId());
-                        FileoutputUtil.outError("logs/異常拋出保存數據異常.txt", eex);
-                    }
-                    FileoutputUtil.printError("logs/發現異常.txt", cause, "發現異常 by: 玩家:" + client.getPlayer().getName() + " 職業:" + client.getPlayer().getJob() + " 地圖:" + client.getPlayer().getMap().getMapName() + " - " + client.getPlayer().getMapId());
-                }
-            }
-        } catch (Exception e) {
-            FileoutputUtil.outError("logs/異常撲捉.txt", e);
-        }*/
+//        try {
+//            if (cause.getMessage() != null) {
+//                System.err.println("[异常信息] " + cause.getMessage());
+//            }
+//
+//            if ((!(cause instanceof IOException))) {
+//                MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+//                if ((client != null) && (client.getPlayer() != null)) {
+//                    try {
+//                        client.getPlayer().saveToDB(false, channel == MapleServerHandler.CASH_SHOP_SERVER);
+//                    } catch (Exception eex) {
+//                        FileoutputUtil.logToFile(FileoutputUtil.SaveToDB, "\r\n " + FileoutputUtil.NowTime() + " IP: " + client.getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + client.getAccountName() + " 帳號ID " + client.getAccID() + " 角色名 " + client.getPlayer().getName() + " 角色ID " + client.getPlayer().getId());
+//                        FileoutputUtil.outError(FileoutputUtil.SaveToDB, eex);
+//                    }
+//                    FileoutputUtil.printError("logs/發現異常.txt", cause, "發現異常 by: 玩家:" + client.getPlayer().getName() + " 職業:" + client.getPlayer().getJob() + " 地圖:" + client.getPlayer().getMap().getMapName() + " - " + client.getPlayer().getMapId());
+//                }
+//            }
+//        } catch (Exception e) {
+//            FileoutputUtil.outError("logs/異常撲捉.txt", e);
+//        }
     }
 
     @Override
@@ -305,7 +309,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         }
         if (ServerConfig.LOG_PACKETS) {
             final byte[] packet = slea.read((int) slea.available());
-            final StringBuilder sb = new StringBuilder("發現未知用戶端數據包 - (包頭:0x" + Integer.toHexString(header_num) + ")");
+            final StringBuilder sb = new StringBuilder("发现未知用户端数据包 - (包头:0x" + Integer.toHexString(header_num) + ")");
             System.err.println(sb.toString());
             sb.append(":\r\n").append(HexTool.toString(packet)).append("\r\n").append(HexTool.toStringFromAscii(packet));
             FileoutputUtil.log(FileoutputUtil.UnknownPacket_Log, sb.toString());
@@ -320,7 +324,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             client.sendPing();
         } else {
             ctx.channel().close();
-            System.out.println("netty檢測心跳掉線。");
+            System.out.println("netty检测心跳掉线。");
         }
         super.userEventTriggered(ctx, status);
     }
@@ -336,7 +340,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
     public static final void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
         switch (header) {
             case CLIENT_LOGOUT:
-                //PlayerHandler.handleLogout(slea, c);
+                PlayerHandler.handleLogout(slea, c);
                 break;
             case PONG:
                 c.pongReceived();
@@ -444,7 +448,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 break;
             case ENTER_MTS:
                 if (c.getPlayer().getMapId() == 910010300 || c.getPlayer().getMapId() == 910010100 || ((c.getPlayer().getMapId() > 211060000) && (c.getPlayer().getMapId() <= 211061000))) {
-                    c.getPlayer().dropMessage(5, "該地圖無法使用拍賣功能。");
+                    c.getPlayer().dropMessage(5, "该地图无法使用拍卖功能。");
                 } else {
                     c.getSession().writeAndFlush(tools.MaplePacketCreator.enableActions());
                     //NPCScriptManager.getInstance().start(c, 9900004);
@@ -999,7 +1003,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 CharLoginHandler.LicenseRequest(slea, c);
                 break;
             default:
-                //System.err.println("[發現未處理數據包] Recv [" + header.toString() + "]");
+                System.out.println("[未经处理的] 客户端包 [" + header.toString() + "] 发现了");
                 break;
         }
     }
