@@ -1676,16 +1676,16 @@ CREATE TABLE `wz_customlife` (
   `f` int(11) NOT NULL,
   `hide` tinyint(1) NOT NULL DEFAULT '0',
   `fh` int(11) NOT NULL,
-  `type` varchar(1) NOT NULL,
+  `type` varchar(1) NOT NULL COMMENT 'n:NPC m:monster怪物',
   `cy` int(11) NOT NULL,
   `rx0` int(11) NOT NULL,
   `rx1` int(11) NOT NULL,
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `mobtime` int(11) DEFAULT '1000',
-  `mid` int(11) NOT NULL,
+  `mid` int(11) NOT NULL COMMENT '地图ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COMMENT '地图下怪物/NPC';
 
 -- ----------------------------
 -- Table structure for wz_mobskilldata
