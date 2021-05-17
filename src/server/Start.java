@@ -245,6 +245,7 @@ public class Start {
         if(ServerConfig.AUTO_SAVE) {
             World.AutoSave(5);
         }
+
         //   World.ClearMemory(5 * 60);// 每小時清理記憶體
         //   WorldTimer.getInstance().register(CloseSQLConnections, 60 * 60 * 1000);// 定時清理MySql連接數
         World.isShutDown = false;

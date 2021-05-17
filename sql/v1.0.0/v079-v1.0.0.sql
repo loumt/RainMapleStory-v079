@@ -37,11 +37,11 @@ CREATE TABLE `accounts` (
   `macs` tinytext,
   `tempban` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `greason` tinyint(4) unsigned DEFAULT NULL,
-  `ACash` int(11) DEFAULT '0',
-  `mPoints` int(11) DEFAULT NULL,
+  `ACash` int(11) DEFAULT '0' COMMENT '点券数',
+  `mPoints` int(11) DEFAULT NULL COMMENT '枫叶点数',
   `gender` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `SessionIP` varchar(64) DEFAULT NULL,
-  `points` int(11) NOT NULL DEFAULT '0',
+  `points` int(11) NOT NULL DEFAULT '0' COMMENT '红利',
   `vpoints` int(11) NOT NULL DEFAULT '0',
   `lastlogon` timestamp NULL DEFAULT NULL,
   `facebook_id` varchar(255) DEFAULT NULL,
@@ -1672,6 +1672,7 @@ CREATE TABLE `wishlist` (
 DROP TABLE IF EXISTS `wz_customlife`;
 CREATE TABLE `wz_customlife` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255)  CHARACTER SET utf8 DEFAULT NULL COMMENT '名-暂无用',
   `dataid` int(11) NOT NULL,
   `f` int(11) NOT NULL,
   `hide` tinyint(1) NOT NULL DEFAULT '0',
@@ -1684,8 +1685,11 @@ CREATE TABLE `wz_customlife` (
   `y` int(11) NOT NULL,
   `mobtime` int(11) DEFAULT '1000',
   `mid` int(11) NOT NULL COMMENT '地图ID',
+  `is_delete` TINYINT(1) DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1 COMMENT '地图下怪物/NPC';
+
+ALTER TABLE wz_customlife add COLUMN `remark` VARCHAR(255) CHARACTER SET utf8 DEFAULT null COMMENT '备注';
 
 -- ----------------------------
 -- Table structure for wz_mobskilldata
@@ -1844,3 +1848,15 @@ CREATE TABLE `zaksquads` (
   `members` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+-- ----------------------------
+-- Table structure for `wz_skill`
+-- ----------------------------
+DROP TABLE IF EXISTS `wz_skill`;
+CREATE TABLE `wz_skill` (
+  `id` int(15) NOT NULL DEFAULT '0',
+  `name` tinytext CHARACTER SET gbk,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;

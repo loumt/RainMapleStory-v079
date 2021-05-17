@@ -56,13 +56,13 @@ public class ServerConstants {
 
     public static enum PlayerGMRank {
 
-        普通玩家(0),
+        NORMAL_PLAYER(0),
         新實習生(1),
         老實習生(2),
         巡邏者(3),
         領導者(4),
         超級管理員(5),
-        神(100);
+        God(100);
         private final char commandPrefix;
         private final int level;
 

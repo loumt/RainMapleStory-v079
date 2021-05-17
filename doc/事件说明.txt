@@ -1,0 +1,77 @@
+2xEvent 双倍活动
+AliantSystem 阿里安特竞技场
+Aufhaven 生化魔女欧碧拉 - 单人副本
+BeidlerPQ 贝勒德
+Boats 玩具城\魔法密林船
+BossArkarium_EASY BOSS阿卡伊勒 [简单]
+BossArkarium_NORMAL BOSS阿卡伊勒 [普通]
+BossBalrog_EASY 巨大蝙蝠怪简单
+BossBalrog_NORMAL 巨大蝙蝠怪困难
+BossBanban_CHAOS 进阶半半
+BossBanban_NORMAL 半半
+BossBelen_CHAOS 进阶贝伦 
+BossBelen_NORMAL 贝伦 
+BossBloody_CHAOS 进阶血腥女王
+BossBloody_NORMAL 血腥女王 
+BossDMA_HARD 戴米安
+BossFairyQueen 妖精女王-艾菲尼娅
+BossHillah_HARD 希拉
+BossHillah_NORMAL 希拉[简单]
+BossKrexel 克雷塞尔
+BossMagnus_EASY 麦格纳斯[简单] 
+BossMagnus_HARD 麦格纳斯
+BossMagnus_NORMAL 麦格纳斯[普通]
+BossPierre_CHAOS 进阶皮埃尔
+BossPierre_NORMAL 皮埃尔
+BossPrincessNoPQ 浓姬副本
+BossQuestEASY BOSS竞技场[简单]
+BossQuestHARD BOSS竞技场[普通]
+BossQuestHELL BOSS竞技场[困难]
+BossQuestMed BOSS竞技场[超难]
+BossRanmaru_HARD 森兰丸
+BossRanmaru_NORMAL 森兰丸[困难]
+BossRig_HARD 钻机
+BossRig_NORMAL 钻机[困难]
+BossShinas 希纳斯
+BossSiwu_HARD 斯乌
+BossSiwu_NORMAL 斯乌[困难]
+BossVonLeon_EASY 狮子王 简单
+BossVonLeon_NORMAL 狮子王 困难
+BossZakum_CHAOS 进阶扎昆
+BossZakum_EASY 简单扎昆
+BossZakum_NORMAL 普通扎昆
+ChaosHorntail 进阶暗黑龙王
+ChaosPinkBean 混沌品克缤
+DollHouse 玩具城之家
+Dragonica 组队任务：御魔龙
+Dunas 都纳斯
+Dunas2 都纳斯
+Ellin 毒雾森林
+EventTip 活动开始时间提示
+Flight 天空之城-神木村 船
+Geenie 阿里安特机场
+Ghost 幽灵船组队任务
+HenesysPQ 月秒组队任务
+HorntailBattle 暗黑龙王
+Iceman 组队任务：冰骑士
+Juliet 组队任务：朱丽叶
+Kenta 组队任务：陷入危机的坎特
+KerningPQ 组队任务：废弃都市
+LudiPQ 组队任务：玩具城101曙光女神塔
+MonsterPark 怪物公园
+NamelessMagicMonster 努克斯
+OrbisPQ 天空之城组队任务
+Paodian 泡点
+PinkBeanBattle 品克缤
+Pirate 海盗
+Populatus 帕普拉图斯
+Prison 组队任务:监狱逃脱
+ProtectTylus 组队任务:守卫泰勒斯
+Rex 组队任务：侏儒怪皇帝的复活
+Romeo 组队任务：罗密欧
+ScarTarBattle 暴力熊
+ServerMessage 系统公告(游戏帮助)
+ShenmlyBoss 神秘炼狱BOSS
+Subway 废弃都市地铁
+Trains 天空之城_玩具城飞船
+ZakumPQ 扎昆前置任务

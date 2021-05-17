@@ -107,16 +107,28 @@ public class CommandProcessor {
 
     }
 
+    /**
+     * 玩家指令处理
+     * @param c
+     * @param line
+     * @param type
+     * @return
+     */
     public static boolean processCommand(MapleClient c, String line, CommandType type) {
         if (c != null) {
+            System.out.println("玩家指令:" + line + " 玩家类型：" + c.getPlayer().getGMLevel());
             char commandPrefix = line.charAt(0);
             for (PlayerGMRank prefix : PlayerGMRank.values()) {
                 if (line.startsWith(String.valueOf(prefix.getCommandPrefix() + prefix.getCommandPrefix()))) {
                     return false;
                 }
             }
-            // 偵測玩家指令
-            if (commandPrefix == PlayerGMRank.普通玩家.getCommandPrefix()) {
+
+            /**
+             * 普通玩家类型 @*
+             * gm=0
+             */
+            if (commandPrefix == PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()) {
                 String[] splitted = line.split(" ");
                 splitted[0] = splitted[0].toLowerCase();
 
@@ -142,7 +154,7 @@ public class CommandProcessor {
 
                 }
                 return true;
-            } else if (c.getPlayer().getGMLevel() > PlayerGMRank.普通玩家.getLevel()) {
+            } else if (c.getPlayer().getGMLevel() > PlayerGMRank.NORMAL_PLAYER.getLevel()) {
 
                 String[] splitted = line.split(" ");
                 splitted[0] = splitted[0].toLowerCase();
@@ -223,7 +235,6 @@ public class CommandProcessor {
                         return true;
                     }
 
-                    // 開始處理指令(GM區)
                     if (c.getPlayer() != null) {
                         boolean ret = false;
                         try {
@@ -362,9 +373,11 @@ public class CommandProcessor {
                                 enabled = true; //Enable all coded commands by default.
                             }
                             if (o instanceof CommandExecute && enabled) {
-                                cL.add(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase());
-                                commands.put(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase(), new CommandObject(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase(), (CommandExecute) o, rankNeeded.getLevel()));
-                                showcommands.add(rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase());
+                                String command = rankNeeded.getCommandPrefix() + c.getSimpleName().toLowerCase();
+                                System.out.println("Command: " + command);
+                                cL.add(command);
+                                commands.put(command, new CommandObject(command, (CommandExecute) o, rankNeeded.getLevel()));
+                                showcommands.add(command);
                             }
                         }
                     } catch (InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException ex) {

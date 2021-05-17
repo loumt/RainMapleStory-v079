@@ -45,7 +45,7 @@ import tools.Pair;
 public class PlayerCommand {
 
     public static PlayerGMRank getPlayerLevelRequired() {
-        return ServerConstants.PlayerGMRank.普通玩家;
+        return ServerConstants.PlayerGMRank.NORMAL_PLAYER;
     }
     
         public static class STR extends DistributeStatCommands {
@@ -56,7 +56,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(ServerConstants.PlayerGMRank.普通玩家.getCommandPrefix()).append("STR - STR").toString();
+            return new StringBuilder().append(ServerConstants.PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()).append("STR - STR").toString();
         }
     }
 
@@ -68,7 +68,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(ServerConstants.PlayerGMRank.普通玩家.getCommandPrefix()).append("DEX - DEX").toString();
+            return new StringBuilder().append(ServerConstants.PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()).append("DEX - DEX").toString();
         }
     }
 
@@ -80,7 +80,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(ServerConstants.PlayerGMRank.普通玩家.getCommandPrefix()).append("INT - INT").toString();
+            return new StringBuilder().append(ServerConstants.PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()).append("INT - INT").toString();
         }
     }
 
@@ -92,7 +92,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(ServerConstants.PlayerGMRank.普通玩家.getCommandPrefix()).append("LUK - LUK").toString();
+            return new StringBuilder().append(ServerConstants.PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()).append("LUK - LUK").toString();
         }
     }
 
@@ -1257,7 +1257,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(ServerConstants.PlayerGMRank.普通玩家.getCommandPrefix()).append("全局爆物 [全局爆物]").toString();
+            return new StringBuilder().append(ServerConstants.PlayerGMRank.NORMAL_PLAYER.getCommandPrefix()).append("全局爆物 [全局爆物]").toString();
         }
     }
 }

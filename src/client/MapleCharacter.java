@@ -4764,7 +4764,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 int Acash = getAcash();
                 if (Acash + quantity < 0) {
                     if (show) {
-                        dropMessage(5, "目前GASH點數已滿，無法獲得更多的GASH點數");
+                        dropMessage(5, "目前点券数已满，无法获得更多的点券数.");
                     }
                     return;
                 }
@@ -4773,7 +4773,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             case 2:
                 if (maplepoints + quantity < 0) {
                     if (show) {
-                        dropMessage(5, "目前楓葉點數已滿，無法獲得更多的楓葉點數.");
+                        dropMessage(5, "目前枫叶数已满，无法获得更多的枫叶数.");
                     }
                     return;
                 }
@@ -4784,7 +4784,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 int Points = getPoints();
                 if (Points + quantity < 0) {
                     if (show) {
-                        dropMessage(5, "目前紅利點數已滿，無法獲得更多的紅利點數");
+                        dropMessage(5, "目前紅利数已满，无法获得更多的紅利数.");
                     }
                     return;
                 }
@@ -6737,7 +6737,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public boolean isStaff() {
-        return this.gmLevel > ServerConstants.PlayerGMRank.普通玩家.getLevel();
+        return this.gmLevel > ServerConstants.PlayerGMRank.NORMAL_PLAYER.getLevel();
     }
 
     // TODO: gvup, vic, lose, draw, VR

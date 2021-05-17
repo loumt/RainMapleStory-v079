@@ -19,7 +19,7 @@ import constants.ServerConstants.PlayerGMRank;
 public class GodCommand {
 
     public static PlayerGMRank getPlayerLevelRequired() {
-        return PlayerGMRank.神;
+        return PlayerGMRank.God;
     }
 
     public static class MinStats extends CommandExecute {

@@ -1109,7 +1109,7 @@ public class MapleClient {
     }
 
     public boolean isGm() {
-        return gmLevel > PlayerGMRank.普通玩家.getLevel();
+        return gmLevel > PlayerGMRank.NORMAL_PLAYER.getLevel();
     }
 
     public boolean isSuperGM() {
@@ -1117,7 +1117,7 @@ public class MapleClient {
     }
 
     public boolean isGod() {
-        return gmLevel >= PlayerGMRank.神.getLevel();
+        return gmLevel >= PlayerGMRank.God.getLevel();
     }
 
     public int getGmLevel() {

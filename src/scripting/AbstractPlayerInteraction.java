@@ -308,6 +308,9 @@ public abstract class AbstractPlayerInteraction {
         getClient().getPlayer().getMap().killMonster(ids);
     }
 
+    /**
+     * 杀死所有怪物
+     */
     public final void killAllMob() {
         getClient().getPlayer().getMap().killAllMonsters(true);
     }

@@ -835,24 +835,35 @@ public class MapleMapFactory {
 //            return customLife.size();
 //        }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM `wz_customlife`"); ResultSet rs = ps.executeQuery()) {
+            try (java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM `wz_customlife` WHERE is_delete = 0"); ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    final int mapid = rs.getInt("mid");
-                    final AbstractLoadedMapleLife myLife = loadLife(rs.getInt("dataid"), rs.getInt("f"), rs.getByte("hide") > 0, rs.getInt("fh"), rs.getInt("cy"), rs.getInt("rx0"), rs.getInt("rx1"), rs.getInt("x"), rs.getInt("y"), rs.getString("type"), rs.getInt("mobtime"));
+                    final int mapId = rs.getInt("mid");
+                    final int id = rs.getInt("dataid");
+                    final int f = rs.getInt("f");
+                    final int hide = rs.getInt("hide");
+                    final int fh = rs.getInt("fh");
+                    final int cy = rs.getInt("cy");
+                    final int rx0 = rs.getInt("rx0");
+                    final int rx1 = rs.getInt("rx1");
+                    final int mobtime = rs.getInt("mobtime");
+                    final int x = rs.getInt("x");
+                    final int y = rs.getInt("y");
+                    final String type = rs.getString("type");
+                    final AbstractLoadedMapleLife myLife = loadLife(id, f, hide > 0, fh,cy , rx0, rx1, x , y, type, mobtime);
                     if (myLife == null) {
                         continue;
                     }
-                    final List<AbstractLoadedMapleLife> entries = customLife.get(mapid);
+                    final List<AbstractLoadedMapleLife> entries = customLife.get(mapId);
                     final List<AbstractLoadedMapleLife> collections = new ArrayList<>();
                     if (entries == null) {
                         collections.add(myLife);
-                        RemovecustomLife.put(mapid, collections);
-                        customLife.put(mapid, collections);
+                        RemovecustomLife.put(mapId, collections);
+                        customLife.put(mapId, collections);
                     } else {
                         collections.addAll(entries); //re-add
                         collections.add(myLife);
-                        RemovecustomLife.put(mapid, collections);
-                        customLife.put(mapid, collections);
+                        RemovecustomLife.put(mapId, collections);
+                        customLife.put(mapId, collections);
                     }
                 }
             }
@@ -867,7 +878,7 @@ public class MapleMapFactory {
     private static AbstractLoadedMapleLife loadLife(int id, int f, boolean hide, int fh, int cy, int rx0, int rx1, int x, int y, String type, int mtime) {
         final AbstractLoadedMapleLife myLife = MapleLifeFactory.getLife(id, type);
         if (myLife == null) {
-            System.err.println("自訂 npc " + id + " 異常...");
+            System.err.println("自定义 npc " + id + " 异常...");
             return null;
         }
         myLife.setCy(cy);
