@@ -3297,7 +3297,7 @@ public abstract class AbstractPlayerInteraction {
         World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(9, c.getChannel(), message));
     }
 
-    public int getBossLog每日(String boss, int id) {
+    public int getBossLog(String boss, int characterId) {
         int count = 0;
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -3306,7 +3306,7 @@ public abstract class AbstractPlayerInteraction {
         String day = "" + year + "-" + month + "-" + days + "";
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM bosslog WHERE characterid = ? AND bossid = ? AND lastattempt >= ?");
-            ps.setInt(1, id);
+            ps.setInt(1, characterId);
             ps.setString(2, boss);
             ps.setString(3, day);
             ResultSet rs = ps.executeQuery();

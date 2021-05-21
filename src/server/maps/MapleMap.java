@@ -652,10 +652,8 @@ public final class MapleMap {
         broadcastMessage(MobPacket.killMonster(monster.getObjectId(), 1));
         removeMapObject(monster);
     }
-    
-     public final void 地图杀怪(final MapleMonster monster, final MapleCharacter chr) {
-        final int mobid = monster.getId();
 
+    public final void killMonster2Log(final int monsterId, final MapleCharacter chr){
         switch (mobid) {
             case 8810122://进阶黑龙
                 chr.setBossLog("进阶黑龙次数");
@@ -689,9 +687,12 @@ public final class MapleMap {
                 break;
             default:
                 break;
-
         }
-
+    }
+    
+     public final void killMonster2Log(final MapleMonster monster, final MapleCharacter chr) {
+        final int monsterId = monster.getId();
+         killMonster2Log(monsterId, chr);
     }
 
     public final void killMonster(final MapleMonster monster, final MapleCharacter chr, final boolean withDrops, final boolean second, byte animation) {
@@ -747,9 +748,14 @@ public final class MapleMap {
         final int mobid = monster.getId();
         SpeedRunType type = SpeedRunType.NULL;
         final MapleSquad sqd = getSquadByMap();
-         地图杀怪(monster, chr);
-        if (mobid == 8810018 && mapid == 240060200 && !chr.isGM()) { // Horntail
-            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "經過無數次的挑戰，" + chr.getName() + "所帶領的隊伍終於擊破了闇黑龍王的遠征隊！你們才是龍之林的真正英雄~"));
+
+        /**
+         * 记录BOSS日志
+         */
+        killMonster2Log(monster, chr);
+
+        if (mobid == 8810018 && mapid == 240060200 && !chr.isGM()) {
+            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "经过无数次的挑战，" + chr.getName() + "所带领的队伍终于击败了暗黑龙王！你们才是神木村的真正英雄 =3="));
             /*for (MapleCharacter c : getCharactersThreadsafe()) {
              c.finishAchievement(16);
              }*/
@@ -822,7 +828,7 @@ public final class MapleMap {
                 }
             }
         } else if (mobid == 8820001 && mapid == 270050100) {
-            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, chr.getName() + " 經過帶領的隊伍經過無數次的挑戰，終於擊破了時間的寵兒－皮卡丘的遠征隊！你們才是時間神殿的真正英雄~"));
+            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, chr.getName() + " 带领的队伍经过无数次的挑战，终于击败了品克缤的远征队！你们才是时间神殿的真正英雄 =3="));
             /*for (MapleCharacter c : getCharactersThreadsafe()) {
              c.finishAchievement(17);
              }*/
@@ -903,7 +909,7 @@ public final class MapleMap {
             if (speedRunStart > 0 && speedRunLeader.length() > 0) {
                 long endTime = System.currentTimeMillis();
                 String time = StringUtil.getReadableMillis(speedRunStart, endTime);
-                broadcastMessage(MaplePacketCreator.serverNotice(5, speedRunLeader + "'遠征隊花了 " + time + " 時間打敗了 " + type + "!"));
+                broadcastMessage(MaplePacketCreator.serverNotice(5, speedRunLeader + "'远征队花了 " + time + " 时间击败了 " + type + "!"));
                 getRankAndAdd(speedRunLeader, time, type, (endTime - speedRunStart), (sqd == null ? null : sqd.getMembers()));
                 endSpeedRun();
             }
@@ -1058,7 +1064,7 @@ public final class MapleMap {
                 monster.killed();
             }
         }
-        this.broadcastMessage(MaplePacketCreator.serverNotice(6, "由於受詛咒的岩石被摧殘，然而被詛咒的蝴蝶精消失了。"));
+        this.broadcastMessage(MaplePacketCreator.serverNotice(6, "由于受诅咒的岩石被摧毁，然而被诅咒的蝴蝶精消失了。"));
     }
 
     public final void killAllMonsters(final boolean animate) {
@@ -1084,9 +1090,9 @@ public final class MapleMap {
     }
 
     private String MapDebug_Log() {
-        final StringBuilder sb = new StringBuilder("擊敗時間 : ");
+        final StringBuilder sb = new StringBuilder("击败时间 : ");
         sb.append(FilePrinter.getLocalDateString());
-        sb.append(" | 地圖代碼 : ").append(this.mapid);
+        sb.append(" | 地图代码 : ").append(this.mapid);
 
         charactersLock.readLock().lock();
         try {

@@ -1041,6 +1041,9 @@ public class DamageParse {
                 case SkillType.十字軍.虎咆哮:
                 case SkillType.龍騎士.龍咆哮:
                 case SkillType.龍騎士.槍連擊:
+                    maximumDamageToMonster = 999999;
+                    defined = true; //傷害可超過 199999
+                    break;
                 case SkillType.俠盜.迴旋斬:// BOSS
                     maximumDamageToMonster *= 3;
                     break;
