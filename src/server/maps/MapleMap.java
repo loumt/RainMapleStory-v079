@@ -654,7 +654,7 @@ public final class MapleMap {
     }
 
     public final void killMonster2Log(final int monsterId, final MapleCharacter chr){
-        switch (mobid) {
+        switch (monsterId) {
             case 8810122://进阶黑龙
                 chr.setBossLog("进阶黑龙次数");
                 break;

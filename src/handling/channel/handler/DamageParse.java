@@ -1319,6 +1319,7 @@ public class DamageParse {
             allDamageNumbers = new ArrayList<>();
             for (int j = 0; j < ret.hits; j++) {
                 damage = lea.readInt();
+//                damage = damage * 300;
                 allDamageNumbers.add(new Pair<>(damage, false));
             }
             lea.skip(4); // CRC of monster [Wz Editing]

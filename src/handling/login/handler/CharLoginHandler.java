@@ -151,7 +151,7 @@ public class CharLoginHandler {
             //帳號不存在
             if (LoginServer.getAutoReg()) {
                 if (password.equalsIgnoreCase("fixlogged")) {
-                    errorInfo = "這個密碼是解卡密碼，請換其他密碼。";
+                    errorInfo = "这个密码是解卡密码，请换其他密码。";
                 } else if (account.length() >= 12) {
                     errorInfo = "您的账号长度太长了!\r\n请重新输入.";
                 } else {

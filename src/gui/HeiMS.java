@@ -73,7 +73,7 @@ public class HeiMS extends javax.swing.JFrame {
         服务端最大人数.setText(String.valueOf(WorldConstants.USER_LIMIT));
         限制创建角色数量.setText(String.valueOf(WorldConstants.DEFAULT_CHARSLOT));
         骑士团等级上限.setText(String.valueOf(ServerConfig.kocmaxlevel));
-        其他等级上限.setText(String.valueOf(ServerConfig.maxlevel));
+        其他等级上限.setText(String.valueOf(1));
         刷新神秘商人开关();
         刷新神秘商人时间();
         刷新每日送货开关();
