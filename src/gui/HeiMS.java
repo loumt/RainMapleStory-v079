@@ -4331,6 +4331,7 @@ public class HeiMS extends javax.swing.JFrame {
             输出 = "" + CurrentReadable_Date() + "/生成兑换卡成功，数额为 " + 金额 + " 抵用券，已经存放服务端根目录。";
         } catch (SQLException ex) {
 
+
         }
         printChatLog(输出);
     }
