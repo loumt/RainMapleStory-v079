@@ -389,16 +389,6 @@ CREATE TABLE `cheatlog` (
   KEY `cid` (`characterid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Table structure for configvalues
--- ----------------------------
-DROP TABLE IF EXISTS `configvalues`;
-CREATE TABLE `configvalues` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL COMMENT '名称',
-  `val` tinyint(1) DEFAULT '0' COMMENT '是否开启',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='活动配置表';
 
 DROP TABLE IF EXISTS `broadcast`;
 CREATE TABLE `broadcast` (

@@ -20,101 +20,43 @@
  */
 package scripting;
 
-import java.sql.ResultSet;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import client.inventory.Equip;
-import client.ISkill;
-import client.inventory.IItem;
-import client.MapleCharacter;
+import client.*;
+import client.inventory.*;
 import constants.GameConstants;
-import client.inventory.ItemFlag;
-import client.MapleClient;
-import client.MapleJob;
-import client.inventory.MapleInventory;
-import client.inventory.MapleInventoryType;
-import client.SkillFactory;
-import client.SkillEntry;
-import client.MapleStat;
-import client.inventory.Item;
-import client.inventory.ItemLoader;
-import client.status.MonsterStatus;
 import database.DBConPool;
-import server.MapleCarnivalParty;
-import server.Randomizer;
-import server.MapleInventoryManipulator;
-import server.MapleShopFactory;
-import server.MapleSquad;
-import server.maps.MapleMap;
-import server.maps.Event_DojoAgent;
-import server.maps.AramiaFireWorks;
-import server.quest.MapleQuest;
-import tools.MaplePacketCreator;
-import tools.Pair;
-import tools.packet.PlayerShopPacket;
-import server.MapleItemInformationProvider;
 import handling.channel.ChannelServer;
 import handling.channel.MapleGuildRanking;
 import handling.channel.MapleGuildRanking.JzRankingInfo;
 import handling.channel.handler.InterServerHandler;
-import handling.channel.handler.InventoryHandler;
 import handling.login.LoginServer;
 import handling.world.MapleParty;
 import handling.world.MaplePartyCharacter;
 import handling.world.World;
 import handling.world.guild.MapleGuild;
-import server.MapleCarnivalChallenge;
-import java.util.HashMap;
 import handling.world.guild.MapleGuildAlliance;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.Iterator;
-import java.util.Random;
-import javax.script.Invocable;
-import static server.MapleCarnivalChallenge.getJobNameById;
-import server.MapleStatEffect;
-import server.MerchItemPackage;
-import server.SpeedRunner;
-import server.Start;
-import server.maps.SpeedRunType;
-import server.StructPotentialItem;
 import server.Timer;
+import server.*;
 import server.Timer.CloneTimer;
 import server.gashapon.Gashapon;
 import server.gashapon.GashaponFactory;
-import server.life.Element;
-import static server.life.Element.DARKNESS;
-import static server.life.Element.FIRE;
-import static server.life.Element.ICE;
-import static server.life.Element.LIGHTING;
-import static server.life.Element.POISON;
-import server.life.ElementalEffectiveness;
-import static server.life.ElementalEffectiveness.STRONG;
-import static server.life.ElementalEffectiveness.WEAK;
-import server.life.MapleLifeFactory;
-import server.life.MapleMonster;
-import server.life.MapleMonsterInformationProvider;
-import server.life.MonsterDropEntry;
-import server.life.MonsterGlobalDropEntry;
-import server.maps.Event_PyramidSubway;
-import server.maps.MapleMapObject;
-import server.maps.MapleMapObjectType;
+import server.life.*;
+import server.maps.*;
+import server.quest.MapleQuest;
 import server.shops.HiredMerchant;
-import server.活动神秘商人;
-import server.活动野外通缉;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
-import static tools.FileoutputUtil.CurrentReadable_Date;
-import tools.SearchGenerator;
-import tools.StringUtil;
+import tools.*;
+import tools.packet.PlayerShopPacket;
 import tools.packet.UIPacket;
+
+import javax.script.Invocable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static server.MapleCarnivalChallenge.getJobNameById;
+import static tools.FileoutputUtil.CurrentReadable_Date;
 
 /**
  * Npc 脚本函数
@@ -3201,253 +3143,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
         } catch (SQLException ex) {
         }
-    }
-
-    public int 神秘商人() {
-        return 活动神秘商人.神秘商人时间;
-    }
-
-    public int 神秘商人2() {
-        return 活动神秘商人.神秘商人频道;
-    }
-
-    public int 神秘商人3() {
-        return 活动神秘商人.神秘商人地图;
-    }
-
-    public int 通缉令1() {
-        return 活动野外通缉.通缉BOSS;
-    }
-
-    public int 通缉令2() {
-        return 活动野外通缉.通缉地图;
-    }
-
-    public void 重置野外通缉() {
-        活动野外通缉.随机通缉();
-        Start.初始通缉令 = 0;
-    }
-
-    public void 每日送货奖励() {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement(" SELECT * FROM  每日送货奖励 ");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    double 概率 = Math.ceil(Math.random() * rs.getInt("chance"));
-                    double 对比 = Math.ceil(Math.random() * 100);
-                    double 最少 = Math.ceil(Math.random() * rs.getInt("baseQty"));
-                    double 最多 = Math.ceil(Math.random() * rs.getInt("maxRandomQty"));
-                    if (最多 <= 最少) {
-                        最多 = 最少;
-                    }
-                    if (概率 >= 100) {
-                        概率 = 100;
-                    }
-                    if (概率 <= 对比) {
-                        gainItem(rs.getInt("itemId"), (short) 最多);
-                    }
-                }
-            }
-            ps.close();
-        } catch (SQLException Ex) {
-            System.err.println("每日送货奖励、出错");
-        }
-    }
-
-    public void 每日送货奖励2() {
-        // itemId baseQty maxRandomQty chance
-        int count = 0;
-        int arrLength = 0;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT COUNT(itemId) as Count, SUM(chance) as Data FROM 每日送货奖励");
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    count = rs.getInt("Count");
-                    arrLength = rs.getInt("Data");
-                }
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("查询每日送货奖励之概率分母出错：" + ex.getMessage());
-        }
-
-        if (count == 0 || arrLength == 0) {
-            return;
-        }
-
-        int[][] data = new int[arrLength][2];
-
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT itemId, baseQty, maxRandomQty, chance FROM 每日送货奖励");
-            try (ResultSet rs = ps.executeQuery()) {
-                int j = 0;
-                while (rs.next()) {
-                    int randomQty = new Random().nextInt(rs.getInt("maxRandomQty"));
-                    for (int i = 0; i <= rs.getInt("chance") - 1; i++) {
-                        data[j] = new int[]{rs.getInt("itemId"), rs.getInt("baseQty") + randomQty};
-                        j++;
-                    }
-                }
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("查询每日送货奖励出错：" + ex.getMessage());
-        }
-
-        List<int[]> result = new ArrayList<>();
-        for (int i = 0; i <= count - 1; i++) {
-            int r = new Random().nextInt(arrLength - 1);
-
-            int itemId = data[r][0];
-            int existsCount = 0;
-            for (int[] is : result) {
-                if (is[0] == itemId) {
-                    existsCount++;
-                }
-            }
-            if (existsCount > 0) {
-                continue;
-            }
-
-            result.add(data[r]);
-        }
-
-        if (result.size() > 0) {
-            for (int[] is : result) {
-                int itemId = is[0];
-                short qty = (short) is[1];
-                gainItem(itemId, qty);
-            }
-        }
-    }
-
-    /**
-     * <9>
-     */
-    public int 判断第一阶段是否完成() {
-        int a = 0;
-        if (c.getPlayer().getBossLogD("送货104000100") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104000200") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104000300") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104000400") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104010000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104020000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104030000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货104040000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100000000") > 0) {
-            a += 1;
-        }
-        return a;
-    }
-
-    /**
-     * <7>
-     */
-    public int 判断第二阶段是否完成() {
-        int a = 0;
-        if (c.getPlayer().getBossLogD("送货100010000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100020000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100030000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100040000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100040100") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货100050000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101000000") > 0) {
-            a += 1;
-        }
-        return a;
-    }
-
-    /**
-     * <10>
-     */
-    public int 判断第三阶段是否完成() {
-        int a = 0;
-        if (c.getPlayer().getBossLogD("送货101010000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101010100") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101020000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101030000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101030100") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101030200") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101030300") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101030400") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货101040000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货102000000") > 0) {
-            a += 1;
-        }
-        return a;
-    }
-
-    /**
-     * <6>
-     */
-    public int 判断第四阶段是否完成() {
-        int a = 0;
-        if (c.getPlayer().getBossLogD("送货102010000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货102020000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货102030000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货102040000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货102050000") > 0) {
-            a += 1;
-        }
-        if (c.getPlayer().getBossLogD("送货103000000") > 0) {
-            a += 1;
-        }
-
-        return a;
     }
 
     public void 给豆豆(int s) {//给豆豆

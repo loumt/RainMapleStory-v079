@@ -1,53 +1,29 @@
 package server;
 
-import client.LoginCrypto;
-import client.MapleCharacter;
 import client.SkillFactory;
 import client.inventory.OnlyID;
-import constants.GameConstants;
-import constants.PiPiConfig;
 import constants.ServerConfig;
 import constants.WorldConstants;
-import database.DBConPool;
+import handling.cashshop.CashShopServer;
 import handling.channel.ChannelServer;
 import handling.channel.MapleGuildRanking;
-import handling.login.LoginServer;
-import handling.cashshop.CashShopServer;
 import handling.login.LoginInformationProvider;
+import handling.login.LoginServer;
 import handling.world.World;
-import java.sql.SQLException;
 import handling.world.family.MapleFamilyBuff;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import server.Timer.*;
 import server.events.MapleOxQuizFactory;
 import server.life.MapleLifeFactory;
 import server.life.PlayerNPC;
 import server.maps.MapleMapFactory;
 import server.quest.MapleQuest;
-import tools.FileoutputUtil;
-import static tools.FileoutputUtil.CurrentReadable_Time;
 import tools.MacAddressTool;
-import tools.MaplePacketCreator;
 
 /**
  * 服务端启动类
  */
 public class Start {
-
     public static final Start instance = new Start();
-    public static boolean Check = true;
-    public static Map<String, Integer> ConfigValuesMap = new HashMap<>();
-    public static int 初始通缉令 = 0;
-    public static Boolean 每日送货 = false;
 
     /**
      * 初始化登录状态
@@ -218,7 +194,7 @@ public class Start {
         /**
          * 公告
          */
-        if(ServerConfig.AUTO_CYCLE_BROADCAST) {
+        if (ServerConfig.AUTO_CYCLE_BROADCAST) {
             World.cycleBroadCast(10);
         }
         /**
@@ -242,7 +218,7 @@ public class Start {
         /**
          * 每五分钟自动存档
          */
-        if(ServerConfig.AUTO_SAVE) {
+        if (ServerConfig.AUTO_SAVE) {
             World.AutoSave(5);
         }
 
@@ -259,194 +235,11 @@ public class Start {
      * 程序开始的地方
      */
     public static void main(final String args[]) throws InterruptedException {
-        String[] macs = {"3b409f54d8adac13b8e7f846cc2549b5431aa0a0", "e565973de250f996ef2d31182abca5b5420ac435"};
-        System.out.println("#####################当前允许服务器运行的MAC码##########################");
-        for (String mac : macs) {
-            System.out.println(mac);
-        }
-        System.out.println("#####################当前允许服务器运行的MAC运行的码##########################");
-        String mac = MacAddressTool.getMacAddress(false);
-        String num = returnSerialNumber();
-        String localMac = LoginCrypto.hexSha1(num + mac);
-        System.out.println("当前机器的码: MAC:" + mac + "\tNUM:" + num + "\tlocalMac:" + localMac);
-
-        if (localMac != null) {
-            for (int i = 0; i < macs.length; i++) {
-                if (macs[i].equals(localMac)) {
-                    instance.run();
-                    break;
-                }
-            }
+        if (MacAddressTool.isValidate()) {
+            System.out.println("[RUN]...............");
+            instance.run();
         } else {
             System.exit(0);
         }
-    }
-
-    public static String returnSerialNumber() {
-        String cpu = getCPUSerial();
-        String disk = getHardDiskSerialNumber("C");
-
-        int newdisk = Integer.parseInt(disk);
-
-        String s = cpu + newdisk;
-        String newStr = s.substring(8, s.length());
-        return newStr;
-    }
-
-    public static String getCPUSerial() {
-        String result = "";
-        try {
-            File file = File.createTempFile("tmp", ".vbs");
-            file.deleteOnExit();
-            FileWriter fw = new FileWriter(file);
-            String vbs = "Set objWMIService = GetObject(\"winmgmts:\\\\.\\root\\cimv2\")\nSet colItems = objWMIService.ExecQuery _ \n   (\"Select * from Win32_Processor\") \nFor Each objItem in colItems \n    Wscript.Echo objItem.ProcessorId \n    exit for  ' do the first cpu only! \nNext \n";
-
-            fw.write(vbs);
-            fw.close();
-            Process p = Runtime.getRuntime().exec("cscript //NoLogo " + file.getPath());
-
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            String line;
-            while ((line = input.readLine()) != null) {
-                result = result + line;
-            }
-            input.close();
-            file.delete();
-        } catch (Exception e) {
-            e.fillInStackTrace();
-        }
-        if ((result.trim().length() < 1) || (result == null)) {
-            result = "无机器码被读取";
-        }
-        return result.trim();
-    }
-
-    public static String getHardDiskSerialNumber(String drive) {
-        String result = "";
-        try {
-            File file = File.createTempFile("realhowto", ".vbs");
-            file.deleteOnExit();
-            FileWriter fw = new FileWriter(file);
-            String vbs = "Set objFSO = CreateObject(\"Scripting.FileSystemObject\")\nSet colDrives = objFSO.Drives\nSet objDrive = colDrives.item(\"" + drive + "\")\n" + "Wscript.Echo objDrive.SerialNumber";
-
-            fw.write(vbs);
-            fw.close();
-            Process p = Runtime.getRuntime().exec("cscript //NoLogo " + file.getPath());
-
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = input.readLine()) != null) {
-                result = result + line;
-            }
-            input.close();
-        } catch (Exception e) {
-        }
-        return result.trim();
-    }
-
-    public static void 神秘商人(final int time) {
-        Timer.WorldTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                Calendar calendar = Calendar.getInstance();
-                int 时 = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                int 分 = Calendar.getInstance().get(Calendar.MINUTE);
-                int 星期 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-
-                /**
-                 * <启动神秘商人>
-                 */
-                if (ConfigValuesMap.get("神秘商人开关") == 0) {
-                    //第一次启动神秘商人
-                    if (活动神秘商人.神秘商人线程 == 0) {
-                        活动神秘商人.启动神秘商人();
-                        活动神秘商人.神秘商人线程++;
-                    }
-                    //召唤神秘商人
-                    if (活动神秘商人.神秘商人线程 > 0) {
-                        if (时 == 活动神秘商人.神秘商人时间 && 活动神秘商人.神秘商人 == 0) {
-                            活动神秘商人.召唤神秘商人();
-                        }
-                    }
-
-                }
-            }
-        }, 60 * 1000 * time
-        );
-    }
-
-    public static void GetConfigValues() {
-        //动态数据库连接
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT name, val FROM ConfigValues");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    String name = rs.getString("name");
-                    int val = rs.getInt("val");
-                    System.out.println("ConfigVaules : " +name + " => " + val);
-                    ConfigValuesMap.put(name, val);
-                }
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.err.println("读取动态数据库出错：" + ex.getMessage());
-        }
-    }
-
-    public static void 野外通缉(final int time) {
-        Timer.WorldTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                Calendar calendar = Calendar.getInstance();
-                int 时 = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                int 分 = Calendar.getInstance().get(Calendar.MINUTE);
-                int 星期 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-
-                /**
-                 * <初始化通缉令>
-                 */
-                if (Start.ConfigValuesMap.get("野外通缉开关") == 0) {
-                    if (初始通缉令 == 30) {
-                        活动野外通缉.随机通缉();
-                        初始通缉令 = 0;
-                    } else {
-                        初始通缉令++;
-                    }
-                }
-            }
-        }, 60 * 1000 * time
-        );
-    }
-
-    public static void 每日送货(final int time) {
-        Timer.WorldTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                Calendar calendar = Calendar.getInstance();
-                int 时 = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                int 分 = Calendar.getInstance().get(Calendar.MINUTE);
-                int 星期 = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-
-                if (时 == 0 && 分 == 0) {
-                    每日送货 = false;
-                }
-                /**
-                 * <每日送货>
-                 */
-                if (Start.ConfigValuesMap.get("每日送货开关") == 0) {
-                    if (时 == 12 && 每日送货 == false) {
-                        for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
-                            for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
-                                mch.startMapEffect("[每日送货]: 送货活动开启，明珠港送货员处可以开始送货哦，可以获得丰厚的奖励。", 5120027);
-                            }
-                        }
-
-                        每日送货 = true;
-                    }
-                }
-            }
-        }, 60 * 1000 * time
-        );
     }
 }
