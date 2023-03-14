@@ -1682,7 +1682,7 @@ public class World {
 
                         id = rs.getInt("id");
                         if (rs.getTimestamp("lastlogin").getTime() + 21600000 > System.currentTimeMillis()) {
-                            Statement stmt = con.createStatement();
+                            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                             ResultSet rss = stmt.executeQuery("Select Acash, mPoints from Accounts Where id = " + id);
                             while (rss.next()) {
                                 Acash = rss.getInt("Acash");

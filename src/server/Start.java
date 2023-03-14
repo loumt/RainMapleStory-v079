@@ -165,7 +165,7 @@ public class Start {
          */
         LoginInformationProvider.getInstance();
         /**
-         * 读取钓鱼物品-没有这个库-再说吧
+         * 读取钓鱼物品
          */
         FishingRewardFactory.getInstance();
         /* 載入任務*/
@@ -259,7 +259,7 @@ public class Start {
      * 程序开始的地方
      */
     public static void main(final String args[]) throws InterruptedException {
-        String[] macs = {"3b409f54d8adac13b8e7f846cc2549b5431aa0a0"};
+        String[] macs = {"3b409f54d8adac13b8e7f846cc2549b5431aa0a0", "e565973de250f996ef2d31182abca5b5420ac435"};
         System.out.println("#####################当前允许服务器运行的MAC码##########################");
         for (String mac : macs) {
             System.out.println(mac);

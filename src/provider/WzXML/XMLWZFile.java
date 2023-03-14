@@ -28,6 +28,7 @@ import java.io.IOException;
 import provider.MapleData;
 import provider.MapleDataDirectoryEntry;
 import provider.MapleDataProvider;
+import tools.CollectionUtil;
 
 public class XMLWZFile implements MapleDataProvider {
 
@@ -41,7 +42,13 @@ public class XMLWZFile implements MapleDataProvider {
     }
 
     private void fillMapleDataEntitys(File lroot, WZDirectoryEntry wzdir) {
-        for (File file : lroot.listFiles()) {
+        File[] files = lroot.listFiles();
+        if(files == null || files.length == 0){
+            System.out.println("文件不存在" + root.getAbsolutePath());
+            return;
+        }
+
+        for (File file : files) {
             String fileName = file.getName();
 
             if (file.isDirectory() && !fileName.endsWith(".img")) {

@@ -4091,7 +4091,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         int id = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = null;
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs;
             ps = con.prepareStatement("select id from characters where name = ?");
             ps.setString(1, name);
@@ -4110,7 +4110,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public boolean OfflineBanById(int id, String reason) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             PreparedStatement ps;
             ResultSet rs;
             int z = id;
@@ -7537,7 +7537,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select Acash from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -7603,7 +7603,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select CZJF from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -7669,7 +7669,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select TGJF from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -7735,7 +7735,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select TJJF from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -8013,7 +8013,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = null;
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs;
             ps = con.prepareStatement("select name from characters where id = ?");
             ps.setInt(1, id);
@@ -8033,7 +8033,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         String name = null;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = null;
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs;
             ps = con.prepareStatement("select name from characters where id = ?");
             ps.setInt(1, id);
@@ -8057,7 +8057,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = null;
-            Statement stmt = con.createStatement();
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs;
             ps = con.prepareStatement("select id from characters where name = ?");
             ps.setString(1, name);
@@ -8175,7 +8175,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             nowtime++;
 
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select MP from Accounts Where id = " + getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -8490,7 +8490,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select CSDJ from characters Where id = " + chr.getId());
                 while (rs.next()) {
                     int debug = -1;
@@ -8556,7 +8556,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select OCSDJ from characters Where id = " + chr.getId());
                 while (rs.next()) {
                     int debug = -1;
@@ -8705,7 +8705,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select DDJF from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;
@@ -8982,7 +8982,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select characterid from stlog Where stid = " + id);
                 while (rs.next()) {
                     int debug = -1;
@@ -9068,7 +9068,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select stid from stlog Where characterid = " + id);
                 while (rs.next()) {
                     int debug = -1;
@@ -9151,7 +9151,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select stjf from stjflog Where characterid = " + id);
                 while (rs.next()) {
                     int debug = -1;
@@ -9212,7 +9212,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         do {
             nowtime++;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                Statement stmt = con.createStatement();
+                Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 ResultSet rs = stmt.executeQuery("Select points from Accounts Where id = " + chr.getClient().getAccID());
                 while (rs.next()) {
                     int debug = -1;

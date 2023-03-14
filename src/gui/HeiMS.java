@@ -1058,6 +1058,7 @@ public class HeiMS extends javax.swing.JFrame {
                 false, false, false, false
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -1640,6 +1641,7 @@ public class HeiMS extends javax.swing.JFrame {
                 false, false
             };
 
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
@@ -1655,6 +1657,7 @@ public class HeiMS extends javax.swing.JFrame {
         广播序号.setEditable(false);
         广播序号.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         广播序号.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 广播序号ActionPerformed(evt);
             }
@@ -1665,6 +1668,8 @@ public class HeiMS extends javax.swing.JFrame {
         发布广播.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         发布广播.setText("新增广播");
         发布广播.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 发布广播ActionPerformed(evt);
             }
@@ -1673,6 +1678,7 @@ public class HeiMS extends javax.swing.JFrame {
         修改广播.setFont(new java.awt.Font("宋体", 0, 18)); // NOI18N
         修改广播.setText("修改广播");
         修改广播.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 修改广播ActionPerformed(evt);
             }
@@ -3782,7 +3788,7 @@ public class HeiMS extends javax.swing.JFrame {
                 return;
             }
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                PreparedStatement ps = con.prepareStatement("INSERT INTO 钓鱼物品 (itemid, chance ,expiration) VALUES (?, ?, ?)");
+                PreparedStatement ps = con.prepareStatement("INSERT INTO rm_fishing_reward (itemid, chance ,expiration) VALUES (?, ?, ?)");
                 ps.setInt(1, Integer.parseInt(this.钓鱼物品代码.getText()));
                 ps.setInt(2, Integer.parseInt(this.钓鱼物品概率.getText()));
                 ps.setInt(3, 1);
@@ -3801,15 +3807,15 @@ public class HeiMS extends javax.swing.JFrame {
         boolean result1 = this.钓鱼物品序号.getText().matches("[0-9]+");
         if (result1) {
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                PreparedStatement ps = con.prepareStatement("UPDATE 钓鱼物品 SET itemid = ?,chance = ?WHERE id = ?");
-                PreparedStatement ps1 = con.prepareStatement("SELECT * FROM 钓鱼物品 WHERE id = ?");
+                PreparedStatement ps = con.prepareStatement("UPDATE rm_fishing_reward SET itemid = ?,chance = ?WHERE id = ?");
+                PreparedStatement ps1 = con.prepareStatement("SELECT * FROM rm_fishing_reward WHERE id = ?");
                 ps1.setInt(1, Integer.parseInt(this.钓鱼物品序号.getText()));
                 ResultSet rs = ps1.executeQuery();
                 if (rs.next()) {
-                    String sqlString1 = "update 钓鱼物品 set itemid='" + this.钓鱼物品代码.getText() + "' where id=" + this.钓鱼物品序号.getText() + ";";
+                    String sqlString1 = "update rm_fishing_reward set itemid='" + this.钓鱼物品代码.getText() + "' where id=" + this.钓鱼物品序号.getText() + ";";
                     PreparedStatement name = con.prepareStatement(sqlString1);
                     name.executeUpdate(sqlString1);
-                    String sqlString2 = "update 钓鱼物品 set chance='" + this.钓鱼物品概率.getText() + "' where id=" + this.钓鱼物品序号.getText() + ";";
+                    String sqlString2 = "update rm_fishing_reward set chance='" + this.钓鱼物品概率.getText() + "' where id=" + this.钓鱼物品序号.getText() + ";";
                     PreparedStatement level = con.prepareStatement(sqlString2);
                     level.executeUpdate(sqlString2);
                     刷新钓鱼();
@@ -3836,11 +3842,11 @@ public class HeiMS extends javax.swing.JFrame {
                 ((DefaultTableModel) (this.钓鱼物品.getModel())).removeRow(i);
             }
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                ps1 = con.prepareStatement("SELECT * FROM 钓鱼物品 WHERE id = ?");
+                ps1 = con.prepareStatement("SELECT * FROM rm_fishing_reward WHERE id = ?");
                 ps1.setInt(1, Integer.parseInt(this.钓鱼物品序号.getText()));
                 rs = ps1.executeQuery();
                 if (rs.next()) {
-                    String sqlstr = " delete from 钓鱼物品 where id =" + Integer.parseInt(this.钓鱼物品序号.getText()) + "";
+                    String sqlstr = " delete from rm_fishing_reward where id =" + Integer.parseInt(this.钓鱼物品序号.getText()) + "";
                     ps1.executeUpdate(sqlstr);
                     刷新钓鱼();
                     JOptionPane.showMessageDialog(null, "[信息]:删除钓鱼奖励物品成功。");
@@ -4574,7 +4580,7 @@ public class HeiMS extends javax.swing.JFrame {
             ((DefaultTableModel) (this.钓鱼物品.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM 钓鱼物品");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM rm_fishing_reward");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 钓鱼物品.getModel()).insertRow(钓鱼物品.getRowCount(), new Object[]{
@@ -5185,7 +5191,7 @@ public class HeiMS extends javax.swing.JFrame {
 
     private void FixAcLogged() {
         try (Connection dcon = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (com.mysql.jdbc.PreparedStatement ps = (com.mysql.jdbc.PreparedStatement) dcon.prepareStatement("UPDATE accounts SET loggedin = 0 WHERE name = " + jTextField23.getText())) {
+            try (PreparedStatement ps = dcon.prepareStatement("UPDATE accounts SET loggedin = 0 WHERE name = " + jTextField23.getText())) {
                 ps.executeUpdate();
             }
             printChatLog("解除卡账号" + jTextField23.getText());

@@ -22,7 +22,7 @@ public class DBConPool {
     static {
         InitDB();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("[数据库信息] 找不到JDBC驱动.");
             System.exit(0);
@@ -60,13 +60,13 @@ public class DBConPool {
     private void InitDBConPool() {
         dataSource = new DruidDataSource();
         dataSource.setName("mysql_pool");
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://" + "127.0.0.1" + ":" + dbport + "/" + dbName + "?useUnicode=true&characterEncoding=UTF8");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://" + "127.0.0.1" + ":" + dbport + "/" + dbName + "?useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai");
         dataSource.setUsername(dbUser);
         dataSource.setPassword(dbPass);
-        dataSource.setInitialSize(300);//150
-        dataSource.setMinIdle(500);//250
-        dataSource.setMaxActive(3000);//1000
+        dataSource.setInitialSize(15);//150
+        dataSource.setMinIdle(25);//250
+        dataSource.setMaxActive(100);//1000
         //dataSource.setInitialSize(750);
         //dataSource.setMinIdle(1250);
         //dataSource.setMaxActive(5000);
@@ -78,5 +78,7 @@ public class DBConPool {
         dataSource.setTestWhileIdle(true);
         dataSource.setMaxWait(60000);
         dataSource.setUseUnfairLock(true);
+
+        dataSource.setResetStatEnable(true);
     }
 }

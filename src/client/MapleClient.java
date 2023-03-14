@@ -24,10 +24,8 @@ import constants.ServerConfig;
 import constants.ServerConstants.PlayerGMRank;
 import constants.WorldConstants;
 import database.DBConPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -74,7 +72,6 @@ import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.HexTool;
 import tools.MaplePacketCreator;
-import java.sql.Statement;
 import tools.IPAddressTool;
 
 public class MapleClient {
@@ -205,12 +202,16 @@ public class MapleClient {
 
     private Calendar getTempBanCalendar(ResultSet rs) throws SQLException {
         Calendar lTempban = Calendar.getInstance();
-        if (rs.getLong("tempban") == 0) { // basically if timestamp in db is 0000-00-00
+
+        Timestamp tempban = rs.getTimestamp("tempban");
+
+        // basically if timestamp in db is 0000-00-00
+        if (tempban == null || tempban.toString().equals("0000-00-00")) {
             lTempban.setTimeInMillis(0);
             return lTempban;
         }
         Calendar today = Calendar.getInstance();
-        lTempban.setTimeInMillis(rs.getTimestamp("tempban").getTime());
+        lTempban.setTimeInMillis(tempban.getTime());
         if (today.getTimeInMillis() < lTempban.getTimeInMillis()) {
             return lTempban;
         }
@@ -304,6 +305,9 @@ public class MapleClient {
                         gmLevel = rs.getInt("gm");
                         vip = rs.getShort("vip");
                         bannedReason = rs.getByte("greason");
+
+                        Timestamp tempban2 = rs.getTimestamp("tempban");
+
                         tempban = getTempBanCalendar(rs);
                         gender = rs.getByte("gender");
 

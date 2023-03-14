@@ -17,7 +17,7 @@ public class AutoRegister {
 
     private static final int ACCOUNTS_PER_MAC = 5;
     public static boolean autoRegister = LoginServer.getAutoReg();
-    public static boolean success = false;
+    public static boolean success = true;
     public static boolean mac = true;
 
     public static boolean getAccountExists(String login) {
@@ -41,12 +41,12 @@ public class AutoRegister {
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             ResultSet rs;
-            try (PreparedStatement ipc = con.prepareStatement("SELECT Macs FROM accounts WHERE macs = ?")) {
+            try (PreparedStatement ipc = con.prepareStatement("SELECT Macs FROM accounts WHERE macs = ?",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
                 ipc.setString(1, "00-00-00-00-00-00");
                 rs = ipc.executeQuery();
                 if (rs.first() == false || rs.last() == true) {
                     try {
-                        try (PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (name, password, email, birthday, macs, SessionIP) VALUES (?, ?, ?, ?, ?, ?)")) {
+                        try (PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (name, password, email, birthday, macs, SessionIP) VALUES (?, ?, ?, ?, ?, ?)",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
                             Calendar c = Calendar.getInstance();
                             int year = c.get(Calendar.YEAR);
                             int month = c.get(Calendar.MONTH) + 1;

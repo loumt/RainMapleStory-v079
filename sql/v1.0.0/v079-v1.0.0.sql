@@ -1860,3 +1860,15 @@ CREATE TABLE `wz_skill` (
   `name` tinytext CHARACTER SET gbk,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+
+
+DROP TABLE IF EXISTS `rm_fishing_reward`;
+CREATE TABLE `rm_fishing_reward` (
+                               `id` int(11) NOT NULL AUTO_INCREMENT,
+                               `itemid` int(11)  NOT NULL COMMENT '物品ID',
+                               `chance` int(11) NOT NULL  COMMENT '几率',
+                               `expiration` int(11) NOT NULL  COMMENT '物品上限',
+                               `is_delete` TINYINT(1) DEFAULT '0' COMMENT '是否删除',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COMMENT '钓鱼物品';

@@ -21,7 +21,6 @@
 package client.inventory;
 
 import client.MapleCharacter;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import database.DBConPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,7 +75,7 @@ public class MapleRing implements Serializable {
         }
     }
 
-    public static void addToDB(int itemid, MapleCharacter chr, String player, int id, int[] ringId) throws SQLException {
+    public static void addToDB(int itemid, MapleCharacter chr, String player, int id, int[] ringId) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("INSERT INTO rings (ringId, itemid, partnerChrId, partnerName, partnerRingId) VALUES (?, ?, ?, ?, ?)");
             ps.setInt(1, ringId[0]);
@@ -117,11 +116,9 @@ public class MapleRing implements Serializable {
     public static int makeRing(int itemid, MapleCharacter partner1, String partner2, int id2, String msg, int sn) throws Exception { //return partner1 the id
         int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
         //[1] = partner1, [0] = partner2
-        try {
-            addToDB(itemid, partner1, partner2, id2, ringID);
-        } catch (MySQLIntegrityConstraintViolationException mslcve) {
-            return 0;
-        }
+
+        addToDB(itemid, partner1, partner2, id2, ringID);
+
         MapleInventoryManipulator.addRing(partner1, itemid, ringID[1], sn);
         partner1.getCashInventory().gift(id2, partner1.getName(), msg, sn, ringID[0]);
         return 1;

@@ -1995,22 +1995,20 @@ public class GMCommand {
                     c.getPlayer().dropMessage(6, "玩家必须上线");
                 } else {
                     int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
-                    try {
-                        MapleCharacter[] chrz = {fff, c.getPlayer()};
-                        for (int i = 0; i < chrz.length; i++) {
-                            Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId);
-                            if (eq == null) {
-                                c.getPlayer().dropMessage(6, "错误的戒指ID.");
-                                return true;
-                            } else {
-                                eq.setUniqueId(ringID[i]);
-                                MapleInventoryManipulator.addbyItem(chrz[i].getClient(), eq.copy());
-                                chrz[i].dropMessage(6, "成功与  " + chrz[i == 0 ? 1 : 0].getName() + " 结婚");
-                            }
+
+                    MapleCharacter[] chrz = {fff, c.getPlayer()};
+                    for (int i = 0; i < chrz.length; i++) {
+                        Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId);
+                        if (eq == null) {
+                            c.getPlayer().dropMessage(6, "错误的戒指ID.");
+                            return true;
+                        } else {
+                            eq.setUniqueId(ringID[i]);
+                            MapleInventoryManipulator.addbyItem(chrz[i].getClient(), eq.copy());
+                            chrz[i].dropMessage(6, "成功与  " + chrz[i == 0 ? 1 : 0].getName() + " 结婚");
                         }
-                        MapleRing.addToDB(itemId, c.getPlayer(), fff.getName(), fff.getId(), ringID);
-                    } catch (SQLException e) {
                     }
+                    MapleRing.addToDB(itemId, c.getPlayer(), fff.getName(), fff.getId(), ringID);
                 }
             }
             return true;
